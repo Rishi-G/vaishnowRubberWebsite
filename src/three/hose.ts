@@ -245,26 +245,6 @@ function buildFitting(style: FittingStyle, rIn: number): FittingPart[] {
     parts.push({ geo: fl, color: ZINC_DARK, rough: 0.4, metal: 1 })
     // raised spigot with the port bore
     parts.push({ geo: latheX([[rb + 0.02, 0.5], [rc * 0.82, 0.5], [rc * 0.82, 0.8], [rb + 0.02, 0.8], [rb + 0.02, 0.5]]), color: ZINC, rough: 0.3, metal: 1 })
-  } else if (style === 'claw') {
-    // cast elbow claw coupling, painted white, with two lugs; band clamp on the hose tail
-    const tail = latheX([[rs, -0.8], [rs + 0.03, -0.55], [rs, -0.3], [rs + 0.05, 0.0], [rc + 0.06, 0.06], [rc + 0.06, 0.5], [rb, 0.5], [rb, -0.8], [rs, -0.8]])
-    parts.push({ geo: tail, color: 0xe4e6e8, rough: 0.85, metal: 0.05 })
-    const head = new THREE.CylinderGeometry(rc + 0.14, rc + 0.14, 0.95, 36)
-    head.translate(0.5, 0.3, 0)
-    parts.push({ geo: head, color: 0xe4e6e8, rough: 0.85, metal: 0.05 })
-    const dome = new THREE.SphereGeometry(rc + 0.14, 36, 16, 0, Math.PI * 2, 0, Math.PI / 2)
-    dome.translate(0.5, 0.775, 0)
-    parts.push({ geo: dome, color: 0xe4e6e8, rough: 0.85, metal: 0.05 })
-    for (const sz of [-1, 1]) {
-      const lug = new THREE.BoxGeometry(0.34, 0.26, 0.14)
-      lug.translate(0.5, 0.55, sz * (rc + 0.22))
-      parts.push({ geo: lug, color: 0xe4e6e8, rough: 0.85, metal: 0.05 })
-    }
-    const band = latheX([[rO - 0.01, -0.62], [rO + 0.06, -0.62], [rO + 0.06, -0.3], [rO - 0.01, -0.3], [rO - 0.01, -0.62]])
-    parts.push({ geo: band, color: 0xc6ccd2, rough: 0.35, metal: 1 })
-    const screw = new THREE.BoxGeometry(0.18, 0.1, 0.12)
-    screw.translate(-0.46, rO + 0.1, 0)
-    parts.push({ geo: screw, color: 0x9aa1aa, rough: 0.4, metal: 1 })
   } else if (style === 'clamp') {
     // painted cast nipple, held in the hose by a worm-drive band clamp
     const nipple = latheX([[rs, -0.8], [rs + 0.03, -0.55], [rs, -0.3], [rs + 0.05, 0.0], [rc + 0.08, 0.06], [rc + 0.08, 0.6], [rn, 0.66], [rn, 1.05], [rb, 1.05], [rb, -0.8], [rs, -0.8]])

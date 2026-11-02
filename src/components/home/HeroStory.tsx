@@ -10,6 +10,7 @@ import { specFromProduct } from '@/three/spec'
 import { SHOTS } from '@/three/shots'
 import type { HoseStage } from '@/three/stage'
 import { useHoseStage } from '@/components/three/useStage'
+import { RailwayHero } from './RailwayHero'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -32,17 +33,23 @@ const pickShots = () =>
  * Reverse scroll replays everything backwards (scrubbed). On reduced-motion or
  * without WebGL the pin is skipped and the same copy is shown as a plain list.
  */
-/** Hero slides: each family is told by one representative hose, with the same scroll story. */
+/** Hero slides: each hose family is told by one representative hose, with the same scroll story; railway has its own story. */
 const FAMILIES = [
-  { key: 'hydraulic', label: 'Hydraulic hoses', slug: 'sae-100-r2', href: '/products?category=hydraulic' },
-  { key: 'industrial', label: 'Industrial & LPG hoses', slug: 'steam-hose-type-2', href: '/products?category=industrial' },
-  { key: 'automotive', label: 'Automotive hoses', slug: 'governor-hose', href: '/products?category=automotive' },
+  { key: 'hydraulic', label: 'Hydraulic hoses', slug: 'sae-100-r2' },
+  { key: 'industrial', label: 'Industrial & LPG hoses', slug: 'steam-hose-type-2' },
+  { key: 'automotive', label: 'Automotive hoses', slug: 'governor-hose' },
+  { key: 'railway', label: 'Railway components', slug: '' },
 ] as const
 
-export function HeroStory() {
+export type FamilyKey = (typeof FAMILIES)[number]['key']
+export type StartRef = React.MutableRefObject<ScrollTrigger | null>
+interface HeroProps {
+  tabs: React.ReactNode
+  triggerRef: StartRef
+}
+
+function HoseHero({ family, tabs, triggerRef }: HeroProps & { family: FamilyKey }) {
   const { products, openEnquiry } = useSiteData()
-  const [family, setFamily] = useState<(typeof FAMILIES)[number]['key']>('hydraulic')
-  const triggerRef = useRef<ScrollTrigger | null>(null)
   const product = useMemo(() => {
     const slug = FAMILIES.find((f) => f.key === family)?.slug
     return (
@@ -52,11 +59,6 @@ export function HeroStory() {
       null
     )
   }, [products, family])
-  const chooseFamily = (key: (typeof FAMILIES)[number]['key']) => {
-    if (key === family) return
-    window.scrollTo({ top: triggerRef.current?.start ?? 0, behavior: 'auto' }) // the new slide's story starts from the top
-    setFamily(key)
-  }
   const spec = useMemo(() => (product ? specFromProduct(product) : null), [product])
 
   const stageEl = useRef<HTMLDivElement>(null)
@@ -283,22 +285,7 @@ export function HeroStory() {
               <p className="mt-4 hidden max-w-lg text-sm leading-relaxed text-slate-600 sm:block sm:text-base">
                 Made at our works in Moradabad: railway rubber-metal parts, and hydraulic, industrial, LPG and automotive hoses.
               </p>
-              <div id="range" role="tablist" aria-label="Product family" className="mt-4 flex flex-wrap gap-1.5 sm:mt-5 sm:gap-2">
-                {FAMILIES.map((f) => (
-                  <button
-                    key={f.key}
-                    role="tab"
-                    aria-selected={f.key === family}
-                    onClick={() => chooseFamily(f.key)}
-                    className={`inline-flex items-center rounded-sm border px-2.5 py-1 text-[11px] font-semibold transition-colors sm:px-3 sm:py-1.5 sm:text-xs ${f.key === family ? 'border-brand-blue bg-brand-blue text-white' : 'border-slate-300 bg-white/80 text-slate-800 hover:border-brand-blue hover:text-brand-blue'}`}
-                  >
-                    {f.label}
-                  </button>
-                ))}
-                <Link href="/products?category=railway" className="inline-flex items-center rounded-sm border border-slate-300 bg-white/80 px-2.5 py-1 text-[11px] font-semibold text-slate-800 transition-colors hover:border-brand-blue hover:text-brand-blue sm:px-3 sm:py-1.5 sm:text-xs">
-                  Railway components →
-                </Link>
-              </div>
+              {tabs}
               <div className="mt-4 flex gap-2 sm:mt-6 sm:gap-3">
                 <button onClick={() => openEnquiry()} className="btn btn-primary btn-sm sm:px-7 sm:py-4 sm:text-base">
                   Request a quote
@@ -359,4 +346,35 @@ export function HeroStory() {
       </div>
     </section>
   )
+}
+
+/** Tab bar shared by both heroes. Choosing a family restarts the story from the top. */
+function FamilyTabs({ family, onChoose }: { family: FamilyKey; onChoose: (k: FamilyKey) => void }) {
+  return (
+    <div id="range" role="tablist" aria-label="Product family" className="mt-4 flex flex-wrap gap-1.5 sm:mt-5 sm:gap-2">
+      {FAMILIES.map((f) => (
+        <button
+          key={f.key}
+          role="tab"
+          aria-selected={f.key === family}
+          onClick={() => onChoose(f.key)}
+          className={`inline-flex items-center rounded-sm border px-2.5 py-1 text-[11px] font-semibold transition-colors sm:px-3 sm:py-1.5 sm:text-xs ${f.key === family ? 'border-brand-blue bg-brand-blue text-white' : 'border-slate-300 bg-white/80 text-slate-800 hover:border-brand-blue hover:text-brand-blue'}`}
+        >
+          {f.label}
+        </button>
+      ))}
+    </div>
+  )
+}
+
+export function HeroStory() {
+  const [family, setFamily] = useState<FamilyKey>('hydraulic')
+  const triggerRef = useRef<ScrollTrigger | null>(null)
+  const choose = (key: FamilyKey) => {
+    if (key === family) return
+    window.scrollTo({ top: triggerRef.current?.start ?? 0, behavior: 'auto' }) // the new slide's story starts from the top
+    setFamily(key)
+  }
+  const tabs = <FamilyTabs family={family} onChoose={choose} />
+  return family === 'railway' ? <RailwayHero tabs={tabs} triggerRef={triggerRef} /> : <HoseHero family={family} tabs={tabs} triggerRef={triggerRef} />
 }
