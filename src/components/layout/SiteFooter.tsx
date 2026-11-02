@@ -34,13 +34,9 @@ export const SiteFooter: React.FC<Props> = ({ onOpenEnquiry }) => {
       <div className="container">
         <div className="grid gap-10 border-b border-slate-800 pb-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <div className="flex items-center gap-3">
+            <div className="inline-block rounded-md bg-white px-3 py-2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/assets/logo.png" alt="" className="h-10 w-auto object-contain brightness-110" />
-              <div>
-                <span className="block font-display text-xl font-black tracking-tight text-white">VEXTRA</span>
-                <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400">{company.name}</span>
-              </div>
+              <img src="/assets/logo.png" alt={`VEXTRA — ${company.name}`} width={338} height={142} className="h-12 w-auto object-contain" />
             </div>
             <p className="mt-4 max-w-md text-xs leading-relaxed text-slate-400">{company.profile}</p>
             <div className="mt-4 flex flex-wrap gap-2">

@@ -32,9 +32,31 @@ const pickShots = () =>
  * Reverse scroll replays everything backwards (scrubbed). On reduced-motion or
  * without WebGL the pin is skipped and the same copy is shown as a plain list.
  */
+/** Hero slides: each family is told by one representative hose, with the same scroll story. */
+const FAMILIES = [
+  { key: 'hydraulic', label: 'Hydraulic hoses', slug: 'sae-100-r2', href: '/products?category=hydraulic' },
+  { key: 'industrial', label: 'Industrial & LPG hoses', slug: 'steam-hose-type-2', href: '/products?category=industrial' },
+  { key: 'automotive', label: 'Automotive hoses', slug: 'governor-hose', href: '/products?category=automotive' },
+] as const
+
 export function HeroStory() {
   const { products, openEnquiry } = useSiteData()
-  const product = useMemo(() => products.find((p) => p.isHero && p.kind === 'hose') ?? products.find((p) => p.kind === 'hose') ?? null, [products])
+  const [family, setFamily] = useState<(typeof FAMILIES)[number]['key']>('hydraulic')
+  const triggerRef = useRef<ScrollTrigger | null>(null)
+  const product = useMemo(() => {
+    const slug = FAMILIES.find((f) => f.key === family)?.slug
+    return (
+      products.find((p) => p.id === slug && p.kind === 'hose') ??
+      products.find((p) => p.isHero && p.kind === 'hose') ??
+      products.find((p) => p.kind === 'hose') ??
+      null
+    )
+  }, [products, family])
+  const chooseFamily = (key: (typeof FAMILIES)[number]['key']) => {
+    if (key === family) return
+    window.scrollTo({ top: triggerRef.current?.start ?? 0, behavior: 'auto' }) // the new slide's story starts from the top
+    setFamily(key)
+  }
   const spec = useMemo(() => (product ? specFromProduct(product) : null), [product])
 
   const stageEl = useRef<HTMLDivElement>(null)
@@ -156,9 +178,11 @@ export function HeroStory() {
       shot(shots.whole, 8.4, 1.5)
       show(4, 9.2)
       tl.to({}, { duration: 0.01 }, 10.2) // pads the timeline to its full length
+      triggerRef.current = tl.scrollTrigger ?? null
     }, el)
 
     return () => {
+      triggerRef.current = null
       s.onFrame = undefined
       ctx.revert()
     }
@@ -172,14 +196,6 @@ export function HeroStory() {
   }, [stage, story])
 
   if (!product || !spec || !facts) return null
-
-  const range = [
-    { label: 'Railway components', href: '/products?category=railway' },
-    { label: 'Hydraulic hoses', href: '/products?category=hydraulic' },
-    { label: 'Industrial hoses', href: '/products?category=industrial' },
-    { label: 'LPG hoses', href: '/products?category=lpg' },
-    { label: 'Automotive hoses', href: '/products?category=automotive' },
-  ]
 
   const chapters = [
     {
@@ -267,15 +283,22 @@ export function HeroStory() {
               <p className="mt-4 hidden max-w-lg text-sm leading-relaxed text-slate-600 sm:block sm:text-base">
                 Made at our works in Moradabad: railway rubber-metal parts, and hydraulic, industrial, LPG and automotive hoses.
               </p>
-              <ul id="range" className="mt-4 flex flex-wrap gap-1.5 sm:mt-5 sm:gap-2" aria-label="Product range">
-                {range.map((r) => (
-                  <li key={r.href}>
-                    <Link href={r.href} className="inline-flex items-center rounded-sm border border-slate-300 bg-white/80 px-2.5 py-1 text-[11px] font-semibold sm:px-3 sm:py-1.5 sm:text-xs text-slate-800 transition-colors hover:border-brand-blue hover:text-brand-blue">
-                      {r.label}
-                    </Link>
-                  </li>
+              <div id="range" role="tablist" aria-label="Product family" className="mt-4 flex flex-wrap gap-1.5 sm:mt-5 sm:gap-2">
+                {FAMILIES.map((f) => (
+                  <button
+                    key={f.key}
+                    role="tab"
+                    aria-selected={f.key === family}
+                    onClick={() => chooseFamily(f.key)}
+                    className={`inline-flex items-center rounded-sm border px-2.5 py-1 text-[11px] font-semibold transition-colors sm:px-3 sm:py-1.5 sm:text-xs ${f.key === family ? 'border-brand-blue bg-brand-blue text-white' : 'border-slate-300 bg-white/80 text-slate-800 hover:border-brand-blue hover:text-brand-blue'}`}
+                  >
+                    {f.label}
+                  </button>
                 ))}
-              </ul>
+                <Link href="/products?category=railway" className="inline-flex items-center rounded-sm border border-slate-300 bg-white/80 px-2.5 py-1 text-[11px] font-semibold text-slate-800 transition-colors hover:border-brand-blue hover:text-brand-blue sm:px-3 sm:py-1.5 sm:text-xs">
+                  Railway components →
+                </Link>
+              </div>
               <div className="mt-4 flex gap-2 sm:mt-6 sm:gap-3">
                 <button onClick={() => openEnquiry()} className="btn btn-primary btn-sm sm:px-7 sm:py-4 sm:text-base">
                   Request a quote

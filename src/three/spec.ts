@@ -32,7 +32,26 @@ export interface HoseSpec {
   coverColor: number
   /** cotton-braid cover (SAE 100 R5) instead of moulded rubber */
   cottonCover: boolean
+  /** wrapped-cloth cover with a visible spiral seam, as on the large-bore industrial hoses */
+  wrapped: boolean
+  /** end fittings (right end, left end), modelled on the client's product photos */
+  fittings: [FittingStyle, FittingStyle]
   reinforcementSummary: string
+}
+
+/**
+ * swivel — long zinc crimp sleeve, two hex nuts and a blue dust cap (hydraulic assemblies)
+ * flange — 2-bolt flange head on a crimp sleeve (hydraulic assemblies, e.g. R1)
+ * claw   — cast elbow claw coupling (Chicago type) held by a band clamp (industrial / air hoses)
+ * clamp  — cast threaded nipple held by a band clamp, red cap (industrial / air hoses)
+ * redNut — short sleeve with red-painted hex nuts (LPG and automotive assemblies)
+ */
+export type FittingStyle = 'swivel' | 'flange' | 'claw' | 'clamp' | 'redNut'
+
+const fittingsFor = (p: Product): [FittingStyle, FittingStyle] => {
+  if (p.category === 'industrial') return ['claw', 'clamp']
+  if (p.category === 'lpg' || p.category === 'automotive') return ['redNut', 'redNut']
+  return p.id === 'sae-100-r1' ? ['flange', 'swivel'] : ['swivel', 'swivel']
 }
 
 type ReinfKind = 'steel-braid' | 'textile-braid'
@@ -83,15 +102,24 @@ export function specFromProduct(p: Product): HoseSpec {
   })
   layers.push({ id: 'tube', kind: 'tube', label: 'Inner tube', detail: c?.tube ?? '', weight: 3 })
 
+  const fittings = fittingsFor(p)
+  const industrial = p.category === 'industrial'
+  const std = p.standard.split('/')[0].trim()
   return {
     slug: p.id,
     name: p.name,
     idMm: row?.idMm ?? 12.7,
     odMm: row?.odMm ?? 22,
     layers,
-    marking: `VEXTRA   ${p.standard.split('/')[0].trim()}   ${p.maxPressureBar ?? ''} BAR`.replace(/\s+BAR$/, p.maxPressureBar ? ' BAR' : ''),
+    // industrial hoses carry the maker's name along the cover, as in the photos
+    marking:
+      industrial
+        ? `VEXTRA   VAISHNO RUBBER INDUSTRIES PVT. LTD.   ${std}`
+        : `VEXTRA   ${std}   ${p.maxPressureBar ?? ''} BAR`.replace(/\s+BAR$/, p.maxPressureBar ? ' BAR' : ''),
     coverColor: p.coverColor ?? 0x15171a,
     cottonCover: cotton,
+    wrapped: industrial && !cotton,
+    fittings,
     reinforcementSummary: c?.reinforcement ?? '',
   }
 }

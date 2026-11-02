@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { patchBend, bendPoint, type BendShared, type Uniform1 } from './bend'
 import { makeMarkingTexture, makeRubberNormal } from './textures'
-import type { HoseSpec, LayerSpec } from './spec'
+import type { FittingStyle, HoseSpec, LayerSpec } from './spec'
 
 /** Everything is modelled on a straight X axis; bend + peel happen in the vertex shader. */
 export const HOSE_LENGTH = 7
@@ -173,38 +173,20 @@ function braidGeometry({ r, thick, width, q }: BraidOpts) {
   return g
 }
 
-/** profile = [radius, axisPos][]; revolved around the X axis */
-function latheX(profile: [number, number][], segs = 56) {
-  const g = new THREE.LatheGeometry(profile.map(([r, a]) => new THREE.Vector2(r, a)), segs)
-  g.rotateZ(-Math.PI / 2)
-  return g
-}
-
 /* ───────────────────────── end fitting ───────────────────────── */
 
-function buildFitting(rIn: number) {
-  const rO = R_OUT
-  const rf = rO + 0.1
-  const rs = Math.max(rIn - 0.012, 0.16) // stem OD — fits inside the bore
-  const rb = Math.max(rs - 0.06, 0.09) // stem bore
-  const rc = Math.max(rIn + 0.16, 0.5) // collar
-  const rn = rc - 0.05 // thread body
+interface FittingPart {
+  geo: THREE.BufferGeometry
+  color: number
+  rough: number
+  metal: number
+}
 
-  const ferrule = latheX([
-    [rO - 0.01, -0.72], [rf - 0.06, -0.72], [rf, -0.66], [rf, -0.5], [rf - 0.035, -0.46], [rf, -0.42],
-    [rf, -0.2], [rf - 0.035, -0.16], [rf, -0.12], [rf, 0.06], [rf - 0.08, 0.17], [rO - 0.01, 0.17], [rO - 0.01, -0.72],
-  ])
+const ZINC = 0xcfd4d9
+const ZINC_DARK = 0xb4bbc2
 
-  const stemOuter: [number, number][] = [
-    [rs, -0.95], [rs + 0.03, -0.85], [rs, -0.78], [rs + 0.03, -0.62], [rs, -0.55], [rs + 0.03, -0.38], [rs, -0.3],
-    [rs, 0.0], [rc, 0.04], [rc, 0.26], [rn, 0.3],
-  ]
-  for (let a = 0.84; a < 1.3; a += 0.09) stemOuter.push([rn, a], [rn + 0.028, a + 0.03], [rn + 0.028, a + 0.06], [rn, a + 0.09])
-  stemOuter.push([rn, 1.36], [rn - 0.05, 1.4], [rb, 1.4], [rb, -0.95], [rs, -0.95])
-  const stem = latheX(stemOuter)
-
-  // hex nut with machined chamfers and a clearance bore
-  const Rh = 0.8
+/** hex nut along X: machined bevels and a clearance bore */
+function hexNutX(Rh: number, depth: number, bore: number, x0: number) {
   const shape = new THREE.Shape()
   for (let i = 0; i < 6; i++) {
     const t = (i / 6) * Math.PI * 2 + Math.PI / 6
@@ -212,13 +194,133 @@ function buildFitting(rIn: number) {
   }
   shape.closePath()
   const hole = new THREE.Path()
-  hole.absarc(0, 0, rn + 0.012, 0, Math.PI * 2, true)
+  hole.absarc(0, 0, bore, 0, Math.PI * 2, true)
   shape.holes.push(hole)
-  const nut = new THREE.ExtrudeGeometry(shape, { depth: 0.46, bevelEnabled: true, bevelThickness: 0.035, bevelSize: 0.035, bevelSegments: 2, curveSegments: 24 })
-  nut.rotateY(Math.PI / 2)
-  nut.translate(0.34, 0, 0)
+  const g = new THREE.ExtrudeGeometry(shape, { depth, bevelEnabled: true, bevelThickness: 0.03, bevelSize: 0.03, bevelSegments: 2, curveSegments: 24 })
+  g.rotateY(Math.PI / 2)
+  g.translate(x0, 0, 0)
+  return g
+}
 
-  return [ferrule, stem, nut]
+/** hose end at x = 0, the fitting reaches out along +X (mirrored for the other end) */
+function buildFitting(style: FittingStyle, rIn: number): FittingPart[] {
+  const rO = R_OUT
+  const rf = rO + 0.1
+  const rs = Math.max(rIn - 0.012, 0.16) // stem OD — fits inside the bore
+  const rb = Math.max(rs - 0.06, 0.09) // stem bore
+  const rc = Math.max(rIn + 0.16, 0.5) // collar
+  const rn = rc - 0.05 // thread body
+  const parts: FittingPart[] = []
+
+  if (style === 'swivel') {
+    // long, plain zinc crimp sleeve with a faint hex-crimp bulge
+    const sleeve = crimpSleeve(rO - 0.01, rf, -1.15, 0.2)
+    parts.push({ geo: sleeve, color: ZINC, rough: 0.28, metal: 1 })
+    const stem = latheX([[rs, -0.95], [rs, 0.0], [rc, 0.04], [rc, 0.26], [rn, 0.3], [rn, 1.2], [rn - 0.05, 1.24], [rb, 1.24], [rb, -0.95], [rs, -0.95]])
+    parts.push({ geo: stem, color: ZINC, rough: 0.3, metal: 1 })
+    parts.push({ geo: hexNutX(0.8, 0.4, rn + 0.012, 0.34), color: ZINC_DARK, rough: 0.4, metal: 1 })
+    parts.push({ geo: hexNutX(0.8, 0.4, rn + 0.012, 0.8), color: ZINC_DARK, rough: 0.4, metal: 1 })
+    // blue dust cap pressed over the threaded stub
+    const cap = latheX([[0, 1.18], [rn + 0.07, 1.18], [rn + 0.07, 1.62], [rn + 0.03, 1.7], [0, 1.7]])
+    parts.push({ geo: cap, color: 0x2d6bd1, rough: 0.55, metal: 0 })
+  } else if (style === 'flange') {
+    parts.push({ geo: crimpSleeve(rO - 0.01, rf, -1.15, 0.2), color: ZINC, rough: 0.28, metal: 1 })
+    parts.push({ geo: latheX([[rs, -0.95], [rs, 0.0], [rc, 0.04], [rc, 0.5], [rb, 0.5], [rb, -0.95], [rs, -0.95]]), color: ZINC, rough: 0.3, metal: 1 })
+    // two-bolt flange plate (long axis across the hose), with its bolt holes
+    const L = rc + 0.32, R = 0.36
+    const plate = new THREE.Shape()
+    plate.moveTo(-L, R)
+    plate.lineTo(L, R)
+    plate.absarc(L, 0, R, Math.PI / 2, -Math.PI / 2, true)
+    plate.lineTo(-L, -R)
+    plate.absarc(-L, 0, R, -Math.PI / 2, Math.PI / 2, true)
+    for (const sx of [-L, L]) {
+      const h = new THREE.Path()
+      h.absarc(sx, 0, 0.13, 0, Math.PI * 2, true)
+      plate.holes.push(h)
+    }
+    const fl = new THREE.ExtrudeGeometry(plate, { depth: 0.2, bevelEnabled: true, bevelThickness: 0.02, bevelSize: 0.02, bevelSegments: 2, curveSegments: 24 })
+    fl.rotateY(Math.PI / 2)
+    fl.translate(0.36, 0, 0)
+    parts.push({ geo: fl, color: ZINC_DARK, rough: 0.4, metal: 1 })
+    // raised spigot with the port bore
+    parts.push({ geo: latheX([[rb + 0.02, 0.5], [rc * 0.82, 0.5], [rc * 0.82, 0.8], [rb + 0.02, 0.8], [rb + 0.02, 0.5]]), color: ZINC, rough: 0.3, metal: 1 })
+  } else if (style === 'claw') {
+    // cast elbow claw coupling, painted white, with two lugs; band clamp on the hose tail
+    const tail = latheX([[rs, -0.8], [rs + 0.03, -0.55], [rs, -0.3], [rs + 0.05, 0.0], [rc + 0.06, 0.06], [rc + 0.06, 0.5], [rb, 0.5], [rb, -0.8], [rs, -0.8]])
+    parts.push({ geo: tail, color: 0xe4e6e8, rough: 0.85, metal: 0.05 })
+    const head = new THREE.CylinderGeometry(rc + 0.14, rc + 0.14, 0.95, 36)
+    head.translate(0.5, 0.3, 0)
+    parts.push({ geo: head, color: 0xe4e6e8, rough: 0.85, metal: 0.05 })
+    const dome = new THREE.SphereGeometry(rc + 0.14, 36, 16, 0, Math.PI * 2, 0, Math.PI / 2)
+    dome.translate(0.5, 0.775, 0)
+    parts.push({ geo: dome, color: 0xe4e6e8, rough: 0.85, metal: 0.05 })
+    for (const sz of [-1, 1]) {
+      const lug = new THREE.BoxGeometry(0.34, 0.26, 0.14)
+      lug.translate(0.5, 0.55, sz * (rc + 0.22))
+      parts.push({ geo: lug, color: 0xe4e6e8, rough: 0.85, metal: 0.05 })
+    }
+    const band = latheX([[rO - 0.01, -0.62], [rO + 0.06, -0.62], [rO + 0.06, -0.3], [rO - 0.01, -0.3], [rO - 0.01, -0.62]])
+    parts.push({ geo: band, color: 0xc6ccd2, rough: 0.35, metal: 1 })
+    const screw = new THREE.BoxGeometry(0.18, 0.1, 0.12)
+    screw.translate(-0.46, rO + 0.1, 0)
+    parts.push({ geo: screw, color: 0x9aa1aa, rough: 0.4, metal: 1 })
+  } else if (style === 'clamp') {
+    // painted cast nipple, held in the hose by a worm-drive band clamp
+    const nipple = latheX([[rs, -0.8], [rs + 0.03, -0.55], [rs, -0.3], [rs + 0.05, 0.0], [rc + 0.08, 0.06], [rc + 0.08, 0.6], [rn, 0.66], [rn, 1.05], [rb, 1.05], [rb, -0.8], [rs, -0.8]])
+    parts.push({ geo: nipple, color: 0xe4e6e8, rough: 0.8, metal: 0.05 })
+    const band = latheX([[rO - 0.01, -0.62], [rO + 0.06, -0.62], [rO + 0.06, -0.3], [rO - 0.01, -0.3], [rO - 0.01, -0.62]])
+    parts.push({ geo: band, color: 0xc6ccd2, rough: 0.35, metal: 1 })
+    const screw = new THREE.BoxGeometry(0.18, 0.1, 0.12)
+    screw.translate(-0.46, rO + 0.1, 0)
+    parts.push({ geo: screw, color: 0x9aa1aa, rough: 0.4, metal: 1 })
+    const cap = latheX([[0, 0.98], [rn + 0.06, 0.98], [rn + 0.06, 1.5], [rn + 0.02, 1.58], [0, 1.58]])
+    parts.push({ geo: cap, color: 0xd2362d, rough: 0.5, metal: 0 })
+  } else {
+    // short plain sleeve with big red-painted swivel nuts
+    parts.push({ geo: crimpSleeve(rO - 0.01, rf - 0.02, -0.9, 0.1), color: ZINC, rough: 0.3, metal: 1 })
+    const stem = latheX([[rs, -0.7], [rs, 0.0], [rc, 0.04], [rc, 0.2], [rn, 0.24], [rn, 0.8], [rb, 0.8], [rb, -0.7], [rs, -0.7]])
+    parts.push({ geo: stem, color: ZINC, rough: 0.3, metal: 1 })
+    parts.push({ geo: hexNutX(0.82, 0.55, rn + 0.012, 0.06), color: 0xd0261e, rough: 0.5, metal: 0.2 })
+    parts.push({ geo: hexNutX(0.82, 0.4, rn + 0.012, 0.66), color: 0xd0261e, rough: 0.5, metal: 0.2 })
+  }
+  return parts
+}
+
+/** plain crimped sleeve with softly rounded ends */
+function crimpSleeve(rInner: number, rOuter: number, x0: number, x1: number) {
+  const e = 0.07
+  return latheX([[rInner, x0], [rOuter - e, x0], [rOuter, x0 + e], [rOuter, x1 - 0.1], [rOuter - 0.05, x1], [rInner, x1], [rInner, x0]])
+}
+
+/** profile = [radius, axisPos][]; revolved around the X axis */
+function latheX(profile: [number, number][], segs = 56) {
+  const g = new THREE.LatheGeometry(profile.map(([r, a]) => new THREE.Vector2(r, a)), segs)
+  g.rotateZ(-Math.PI / 2)
+  return g
+}
+
+/** a single spiral seam line wound around the cover — the wrapped-cloth look of the large-bore hoses */
+function helixSeam(r: number, pitch: number, width: number) {
+  const steps = Math.ceil((HOSE_LENGTH / pitch) * 36)
+  const pos: number[] = [], nor: number[] = [], idx: number[] = []
+  for (let i = 0; i <= steps; i++) {
+    const x = -END + (HOSE_LENGTH * i) / steps
+    const th = (2 * Math.PI * (x + END)) / pitch
+    const c = Math.cos(th), s = Math.sin(th)
+    const rr = r + 0.007
+    pos.push(x - width / 2, rr * c, rr * s, x + width / 2, rr * c, rr * s)
+    nor.push(0, c, s, 0, c, s)
+  }
+  for (let i = 0; i < steps; i++) {
+    const a = i * 2
+    idx.push(a, a + 2, a + 1, a + 1, a + 2, a + 3)
+  }
+  const g = new THREE.BufferGeometry()
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3))
+  g.setAttribute('normal', new THREE.Float32BufferAttribute(nor, 3))
+  g.setIndex(idx)
+  return g
 }
 
 /* ───────────────────────── model ───────────────────────── */
@@ -302,6 +404,11 @@ export function buildHose(spec: HoseSpec, q: Quality, aniso: number): HoseModel 
         mat.color.setHex(0xffffff)
       }
       add(cylinderX(-END, END, rOuter, q.radial, segX), mat)
+      if (isCover && spec.wrapped) {
+        const seam = reg(std(0x34373c, 0.9), { uEnd })
+        seam.side = THREE.DoubleSide
+        add(helixSeam(rOuter, 0.62, 0.05), seam)
+      }
       const inner = reg(std(isTube ? 0x0b0c0e : 0x1a1d22, 0.7), { uEnd })
       inner.side = THREE.BackSide
       add(cylinderX(-END, END, rInner, q.radial, segX, true), inner)
@@ -323,11 +430,11 @@ export function buildHose(spec: HoseSpec, q: Quality, aniso: number): HoseModel 
   const fixedSlide: Uniform1 = { value: 0 }
   const fittingMats: THREE.MeshStandardMaterial[] = []
   ;([1, -1] as const).forEach((side) => {
-    const geos = buildFitting(rIn)
-    geos.forEach((geo, gi) => {
+    const parts = buildFitting(spec.fittings[side === 1 ? 0 : 1], rIn)
+    parts.forEach(({ geo, color, rough, metal }) => {
       if (side === -1) geo.rotateY(Math.PI)
       geo.translate(side * END, 0, 0)
-      const mat = std(gi === 2 ? 0xbcc2c8 : 0xcfd4d9, gi === 2 ? 0.4 : 0.3, 1)
+      const mat = std(color, rough, metal)
       patchBend(mat, shared, { uSlide: side === 1 ? fittingSlide : fixedSlide })
       fittingMats.push(mat)
       add(geo, mat)

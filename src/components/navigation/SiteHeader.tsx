@@ -122,13 +122,9 @@ export const SiteHeader: React.FC<Props> = ({ currentRoute, onOpenEnquiry }) => 
 
       {/* main bar */}
       <div className="container flex h-[72px] items-center justify-between">
-        <Link href="/" className="group flex items-center gap-3" aria-label="Vaishno Rubber Industries — home">
+        <Link href="/" className="flex items-center" aria-label="VEXTRA — Vaishno Rubber Industries, home">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/assets/logo.png" alt="" className="h-10 w-auto object-contain sm:h-11" />
-          <span className="flex flex-col leading-none">
-            <span className="font-display text-2xl font-extrabold tracking-tight text-slate-950 transition-colors group-hover:text-brand-blue">VEXTRA</span>
-            <span className="mt-1 hidden font-mono text-[9px] uppercase tracking-widest text-slate-500 sm:block">Vaishno Rubber Industries</span>
-          </span>
+          <img src="/assets/logo.png" alt="VEXTRA — Vaishno Rubber Industries" width={338} height={142} className="h-12 w-auto object-contain sm:h-14" />
         </Link>
 
         <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
