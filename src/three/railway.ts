@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js'
+import { makeRubberNormal } from './textures'
 
 /**
  * Illustrative models of VEXTRA railway components, each with an "action" that
@@ -28,13 +29,19 @@ function kit() {
   const track = <T extends { dispose(): void }>(o: T) => (disposables.push(o), o)
   const group = new THREE.Group()
   const mat = (color: number, rough: number, metal = 0) => track(new THREE.MeshStandardMaterial({ color, roughness: rough, metalness: metal }))
+  // moulded rubber is never flat: a fine surface grain catches the light
+  const grain = track(makeRubberNormal(256))
+  grain.wrapS = grain.wrapT = THREE.RepeatWrapping
+  grain.repeat.set(3, 3)
   const M = {
-    rubber: mat(0x1b1d21, 0.8),
-    steel: mat(0x9aa1aa, 0.42, 1),
-    plated: mat(0xcfd4d9, 0.28, 1),
-    dark: mat(0x4a4f57, 0.5, 0.9),
+    rubber: track(new THREE.MeshStandardMaterial({ color: 0x191b1f, roughness: 0.88, normalMap: grain, normalScale: new THREE.Vector2(0.65, 0.65) })),
+    steel: mat(0x8c939c, 0.36, 1),
+    plated: mat(0xd2d7dc, 0.26, 1),
+    dark: mat(0x3f444b, 0.45, 0.9),
     pu: mat(0xdc7a1f, 0.5),
     cut: mat(0x2e3138, 0.9),
+    green: mat(0x2f7a3c, 0.55, 0.2), // painted steel plates, as on the pads in the photos
+    white: mat(0xeceef0, 0.5),
   }
   const mesh = (geo: THREE.BufferGeometry, material: THREE.Material, parent: THREE.Object3D = group) => {
     const m = new THREE.Mesh(track(geo), material)
@@ -82,32 +89,82 @@ function elastomericPad(): DemoModel {
   }
 }
 
-/* 2 ─ Air brake hose coupling: two halves connect, lever latches */
+/** one spiral seam wound round a wrapped-cloth hose, along X from -len/2 to len/2 */
+function spiralSeam(r: number, len: number, pitch: number, width: number) {
+  const steps = Math.ceil((len / pitch) * 36)
+  const pos: number[] = [], nor: number[] = [], idx: number[] = []
+  for (let i = 0; i <= steps; i++) {
+    const x = -len / 2 + (len * i) / steps
+    const th = (2 * Math.PI * (x + len / 2)) / pitch
+    const c = Math.cos(th), s = Math.sin(th)
+    const rr = r + 0.006
+    pos.push(x - width / 2, rr * c, rr * s, x + width / 2, rr * c, rr * s)
+    nor.push(0, c, s, 0, c, s)
+  }
+  for (let i = 0; i < steps; i++) {
+    const a = i * 2
+    idx.push(a, a + 2, a + 1, a + 1, a + 2, a + 3)
+  }
+  const g = new THREE.BufferGeometry()
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3))
+  g.setAttribute('normal', new THREE.Float32BufferAttribute(nor, 3))
+  g.setIndex(idx)
+  return g
+}
+
+/* 2 ─ Air brake hose coupling (BP white, FP green): two claw-coupled hose halves connect, lever latches.
+   Shapes follow the client's photos: wrapped-cloth hose, band clamp, painted cast coupling body, red dust cap. */
 function airBrakeCoupling(): DemoModel {
   const k = kit()
-  const halves = [-1, 1].map((side) => {
+  const paint = (color: number) => k.track(new THREE.MeshStandardMaterial({ color, roughness: 0.72, metalness: 0.08 }))
+  const hoseMat = k.track(new THREE.MeshStandardMaterial({ color: 0x17191c, roughness: 0.85 }))
+  const seamMat = k.track(new THREE.MeshStandardMaterial({ color: 0x3a3d42, roughness: 0.9, side: THREE.DoubleSide }))
+  const capMat = k.track(new THREE.MeshStandardMaterial({ color: 0xd2362d, roughness: 0.5 }))
+  const bodyColor = { '-1': 0xe9ebed, '1': 0x2f8a46 } // BP white, FP green
+
+  const halves = ([-1, 1] as const).map((side) => {
     const g = new THREE.Group()
     k.group.add(g)
-    const hose = k.mesh(new THREE.CylinderGeometry(0.27, 0.27, 1.8, 40).rotateZ(Math.PI / 2), k.M.rubber, g)
-    hose.position.x = side * 1.5
-    const ferrule = k.mesh(new THREE.CylinderGeometry(0.36, 0.36, 0.55, 40).rotateZ(Math.PI / 2), k.M.plated, g)
-    ferrule.position.x = side * 0.78
-    const head = k.mesh(new THREE.CylinderGeometry(0.52, 0.5, 0.6, 40).rotateZ(Math.PI / 2), k.M.steel, g)
-    head.position.x = side * 0.3
+    const body = paint(bodyColor[String(side) as '-1' | '1'])
+    // wrapped hose, with its spiral seam
+    const hose = k.mesh(new THREE.CylinderGeometry(0.3, 0.3, 2.2, 48).rotateZ(Math.PI / 2), hoseMat, g)
+    hose.position.x = side * 2.0
+    const seam = k.mesh(spiralSeam(0.3, 2.2, 0.5, 0.045), seamMat, g)
+    seam.position.x = side * 2.0
+    // red dust cap on the far end
+    const cap = k.mesh(new THREE.CylinderGeometry(0.33, 0.33, 0.28, 40).rotateZ(Math.PI / 2), capMat, g)
+    cap.position.x = side * 3.2
+    // band clamp + screw
+    const clamp = k.mesh(new THREE.CylinderGeometry(0.34, 0.34, 0.2, 40).rotateZ(Math.PI / 2), k.M.plated, g)
+    clamp.position.x = side * 1.0
+    const screw = k.mesh(k.box(0.16, 0.1, 0.12, 0.02), k.M.steel, g)
+    screw.position.set(side * 1.0, 0.36, 0)
+    // cast coupling body: neck, bulb, and the face with its gasket
+    const neck = k.mesh(new THREE.CylinderGeometry(0.34, 0.38, 0.45, 40).rotateZ(Math.PI / 2), body, g)
+    neck.position.x = side * 0.78
+    const bulb = k.mesh(new THREE.CylinderGeometry(0.5, 0.5, 0.62, 48).rotateZ(Math.PI / 2), body, g)
+    bulb.position.x = side * 0.36
+    const rim = k.mesh(new THREE.TorusGeometry(0.5, 0.04, 12, 48).rotateY(Math.PI / 2), body, g)
+    rim.position.x = side * 0.05
     const gasket = k.mesh(new THREE.TorusGeometry(0.34, 0.07, 16, 40).rotateY(Math.PI / 2), k.M.rubber, g)
-    gasket.position.x = side * 0.0
+    gasket.position.x = side * 0.02
+    // cast claw lugs either side of the face
+    for (const z of [-1, 1]) {
+      const lugMesh = k.mesh(k.box(0.34, 0.2, 0.12, 0.03), body, g)
+      lugMesh.position.set(side * 0.2, 0.0, z * 0.56)
+    }
     return g
   })
   const pivot = new THREE.Group()
-  pivot.position.set(-0.3, 0.52, 0)
+  pivot.position.set(-0.3, 0.55, 0)
   k.group.add(pivot)
   const lever = k.mesh(k.box(0.14, 0.12, 0.5, 0.03), k.M.dark, pivot)
   lever.position.set(0.2, 0.0, 0)
   const lug = k.mesh(k.box(0.5, 0.1, 0.16, 0.03), k.M.dark)
-  lug.position.set(0.3, 0.55, 0)
+  lug.position.set(0.3, 0.6, 0)
   return {
     ...k.finish(),
-    distance: 8.5,
+    distance: 11,
     action: { title: 'Coupling halves connect', caption: 'Brake pipe / feed pipe halves are brought face to face and latched so air passes through the sealed joint.' },
     setAction(p) {
       const close = smooth(p, 0, 0.7), latch = smooth(p, 0.7, 1)

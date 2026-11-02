@@ -10,6 +10,9 @@
   --color-brand-blue: #0c6db4;
   --color-brand-hover: #0a5b96;
   --color-brand-accent: #f69c2f;
+  --color-ink: #0a1a2b;
+  --color-paper: #f4f6f9;
+  --color-steel: #8c939c;
 }
 
 /* Site-wide content width. Overrides Tailwind's breakpoint-based `container` utility. */
@@ -365,4 +368,30 @@ dialog::backdrop {
 .reveal-pending [data-reveal]:not(.reveal-in) {
   opacity: 0;
   transform: translateY(22px);
+}
+
+
+/* Engineering-sheet pages: grid on ink, and line art that draws itself once on load */
+.bg-sheet-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.draw-in [pathLength] {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw-in 1.8s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+@keyframes draw-in {
+  to { stroke-dashoffset: 0; }
+}
+/* thin laminated strip: rubber / steel / rubber, as in a bonded pad section */
+.laminate-rule {
+  height: 12px;
+  background: linear-gradient(to bottom, #17191d 0 4px, #8c939c 4px 5px, #17191d 5px 9px, #8c939c 9px 10px, #17191d 10px 12px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .draw-in [pathLength] { animation: none; stroke-dashoffset: 0; }
 }

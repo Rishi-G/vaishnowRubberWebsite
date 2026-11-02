@@ -188,7 +188,7 @@ function HoseHero({ family, tabs, triggerRef }: HeroProps & { family: FamilyKey 
       s.onFrame = undefined
       ctx.revert()
     }
-  }, [stage, story, spec])
+  }, [stage, story, spec, triggerRef])
 
   /* ── without the story (reduced motion / no WebGL): a single, calm still ── */
   useEffect(() => {
