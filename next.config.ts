@@ -6,10 +6,20 @@ import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(__filename)
 
+// GitHub Pages build: static HTML export served from /<repo-name>
+const isStaticExport = process.env.STATIC_EXPORT === 'true'
+const pagesBasePath = process.env.PAGES_BASE_PATH ?? '/vaishnowRubberWebsite'
+
 const nextConfig: NextConfig = {
+  ...(isStaticExport && {
+    output: 'export' as const,
+    basePath: pagesBasePath,
+    trailingSlash: true,
+  }),
   // Next 16 writes AGENTS.md/CLAUDE.md into the project by default — not wanted here
   agentRules: false,
   images: {
+    ...(isStaticExport && { unoptimized: true }),
     localPatterns: [
       {
         pathname: '/api/media/file/**',
@@ -30,4 +40,4 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default withPayload(nextConfig, { devBundleServerPackages: false })
+export default isStaticExport ? nextConfig : withPayload(nextConfig, { devBundleServerPackages: false })
