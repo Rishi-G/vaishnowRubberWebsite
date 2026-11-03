@@ -43,7 +43,18 @@ function friendlyError(status: number, _body: PayloadErrorBody | null): string {
   return `We couldn't send your enquiry (error ${status}). Please try again or call +91 98102 94483.`
 }
 
+/** Static GitHub Pages build has no API — hand the enquiry to the visitor's mail app instead. */
+function mailtoEnquiry(data: EnquiryPayload): EnquiryResult {
+  const lines = Object.entries(data)
+    .filter(([, v]) => v !== undefined && v !== '')
+    .map(([k, v]) => `${k}: ${v}`)
+  const subject = data.type === 'rfq' ? `RFQ from ${data.fullName}` : data.subject || `Enquiry from ${data.fullName}`
+  window.location.href = `mailto:info@vaishnorubber.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`
+  return { ok: true, reference: '' }
+}
+
 export async function submitEnquiry(data: EnquiryPayload): Promise<EnquiryResult> {
+  if (process.env.NEXT_PUBLIC_STATIC_EXPORT === 'true') return mailtoEnquiry(data)
   try {
     const res = await fetch('/api/enquiries', {
       method: 'POST',
