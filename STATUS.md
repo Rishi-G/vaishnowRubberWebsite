@@ -58,7 +58,10 @@ Project folder: `~/Desktop/Rishi/Practics/vaishnowRubberWebsite` (moved from `ru
 - [x] Phase 5: Theme global (five colours, two fonts) applied through CSS variables; line art and sliders follow the theme
 - [x] Phase 6: `npm run snapshot` copies CMS content into `src/seed/snapshot.json`, which the GitHub Pages build reads; README explains both ways of publishing
 - [x] Career page with an application form (Careers → Applications, private resumes)
+- [x] Dark/light theme toggle in the header (moon/sun icon), remembered per browser. Dark mode re-maps the fixed Tailwind colour classes in `src/styles/globals.css`; the hero and product viewers use a dark-grey backdrop (`--stage-bg`); header and footer logos sit on a white plate
+- [x] Header: navigation aligned right, icon on the Contact link
 - [ ] The earlier Jobs collection is hidden but still in the code; remove it with its table in a planned migration
+- [ ] Dark mode: the loading screen (preloader) is still white; new pages that use other Tailwind colour classes may need a line in the dark block of `globals.css`
 - [ ] Pages is a copy: after editing in the admin, run `npm run snapshot`, commit and push to update it
 - [ ] Changing an existing field's type in a SQLite collection can make the schema push rebuild tables and lose data. Back up `vaishno.db` first (see the project notes)
 
