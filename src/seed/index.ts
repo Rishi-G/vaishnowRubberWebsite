@@ -8,7 +8,7 @@
  */
 import { getPayload } from 'payload'
 import config from '@payload-config'
-import { PRODUCTS, COMPANY, SETTINGS } from './data'
+import { PRODUCTS, COMPANY, SETTINGS, NAVIGATION } from './data'
 
 const wrap = (arr: string[]) => arr.map((text) => ({ text }))
 const payload = await getPayload({ config })
@@ -79,6 +79,8 @@ await payload.updateGlobal({
   },
 })
 
+await payload.updateGlobal({ slug: 'navigation', data: NAVIGATION })
+
 const { SEED_ADMIN_EMAIL: email, SEED_ADMIN_PASSWORD: password } = process.env
 if (email && password) {
   const users = await payload.find({ collection: 'users', where: { email: { equals: email } }, limit: 1 })
@@ -88,5 +90,5 @@ if (email && password) {
   }
 }
 
-payload.logger.info(`Seed complete: ${PRODUCTS.length} products, company info, site settings.`)
+payload.logger.info(`Seed complete: ${PRODUCTS.length} products, company info, site settings, navigation.`)
 process.exit(0)

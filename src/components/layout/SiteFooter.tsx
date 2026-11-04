@@ -11,23 +11,8 @@ interface Props {
   onOpenEnquiry: (productId?: string) => void
 }
 
-const LINKS: { href: string; label: string }[] = [
-  { href: '/company', label: 'Company' },
-  { href: '/industries', label: 'Industries' },
-  { href: '/resources', label: 'Technical resources' },
-  { href: '/contact', label: 'Contact' },
-]
-
-const FAMILIES = [
-  { cat: 'railway', label: 'Railway components' },
-  { cat: 'hydraulic', label: 'Hydraulic hoses' },
-  { cat: 'industrial', label: 'Industrial hoses' },
-  { cat: 'lpg', label: 'LPG hoses' },
-  { cat: 'automotive', label: 'Automotive hoses' },
-]
-
 export const SiteFooter: React.FC<Props> = ({ onOpenEnquiry }) => {
-  const { company, settings } = useSiteData()
+  const { company, settings, navigation } = useSiteData()
   const iso = company.certifications.filter((c) => c.name.startsWith('ISO'))
   return (
     <footer className="border-t border-slate-800 bg-slate-950 pb-10 pt-14 text-slate-300">
@@ -63,26 +48,26 @@ export const SiteFooter: React.FC<Props> = ({ onOpenEnquiry }) => {
           </div>
 
           <div className="lg:col-span-2">
-            <h4 className="mb-4 border-l-2 border-brand-blue pl-2 font-mono text-xs font-bold uppercase tracking-wider text-white">Products</h4>
+            <h4 className="mb-4 border-l-2 border-brand-blue pl-2 font-mono text-xs font-bold uppercase tracking-wider text-white">{navigation.footerProductsHeading}</h4>
             <ul className="space-y-2 text-xs">
-              {FAMILIES.map((f) => (
-                <li key={f.cat}><Link href={`/products?category=${f.cat}`} className="hover:text-brand-accent">{f.label}</Link></li>
+              {navigation.footerProductLinks.map((l) => (
+                <li key={l.href}><Link href={l.href} className="hover:text-brand-accent">{l.label}</Link></li>
               ))}
               <li><Link href="/products" className="font-semibold text-white hover:text-brand-accent">All products →</Link></li>
             </ul>
           </div>
 
           <div className="lg:col-span-2">
-            <h4 className="mb-4 border-l-2 border-brand-accent pl-2 font-mono text-xs font-bold uppercase tracking-wider text-white">Company</h4>
+            <h4 className="mb-4 border-l-2 border-brand-accent pl-2 font-mono text-xs font-bold uppercase tracking-wider text-white">{navigation.footerCompanyHeading}</h4>
             <ul className="space-y-2 text-xs">
-              {LINKS.map((l) => (
+              {navigation.footerCompanyLinks.map((l) => (
                 <li key={l.href}><Link href={l.href} className="hover:text-brand-accent">{l.label}</Link></li>
               ))}
             </ul>
           </div>
 
           <div className="lg:col-span-3">
-            <h4 className="mb-4 border-l-2 border-emerald-500 pl-2 font-mono text-xs font-bold uppercase tracking-wider text-white">Works</h4>
+            <h4 className="mb-4 border-l-2 border-emerald-500 pl-2 font-mono text-xs font-bold uppercase tracking-wider text-white">{navigation.footerContactHeading}</h4>
             <ul className="space-y-3 text-xs text-slate-400">
               <li className="flex gap-2"><MapPin size={14} className="mt-0.5 shrink-0 text-brand-accent" /><span className="leading-relaxed">{company.location}{company.mapUrl && <> · <a href={company.mapUrl} target="_blank" rel="noopener noreferrer" className="text-white hover:text-brand-accent">Map</a></>}</span></li>
               <li className="flex gap-2"><Phone size={14} className="shrink-0 text-brand-accent" /><a href={`tel:${company.phone.replace(/\s/g, '')}`} className="font-mono text-white hover:text-brand-accent">{company.phone}</a></li>
@@ -96,8 +81,8 @@ export const SiteFooter: React.FC<Props> = ({ onOpenEnquiry }) => {
                 <li key={e} className="flex gap-2"><Mail size={14} className="shrink-0 text-brand-accent" /><a href={`mailto:${e}`} className="font-mono hover:text-white">{e}</a></li>
               ))}
               <li>
-                <a href="/documents/vextra-hose-catalogue.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded border border-slate-700 bg-slate-800 px-3 py-2 font-semibold text-white hover:bg-slate-700">
-                  <Download size={13} /> Hose catalogue (PDF)
+                <a href={navigation.catalogueUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded border border-slate-700 bg-slate-800 px-3 py-2 font-semibold text-white hover:bg-slate-700">
+                  <Download size={13} /> {navigation.footerCatalogueLabel}
                 </a>
               </li>
             </ul>

@@ -90,3 +90,23 @@ export interface SiteSettings {
   description: string
   pageSeo: Record<SeoPage, { title: string; description: string }>
 }
+
+export interface NavLink {
+  label: string
+  href: string
+}
+
+/** Header, products mega menu and footer links from the Navigation global. */
+export interface Navigation {
+  productsLabel: string
+  headerLinks: NavLink[]
+  megaColumns: { title: string; categories: ProductCategory[]; maxItems: number }[]
+  catalogueCard: { badge: string; title: string; text: string; browseLabel: string; downloadLabel: string }
+  catalogueUrl: string
+  footerProductsHeading: string
+  footerCompanyHeading: string
+  footerContactHeading: string
+  footerProductLinks: NavLink[]
+  footerCompanyLinks: NavLink[]
+  footerCatalogueLabel: string
+}
