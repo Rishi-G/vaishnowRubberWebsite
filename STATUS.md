@@ -1,6 +1,6 @@
 # Project status — Vaishno Rubber (VEXTRA) website
 
-Last updated: 3 Nov 2026 · Stack: Next.js 16 · Payload CMS 3 · SQLite · three.js · GSAP
+Last updated: 4 Nov 2026 · Stack: Next.js 16 · Payload CMS 3 · SQLite · three.js · GSAP
 Project folder: `~/Desktop/Rishi/Practics/vaishnowRubberWebsite` (moved from `rubberCase`) · Git remote: `github.com/Rishi-G/vaishnowRubberWebsite`
 
 ## 1. Completed
@@ -49,6 +49,18 @@ Project folder: `~/Desktop/Rishi/Practics/vaishnowRubberWebsite` (moved from `ru
 - [x] Database present and seeded (re-create with `npm run seed`)
 - [ ] Production `.env` values (`PAYLOAD_SECRET`, `NEXT_PUBLIC_SERVER_URL`, `DATABASE_URL`)
 - [ ] First real admin user created at `/admin`
+
+### CMS migration (4 Nov 2026) — all six phases done
+- [x] Phase 1: Site Settings (logos, favicon, share image, tagline, preloader, SEO) and Company Info contact fields
+- [x] Phase 2: Navigation (header links, mega-menu columns, catalogue card, footer)
+- [x] Phase 3: text and photos of every page, as one editable "page" per route (Home, Products, Company, Industries, Resources, Contact, Career)
+- [x] Phase 4: Product categories collection; certificate, catalogue and download PDFs can be uploaded
+- [x] Phase 5: Theme global (five colours, two fonts) applied through CSS variables; line art and sliders follow the theme
+- [x] Phase 6: `npm run snapshot` copies CMS content into `src/seed/snapshot.json`, which the GitHub Pages build reads; README explains both ways of publishing
+- [x] Career page with an application form (Careers → Applications, private resumes)
+- [ ] The earlier Jobs collection is hidden but still in the code; remove it with its table in a planned migration
+- [ ] Pages is a copy: after editing in the admin, run `npm run snapshot`, commit and push to update it
+- [ ] Changing an existing field's type in a SQLite collection can make the schema push rebuild tables and lose data. Back up `vaishno.db` first (see the project notes)
 
 ## 2. To do
 

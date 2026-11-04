@@ -18,12 +18,34 @@ Other scripts: `npm run build` · `npm start` · `npm run typecheck` · `npm run
 
 ## What the CMS holds
 
-| Admin section | Purpose |
+Everything on the site is editable in the admin. Empty fields keep today's text, so nothing breaks if a field is left blank.
+
+| Admin section | What it controls |
 |---|---|
-| Catalogue → Products | 28 products: 20 hoses (full data-sheet rows) + 8 railway components. Saving a product refreshes its live pages. |
-| Company → Company Info | Profile, capabilities, certifications, customers, strengths, contact details. |
+| Company → Site Settings | Logo, light logo, favicon, share image, tagline, preloader, SEO title pattern, default description, keywords, per-page SEO titles and descriptions. |
+| Company → Company Info | Name, phone, WhatsApp, email, address, map link, hours, social links, profile, capabilities, certifications (with PDF upload), customers, strengths. |
+| Company → Navigation | Header links, Products mega-menu columns, catalogue card and file, footer headings and links. |
+| Company → Theme (colours & fonts) | Brand, hover, accent, dark and page background colours; body and heading fonts. |
+| Pages → (one per page) | All text, buttons and photos of Home, Products, Company, Industries, Resources, Career and Contact. |
+| Catalogue → Products | 28 products with full data-sheet rows. Saving a product refreshes its live pages. |
+| Catalogue → Product categories | The product families: names, tab labels, URL key and quote-form label. Keep the `railway` key. |
+| Careers → Applications | Applications from the Career page (name, email, phone, cover note, resume). Admin-only; resumes are stored in `/applications` (git-ignored). |
 | Leads → Enquiries | Quote requests and contact messages (public can create, only admins can read). |
 | Media / Users | Uploads and admin accounts. |
+
+## Two ways the site is published
+
+1. **Live server (CMS-driven):** `npm run build && npm start` on a server that can run Node. Admin edits show on the site within a minute. This is the version where the Career form and enquiry forms store real records.
+2. **GitHub Pages (static):** the workflow in `.github/workflows/nextjs.yml` has no server, so it cannot read the CMS. It builds from `src/seed/snapshot.json`, a copy of the CMS content. To publish admin edits there:
+
+```bash
+npm run snapshot            # writes src/seed/snapshot.json from the local database
+git add -A && git commit -m "Update site content" && git push
+```
+
+On the static site the forms open the visitor's mail app (no server to save them), and files uploaded through the admin are not available — use files from `public/` (paths like `/documents/…`) for anything that must appear on Pages.
+
+`npm run seed` resets every page, the navigation, settings and theme to the built-in defaults (`src/seed/data.ts`, `src/seed/pages.ts`). Do not run it on a database whose admin edits you want to keep.
 
 A hose's `Construction → Reinforcement` text **drives its 3D model** (e.g. "Two braid…" → two braids and a friction layer; "One yarn braided" → one textile braid; LPG IS 9573 Type-II has an orange cover).
 
