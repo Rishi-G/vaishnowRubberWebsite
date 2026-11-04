@@ -53,8 +53,8 @@ export function HoseViewer({ product }: { product: Product }) {
     <div className="grid overflow-hidden rounded-md border border-slate-200 bg-white lg:grid-cols-[1fr_20rem]">
       <div>
         <div
-          className="light-surface relative h-[340px] touch-pan-y select-none sm:h-[460px]"
-          style={{ background: 'radial-gradient(ellipse at 50% 50%, #ffffff 0%, #f4f7fb 55%, #e1e8f1 100%)' }}
+          className="relative h-[340px] touch-pan-y select-none sm:h-[460px]"
+          style={{ background: 'var(--stage-bg)' }}
           onPointerDown={(e) => {
             drag.current = { x: e.clientX, y: e.clientY }
             ;(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId)

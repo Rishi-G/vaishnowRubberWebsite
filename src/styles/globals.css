@@ -560,22 +560,8 @@ dialog::backdrop {
 /* logo is dark artwork on a transparent background: give it a white plate in dark mode */
 [data-theme="dark"] .site-logo { background: #fff; padding: 4px 10px; border-radius: 4px; }
 
-/* The 3D "studio" scenes are lit on a light backdrop in both themes, so inside them the light-mode colours stay. */
-[data-theme="dark"] .light-surface .bg-white { background-color: #fff; }
-[data-theme="dark"] .light-surface .text-ink,
-[data-theme="dark"] .light-surface .text-slate-950,
-[data-theme="dark"] .light-surface .text-slate-900,
-[data-theme="dark"] .light-surface .text-slate-800 { color: #0f172a; }
-[data-theme="dark"] .light-surface .text-slate-700 { color: #334155; }
-[data-theme="dark"] .light-surface .text-slate-600 { color: #475569; }
-[data-theme="dark"] .light-surface .text-slate-500 { color: #64748b; }
-[data-theme="dark"] .light-surface .text-slate-400 { color: #94a3b8; }
-[data-theme="dark"] .light-surface .text-blue-600,
-[data-theme="dark"] .light-surface .text-blue-800,
-[data-theme="dark"] .light-surface .text-brand-blue { color: var(--color-brand-blue); }
-[data-theme="dark"] .light-surface .border-slate-200 { border-color: #e2e8f0; }
-[data-theme="dark"] .light-surface .border-slate-300 { border-color: #cbd5e1; }
-[data-theme="dark"] .light-surface .bg-slate-50 { background-color: #f8fafc; }
-[data-theme="dark"] .light-surface .bg-slate-100 { background-color: #f1f5f9; }
-[data-theme="dark"] .light-surface .bg-slate-300 { background-color: #cbd5e1; }
-[data-theme="dark"] .light-surface .bg-blue-50 { background-color: #eff6ff; }
+/* Backdrop of the 3D scenes (home hero, product viewers): white studio in light mode,
+   dark grey with a soft light-grey glow behind the model in dark mode. */
+:root { --stage-bg: radial-gradient(ellipse at 55% 55%, #ffffff 0%, #f4f7fb 52%, #e3eaf3 100%); }
+[data-theme="dark"] { --stage-bg: radial-gradient(ellipse at 55% 55%, #5d6674 0%, #323944 48%, #171b21 100%); }
+[data-theme="dark"] .bg-white\/80 { background-color: rgb(19 27 46 / 0.8); }

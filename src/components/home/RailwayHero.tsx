@@ -152,14 +152,14 @@ export function RailwayHero({ hero, tabs, triggerRef }: { hero: HeroContent; tab
   }
 
   return (
-    <section id="hero" aria-label="VEXTRA railway components, scroll-driven 3D presentation" className="light-surface relative">
+    <section id="hero" aria-label="VEXTRA railway components, scroll-driven 3D presentation" className="relative">
       <div
         ref={sectionRef}
         className={`relative w-full overflow-hidden ${story || status === 'loading' ? '' : 'min-h-[88svh]'}`}
         style={{
           height: story || status === 'loading' ? '100svh' : undefined,
           paddingTop: headerH,
-          background: 'radial-gradient(ellipse at 55% 55%, #ffffff 0%, #f4f7fb 52%, #e3eaf3 100%)',
+          background: 'var(--stage-bg)',
         }}
       >
         <div className="pointer-events-none absolute inset-0 bg-blueprint-grid opacity-50" />
