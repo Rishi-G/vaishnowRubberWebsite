@@ -62,7 +62,11 @@ export default async function FrontendLayout({ children }: { children: React.Rea
   } as React.CSSProperties
 
   return (
-    <html lang="en" data-theme="light" className={[jakarta, grotesk, jetbrains, inter, dmSans, manrope, sora, outfit].map((x) => x.variable).join(' ')} style={themeVars}>
+    <html lang="en" data-theme="light" className={[jakarta, grotesk, jetbrains, inter, dmSans, manrope, sora, outfit].map((x) => x.variable).join(' ')} style={themeVars} suppressHydrationWarning>
+      <head>
+        {/* applies the saved light/dark choice before first paint, so there is no flash */}
+        <script dangerouslySetInnerHTML={{ __html: "try{var t=localStorage.getItem('vextra-theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}" }} />
+      </head>
       <body className="bg-white text-slate-900 font-sans antialiased selection:bg-brand-blue selection:text-white">
         {settings.preloaderEnabled && <Preloader logoUrl={settings.logoUrl} label={settings.preloaderLabel} />}
         <SiteProvider products={products} categories={categories} company={company} settings={settings} navigation={navigation}>

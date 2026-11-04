@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronDown, Download, Mail, Menu, Phone, PhoneCall, X, type LucideIcon } from 'lucide-react'
 import type { PageRoute, Product } from '@/types'
 import { useSiteData } from '@/lib/site-context'
+import { ThemeToggle } from '@/components/site/ThemeToggle'
 
 interface Props {
   currentRoute: PageRoute
@@ -124,7 +125,7 @@ export const SiteHeader: React.FC<Props> = ({ currentRoute, onOpenEnquiry }) => 
       <div className="container flex h-[72px] items-center justify-between">
         <Link href="/" className="flex items-center" aria-label={`${company.brandName} — ${company.name}, home`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={settings.logoUrl} alt={`${company.brandName} — ${company.name}`} width={338} height={142} className="h-12 w-auto object-contain sm:h-14" />
+          <img src={settings.logoUrl} alt={`${company.brandName} — ${company.name}`} width={338} height={142} className="site-logo h-12 w-auto object-contain sm:h-14" />
         </Link>
 
         <nav aria-label="Primary" className="ml-auto hidden items-center gap-1 lg:flex">
@@ -156,7 +157,8 @@ export const SiteHeader: React.FC<Props> = ({ currentRoute, onOpenEnquiry }) => 
           })}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1">
+          <ThemeToggle />
           <button onClick={() => setDrawer(true)} className="rounded-md p-2 text-slate-700 hover:bg-slate-100 lg:hidden" aria-label="Open menu" aria-expanded={drawer}>
             <Menu size={24} />
           </button>

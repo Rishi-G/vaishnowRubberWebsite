@@ -9,7 +9,9 @@ import type { Crumb } from './PageHead'
  * animation in globals.css can trace them.
  */
 
-const polar = (cx: number, cy: number, r: number, a: number): [number, number] => [cx + r * Math.cos(a), cy + r * Math.sin(a)]
+// rounded so the server and the browser print identical numbers (avoids a hydration mismatch)
+const round = (n: number) => Math.round(n * 1000) / 1000
+const polar = (cx: number, cy: number, r: number, a: number): [number, number] => [round(cx + r * Math.cos(a)), round(cy + r * Math.sin(a))]
 const stagger = (i: number) => ({ '--i': i }) as React.CSSProperties
 
 /* ───────────────────────── hero shell ───────────────────────── */
@@ -120,7 +122,7 @@ export function Gauge({ value, readout, unit, max, light = false }: { value: num
   const cx = 150, cy = 150, r = 112
   const a0 = (Math.PI * 5) / 6, sweep = (Math.PI * 4) / 3 // 150° → 390°
   const v = Math.min(1, Math.max(0, value))
-  const ink = light ? 'var(--color-ink)' : '#ffffff'
+  const ink = light ? 'var(--line-ink)' : '#ffffff'
   return (
     <svg viewBox="0 0 300 250" className="w-full" fill="none" strokeLinecap="round" role="img" aria-label={`Dial reading ${readout} ${unit}`}>
       <path d={arcPath(cx, cy, r, a0, a0 + sweep)} stroke={ink} strokeOpacity="0.2" strokeWidth="14" pathLength={1} style={stagger(0)} />
@@ -135,7 +137,7 @@ export function Gauge({ value, readout, unit, max, light = false }: { value: num
       <g style={{ transform: `rotate(${(a0 + sweep * v) * (180 / Math.PI)}deg)`, transformOrigin: `${cx}px ${cy}px`, transition: 'transform 0.6s cubic-bezier(0.2,0.8,0.2,1)' }}>
         <path d={`M${cx - 14} ${cy} H${cx + r - 22}`} stroke={ink} strokeWidth="3" />
       </g>
-      <circle cx={cx} cy={cy} r="9" fill={light ? 'var(--color-ink)' : '#ffffff'} />
+      <circle cx={cx} cy={cy} r="9" fill={light ? 'var(--line-ink)' : '#ffffff'} />
       <text x={cx} y="212" textAnchor="middle" fill={ink} fontSize="30" fontWeight="700">{readout}</text>
       <text x={cx} y="234" textAnchor="middle" fill={ink} fillOpacity="0.6" fontSize="13">{unit} · dial full scale {max}</text>
     </svg>
@@ -210,10 +212,10 @@ export function BoreDiagram({ idIn }: { idIn: number }) {
     <figure>
       <svg viewBox="0 0 220 220" className="mx-auto w-full max-w-[16rem]" fill="none" role="img" aria-label={`Required bore ${idIn.toFixed(2)} inches${next ? `, next standard size ${fraction(next)} inch` : ''}`}>
         {STANDARD_ID_IN.map((s) => (
-          <circle key={s} cx="110" cy="110" r={(s / 2) * k * 2} stroke={s === next ? 'var(--color-brand-blue)' : 'var(--color-ink)'} strokeOpacity={s === next ? 1 : 0.18} strokeWidth={s === next ? 2 : 1} />
+          <circle key={s} cx="110" cy="110" r={(s / 2) * k * 2} stroke={s === next ? 'var(--color-brand-blue)' : 'var(--line-ink)'} strokeOpacity={s === next ? 1 : 0.18} strokeWidth={s === next ? 2 : 1} />
         ))}
         <circle cx="110" cy="110" r={Math.min(100, (idIn / 2) * k * 2)} fill="var(--color-brand-accent)" fillOpacity="0.35" stroke="var(--color-brand-accent)" strokeWidth="2" style={{ transition: 'r 0.4s ease' }} />
-        <path d="M10 110 H210" stroke="var(--color-ink)" strokeOpacity="0.2" strokeDasharray="6 4" />
+        <path d="M10 110 H210" stroke="var(--line-ink)" strokeOpacity="0.2" strokeDasharray="6 4" />
       </svg>
       <figcaption className="mt-2 text-center text-xs text-slate-600">
         {next ? <>Next standard size: <span className="font-bold text-brand-blue">{fraction(next)} in</span></> : 'Larger than the 2 in size shown'}
@@ -228,7 +230,7 @@ export type PictKind = 'twist' | 'slack' | 'radius' | 'adaptor' | 'length' | 'el
 
 /** One small line drawing per installation point: black = hose, blue = the right way, red = the mistake. */
 export function HosePict({ kind }: { kind: PictKind }) {
-  const hose = { stroke: 'var(--color-ink)', strokeWidth: 7, strokeLinecap: 'round' as const, fill: 'none' }
+  const hose = { stroke: 'var(--line-ink)', strokeWidth: 7, strokeLinecap: 'round' as const, fill: 'none' }
   const good = 'var(--color-brand-blue)'
   const bad = '#d2362d'
   const end = (x: number, y: number) => <rect x={x - 4} y={y - 6} width="8" height="12" rx="1.5" fill="#8c939c" />

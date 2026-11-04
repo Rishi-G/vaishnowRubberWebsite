@@ -514,3 +514,48 @@ dialog::backdrop {
   .preloader-bar span { transform: scaleX(1); animation: none; }
   .preloader-label { opacity: 0.75; animation: none; }
 }
+
+/* ───────────── dark mode ─────────────
+   The pages use fixed Tailwind colour classes, so dark mode re-maps those classes instead of
+   touching every component. Bands that are already dark (bg-ink, slate-800+) stay as they are. */
+:root { --line-ink: var(--color-ink); color-scheme: light; }
+[data-theme="dark"] {
+  --line-ink: #e2e8f0;
+  color-scheme: dark;
+}
+[data-theme="dark"] body { background-color: var(--bg-main); color: var(--text-main); }
+[data-theme="dark"] .bg-white { background-color: var(--bg-card); }
+[data-theme="dark"] .bg-white\/95 { background-color: rgb(10 15 29 / 0.95); }
+[data-theme="dark"] .bg-paper { background-color: var(--bg-main); }
+[data-theme="dark"] .bg-slate-50,
+[data-theme="dark"] .hover\:bg-slate-50:hover { background-color: var(--bg-subtle); }
+[data-theme="dark"] .bg-slate-100,
+[data-theme="dark"] .hover\:bg-slate-100:hover { background-color: var(--bg-surface-tint); }
+[data-theme="dark"] .bg-slate-200\/60 { background-color: rgb(30 41 59 / 0.6); }
+[data-theme="dark"] .bg-slate-300 { background-color: #334155; }
+[data-theme="dark"] .bg-blue-50,
+[data-theme="dark"] .bg-blue-50\/80 { background-color: var(--brand-blue-subtle); }
+[data-theme="dark"] .bg-red-50 { background-color: rgb(239 68 68 / 0.12); }
+[data-theme="dark"] .bg-emerald-50\/50 { background-color: rgb(16 185 129 / 0.1); }
+[data-theme="dark"] .text-ink,
+[data-theme="dark"] .text-slate-950,
+[data-theme="dark"] .text-slate-900,
+[data-theme="dark"] .text-slate-800 { color: #f1f5f9; }
+[data-theme="dark"] .text-slate-700 { color: #cbd5e1; }
+[data-theme="dark"] .text-slate-600,
+[data-theme="dark"] .text-slate-500 { color: #94a3b8; }
+[data-theme="dark"] .text-slate-400 { color: #7c8aa0; }
+[data-theme="dark"] .text-blue-600,
+[data-theme="dark"] .text-blue-800,
+[data-theme="dark"] .text-brand-blue { color: #5aaeea; }
+[data-theme="dark"] .border-slate-100,
+[data-theme="dark"] .border-slate-200,
+[data-theme="dark"] .divide-slate-100 > :not(:last-child),
+[data-theme="dark"] .divide-slate-200 > :not(:last-child) { border-color: var(--border-light); }
+[data-theme="dark"] .border-slate-300,
+[data-theme="dark"] .divide-slate-300 > :not(:last-child) { border-color: var(--border-strong); }
+[data-theme="dark"] .border-ink,
+[data-theme="dark"] .divide-ink > :not(:last-child) { border-color: #475569; }
+[data-theme="dark"] .hover\:bg-ink:hover { background-color: #1e293b; }
+/* logo is dark artwork on a transparent background: give it a white plate in dark mode */
+[data-theme="dark"] .site-logo { background: #fff; padding: 4px 10px; border-radius: 4px; }
