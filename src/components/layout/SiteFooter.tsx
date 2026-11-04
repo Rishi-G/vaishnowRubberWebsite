@@ -65,7 +65,6 @@ export const SiteFooter: React.FC<Props> = ({ onOpenEnquiry }) => {
               {LINKS.map((l) => (
                 <li key={l.href}><Link href={l.href} className="hover:text-brand-accent">{l.label}</Link></li>
               ))}
-              <li><button onClick={() => onOpenEnquiry()} className="hover:text-brand-accent">Request a quote</button></li>
             </ul>
           </div>
 

@@ -107,8 +107,7 @@ export const ProductsPage: React.FC<Props> = ({ onOpenEnquiry }) => {
                 )}
               </div>
               <div className="flex gap-2">
-                <Link href={`/products/${p.id}`} className="btn btn-secondary btn-sm">Details</Link>
-                <button onClick={() => onOpenEnquiry(p.id)} className="btn btn-primary btn-sm">Quote</button>
+                <Link href={`/products/${p.id}`} className="btn btn-primary btn-sm">Details</Link>
               </div>
             </li>
           ))}

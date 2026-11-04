@@ -649,7 +649,20 @@ export const COMPANY = {
       status: 'verified' as const,
       documentUrl: '/documents/iso-14001-certificate.pdf',
     },
-    { name: 'ISO 9001:2015', detail: 'Quality Management System — stated in the company catalogue and client brief.', status: 'stated' as const, documentUrl: '' },
+    {
+      name: 'ISO 9001:2015 · BSCIC',
+      detail:
+        'Quality Management System — certified by BSCIC Certifications Pvt. Ltd. (NABCB accredited, IAF member). Certificate no. BN23392/22379, issued 06.12.2024, valid to 05.12.2027; scope covers hydraulic, industrial and LPG hoses and hose assemblies, brake hose connections, air brake hose couplings, UIC elastomer flange connections, elastomer-metal bonded items for FIAT bogies and elastomeric pads.',
+      status: 'verified' as const,
+      documentUrl: '/documents/iso-9001-bscic-certificate.pdf',
+    },
+    {
+      name: 'ISO 9001:2015 · QFS',
+      detail:
+        'Quality Management System — certified by QFS Management Systems LLP (SCC accredited). Certificate no. SCC/2403VU/2032, dated 11.02.2026, valid to 14.03.2027; scope covers railway brake hose couplings, UIC elastomer flange connections, elastomer-metal bonded items for FIAT bogies and elastomeric pads.',
+      status: 'verified' as const,
+      documentUrl: '/documents/iso-9001-qfs-certificate.pdf',
+    },
     { name: 'IRIS', detail: 'Railway industry standard — stated by the company; certificate not yet supplied.', status: 'stated' as const, documentUrl: '' },
   ],
   customers: [

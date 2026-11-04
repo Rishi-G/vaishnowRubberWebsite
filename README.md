@@ -45,7 +45,7 @@ Everything shown comes from three client documents: *Hydraulic Hose Fittings & A
 - Company: incorporated 14 Nov 2014 by Mr. Satvir Singh and Dr. (Mrs.) Roopam Singh; ~5 acres, Moradabad; address, phone, emails.
 
 ### Stated by the client, no document supplied
-- ISO 9001:2015, IRIS (shown as "Stated by company").
+- IRIS (shown as "Stated by company"). ISO 9001:2015 (BSCIC and QFS) and ISO 14001:2015 certificates are on file.
 - Customer list, in-house capabilities, USPs, railway product list.
 
 ### Removed from the earlier draft because no document supports it
@@ -56,7 +56,7 @@ Indian Oil as a client · BIS certification · OMA/Sintech braiders · extrusion
 1. **Governor hose GH-4** prints burst 414 bar / 6000 psi against 7 bar working — reproduced as printed; likely a catalogue typo.
 2. **ID (mm)** is converted from the catalogue's inch sizes (the catalogue prints inches only).
 3. **RDSO, Lucknow** is listed under customers as written in the brief — confirm whether it is a customer or an approving body, and wording.
-4. **ISO 9001 and IRIS certificates** — supply the PDFs and they will show as verified.
+4. **IRIS certificate** — supply the PDF and it will show as verified.
 5. **Railway components have no data sheets, drawings or photos yet.** Their 3D models are illustrative (labelled on screen). Supplying drawings would let them be modelled accurately.
 6. The four product category photos in `public/assets/` came with the earlier project; their origin is unconfirmed. The client said they have no professional photography — the catalogue's factory photos could be extracted if wanted.
 7. `satvir21@gmail.com` (printed on the catalogue back cover) is shown publicly next to `info@vaishnorubber.com` — remove it in Company Info if not wanted.

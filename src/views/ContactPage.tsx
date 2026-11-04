@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { CheckCircle2, Mail, MapPin, Phone, Send, Wrench } from 'lucide-react'
+import { CheckCircle2, Mail, MapPin, Phone, Send } from 'lucide-react'
 import type { PageRoute } from '@/types'
 import { useSiteData } from '@/lib/site-context'
 import { submitEnquiry } from '@/lib/submitEnquiry'
@@ -79,8 +79,7 @@ export const ContactPage: React.FC<Props> = ({ onOpenEnquiry }) => {
             </div>
             <div className="bg-ink p-5 text-white">
               <p className="font-display text-lg font-bold text-white">Have a product and size in mind?</p>
-              <p className="mt-1 text-sm leading-relaxed text-white/70">Use the quote form to specify product, size and working pressure.</p>
-              <button onClick={() => onOpenEnquiry()} className="btn btn-accent btn-sm mt-4"><Wrench size={14} /> Request a quote</button>
+              <p className="mt-1 text-sm leading-relaxed text-white/70">Put the product, size and working pressure in your message.</p>
             </div>
           </dl>
         </aside>

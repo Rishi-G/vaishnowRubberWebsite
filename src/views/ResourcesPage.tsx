@@ -112,6 +112,8 @@ export const ResourcesPage: React.FC<Props> = () => {
         <ul className="mt-8 grid gap-6 md:grid-cols-2">
           {[
             ['VEXTRA hose catalogue', 'Hydraulic, industrial, LPG and automotive hose data sheets, flow chart and installation guidance.', '/documents/vextra-hose-catalogue.pdf'],
+            ['ISO 9001:2015 certificate (BSCIC)', 'Quality Management System certificate issued by BSCIC Certifications Pvt. Ltd., valid to 5 December 2027.', '/documents/iso-9001-bscic-certificate.pdf'],
+            ['ISO 9001:2015 certificate (QFS)', 'Quality Management System certificate issued by QFS Management Systems LLP, valid to 14 March 2027.', '/documents/iso-9001-qfs-certificate.pdf'],
             ['ISO 14001:2015 certificate', 'Environmental Management System certificate issued by QFS Management Systems LLP.', '/documents/iso-14001-certificate.pdf'],
           ].map(([t, d, href]) => (
             <li key={t}>

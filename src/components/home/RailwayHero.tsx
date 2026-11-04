@@ -24,7 +24,7 @@ const smooth = (t: number) => {
  * Models are illustrative: no drawings have been supplied.
  */
 export function RailwayHero({ tabs, triggerRef }: { tabs: React.ReactNode; triggerRef: StartRef }) {
-  const { products, openEnquiry } = useSiteData()
+  const { products } = useSiteData()
   const items = useMemo(() => products.filter((p) => p.category === 'railway'), [products])
 
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -190,12 +190,12 @@ export function RailwayHero({ tabs, triggerRef }: { tabs: React.ReactNode; trigg
               </p>
               {tabs}
               <div className="mt-4 flex gap-2 sm:mt-6 sm:gap-3">
-                <button onClick={() => openEnquiry()} className="btn btn-primary btn-sm sm:px-7 sm:py-4 sm:text-base">
-                  Request a quote
-                  <ArrowRight size={16} />
-                </button>
-                <Link href="/products?category=railway" className="btn btn-secondary btn-sm sm:px-7 sm:py-4 sm:text-base">
+                <Link href="/products?category=railway" className="btn btn-primary btn-sm sm:px-7 sm:py-4 sm:text-base">
                   Railway range
+                  <ArrowRight size={16} />
+                </Link>
+                <Link href="/contact" className="btn btn-secondary btn-sm sm:px-7 sm:py-4 sm:text-base">
+                  Contact us
                 </Link>
               </div>
             </div>
@@ -219,9 +219,6 @@ export function RailwayHero({ tabs, triggerRef }: { tabs: React.ReactNode; trigg
                 <Link href={`/products/${part.id}`} className="btn btn-primary btn-sm">
                   View details
                 </Link>
-                <button onClick={() => openEnquiry(part.id)} className="btn btn-secondary btn-sm">
-                  Request a quote
-                </button>
               </div>
             </div>
           )}

@@ -49,7 +49,7 @@ interface HeroProps {
 }
 
 function HoseHero({ family, tabs, triggerRef }: HeroProps & { family: FamilyKey }) {
-  const { products, openEnquiry } = useSiteData()
+  const { products } = useSiteData()
   const product = useMemo(() => {
     const slug = FAMILIES.find((f) => f.key === family)?.slug
     return (
@@ -287,12 +287,12 @@ function HoseHero({ family, tabs, triggerRef }: HeroProps & { family: FamilyKey 
               </p>
               {tabs}
               <div className="mt-4 flex gap-2 sm:mt-6 sm:gap-3">
-                <button onClick={() => openEnquiry()} className="btn btn-primary btn-sm sm:px-7 sm:py-4 sm:text-base">
-                  Request a quote
-                  <ArrowRight size={16} />
-                </button>
-                <Link href="/products" className="btn btn-secondary btn-sm sm:px-7 sm:py-4 sm:text-base">
+                <Link href="/products" className="btn btn-primary btn-sm sm:px-7 sm:py-4 sm:text-base">
                   Product range
+                  <ArrowRight size={16} />
+                </Link>
+                <Link href="/contact" className="btn btn-secondary btn-sm sm:px-7 sm:py-4 sm:text-base">
+                  Contact us
                 </Link>
               </div>
             </div>
@@ -310,9 +310,6 @@ function HoseHero({ family, tabs, triggerRef }: HeroProps & { family: FamilyKey 
                   <Link href={`/products/${product.id}`} className="btn btn-primary btn-sm">
                     View data sheet
                   </Link>
-                  <button onClick={() => openEnquiry(product.id)} className="btn btn-secondary btn-sm">
-                    Request a quote
-                  </button>
                 </div>
               )}
             </div>

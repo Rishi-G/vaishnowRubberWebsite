@@ -103,7 +103,7 @@ export const IndustriesPage: React.FC<Props> = ({ onOpenEnquiry }) => {
       <section className="bg-ink py-14 text-white">
         <div className="container flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
           <p className="max-w-xl text-lg leading-snug text-white/85">Working in a sector not listed here, such as defence? Tell us the requirement, and we will say whether we can supply it.</p>
-          <button onClick={() => onOpenEnquiry()} className="btn btn-accent btn-lg">Send an enquiry</button>
+          <Link href="/contact" className="btn btn-accent btn-lg">Send an enquiry</Link>
         </div>
       </section>
     </div>

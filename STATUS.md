@@ -56,7 +56,7 @@ Project folder: `~/Desktop/Rishi/Practics/vaishnowRubberWebsite` (moved from `ru
 | # | Item | Why it matters |
 |---|---|---|
 | 1 | Drawings or datasheets for the 8 railway components | Their 3D models are illustrative; the pages have no specifications |
-| 2 | ISO 9001:2015 and IRIS certificates | Shown as "Stated by company" until supplied |
+| 2 | IRIS certificate | Shown as "Stated by the company" until supplied (ISO 9001 and 14001 certificates are in, see D2) |
 | 3 | Confirm Governor hose GH-4 values | Catalogue prints 414 bar burst against 7 bar working pressure |
 | 4 | Confirm RDSO, Lucknow wording | Listed as a customer; may be an approving body |
 | 5 | Confirm the four category photos in `public/assets/` | Origin unknown; client says they have no professional photos. The client has since shared a Drive folder of product images (see section D) |
@@ -111,6 +111,13 @@ Project folder: `~/Desktop/Rishi/Practics/vaishnowRubberWebsite` (moved from `ru
 - [ ] LPG sector on the Industries page uses a line drawing because no LPG photo has been supplied
 - [ ] Shared graphics live in `src/components/site/graphics.tsx`; the old `PageHead` is still used by the Products pages
 - [ ] Not yet checked: keyboard and screen-reader pass on the new pages, and a real phone
+
+### D2. Certificates and quote buttons (4 Nov 2026)
+- [x] Added the two ISO 9001:2015 certificates shared on WhatsApp (BSCIC no. BN23392/22379, valid to 5 Dec 2027; QFS no. SCC/2403VU/2032, valid to 14 Mar 2027). PDFs are in `public/documents/`, listed on Company, Home, Resources and the footer. The ISO 14001 PDF supplied again is identical to the one already on the site
+- [x] Animated ISO badges (`src/components/site/CertBadge.tsx`): the 9001 ring turns slowly (faster on hover), the 14001 globe draws itself once; both stop for reduced motion
+- [x] "Request a quote" removed from the header, mobile menu, footer, hero slides, home sections, Products pages and Contact. Remaining calls to action link to the Contact page. The quote modal code is still in the project but nothing opens it
+- [ ] BSCIC certificate says 1st surveillance was due 5 Dec 2025; ask the client for the surveillance letter before relying on it as current
+- [ ] Decide whether to delete `EnquiryModal` and the unused `openEnquiry` plumbing
 
 ### D. Client product images (in progress)
 - Received in `Segregated picture/`: Hose (34 photos), Vestibule (14), EM Pad (10), Lab and testing (3); Production and Store folders were empty. Files are about 6 MB each and need resizing before use.

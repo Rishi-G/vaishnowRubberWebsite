@@ -1,9 +1,11 @@
 'use client'
 
 import React from 'react'
+import Link from 'next/link'
 import { Check, ExternalLink, FileCheck2 } from 'lucide-react'
 import type { PageRoute } from '@/types'
 import { useSiteData } from '@/lib/site-context'
+import { CertBadge, certKind } from '@/components/site/CertBadge'
 import { ArtHose, Photo, SheetHero } from '@/components/site/graphics'
 
 interface Props {
@@ -91,23 +93,31 @@ export const CompanyPage: React.FC<Props> = ({ onOpenEnquiry }) => {
       {/* certification */}
       <section className="container py-16 lg:py-24">
         <h2 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">Certification</h2>
-        <ul className="mt-8 grid gap-6 md:grid-cols-3">
-          {company.certifications.map((c) => (
-            <li key={c.name} className="relative flex flex-col overflow-hidden border border-slate-300 bg-white p-6">
-              <div className="flex items-start justify-between gap-4">
-                <h3 className="font-display text-2xl font-bold text-ink">{c.name}</h3>
-                <FileCheck2 size={22} className={c.status === 'verified' ? 'text-emerald-600' : 'text-slate-300'} />
-              </div>
-              <p className="mt-1 text-sm font-semibold text-slate-500">{c.status === 'verified' ? 'Certificate on file' : 'Stated by the company'}</p>
-              <p className="mt-4 flex-1 text-[15px] leading-relaxed text-slate-600">{c.detail}</p>
-              {c.documentUrl && (
-                <a href={c.documentUrl} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-brand-blue hover:text-brand-hover">
-                  View certificate (PDF) <ExternalLink size={13} />
-                </a>
-              )}
-              <span className={`absolute inset-x-0 bottom-0 h-1 ${c.status === 'verified' ? 'bg-emerald-600' : 'bg-slate-200'}`} />
-            </li>
-          ))}
+        <ul className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {company.certifications.map((c) => {
+            const kind = certKind(c.name)
+            return (
+              <li key={c.name} className="cert-card relative flex flex-col overflow-hidden border border-slate-300 bg-white p-6">
+                <div className="flex items-center gap-5">
+                  {kind && <CertBadge kind={kind} className="h-24 w-24 shrink-0" />}
+                  <div>
+                    <h3 className="font-display text-2xl font-bold text-ink">{c.name}</h3>
+                    <p className="mt-1 flex items-center gap-1.5 text-sm font-semibold text-slate-500">
+                      <FileCheck2 size={16} className={c.status === 'verified' ? 'text-emerald-600' : 'text-slate-300'} />
+                      {c.status === 'verified' ? 'Certificate on file' : 'Stated by the company'}
+                    </p>
+                  </div>
+                </div>
+                <p className="mt-4 flex-1 text-[15px] leading-relaxed text-slate-600">{c.detail}</p>
+                {c.documentUrl && (
+                  <a href={c.documentUrl} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-brand-blue hover:text-brand-hover">
+                    View certificate (PDF) <ExternalLink size={13} />
+                  </a>
+                )}
+                <span className={`absolute inset-x-0 bottom-0 h-1 ${c.status === 'verified' ? 'bg-emerald-600' : 'bg-slate-200'}`} />
+              </li>
+            )
+          })}
         </ul>
       </section>
 
@@ -117,7 +127,7 @@ export const CompanyPage: React.FC<Props> = ({ onOpenEnquiry }) => {
             <h2 className="font-display text-2xl font-bold text-white sm:text-3xl">Export and technology partnerships</h2>
             <p className="mt-2 text-white/85">We are looking for technology-transfer partners in Europe, China and the USA for selected products, and welcome export enquiries.</p>
           </div>
-          <button onClick={() => onOpenEnquiry()} className="btn btn-accent btn-lg">Start a conversation</button>
+          <Link href="/contact" className="btn btn-accent btn-lg">Start a conversation</Link>
         </div>
       </section>
     </div>

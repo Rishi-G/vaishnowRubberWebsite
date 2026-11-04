@@ -50,7 +50,7 @@ export const ProductDetailPage: React.FC<Props> = ({ productId, onOpenEnquiry })
             {!hose && <Fact k="Data" v="Specification, drawings and datasheet on request" />}
           </dl>
           <div className="flex flex-wrap gap-3">
-            <button onClick={() => onOpenEnquiry(product.id)} className="btn btn-primary">Request a quote</button>
+            <Link href="/contact" className="btn btn-primary">Contact us</Link>
             {hose && (
               <a href="/documents/vextra-hose-catalogue.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-secondary"><Download size={15} /> Catalogue PDF</a>
             )}
@@ -71,8 +71,8 @@ export const ProductDetailPage: React.FC<Props> = ({ productId, onOpenEnquiry })
             {!hose && (
               <div className="mt-6 rounded-sm border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
                 <p className="font-semibold text-slate-900">Technical information</p>
-                <p className="mt-1">Specification, drawings and datasheets are supplied on request. Send us your requirement and we will respond with a quotation.</p>
-                <button onClick={() => onOpenEnquiry(product.id)} className="btn btn-primary btn-sm mt-3">Request specification & quote</button>
+                <p className="mt-1">Specification, drawings and datasheets are supplied on request. Send us your requirement through the contact page.</p>
+                <Link href="/contact" className="btn btn-primary btn-sm mt-3">Contact us</Link>
               </div>
             )}
           </div>

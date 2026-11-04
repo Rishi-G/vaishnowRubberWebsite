@@ -2,6 +2,7 @@
 
 import React, { useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
+import { CertBadge, certKind } from '@/components/site/CertBadge'
 import { ArrowRight, Download, FileCheck2, Phone } from 'lucide-react'
 import { useSiteData } from '@/lib/site-context'
 import { useReveal } from '@/components/motion/useReveal'
@@ -16,7 +17,7 @@ export function FactStrip() {
   const facts = [
     { k: 'Incorporated', v: company.incorporated.replace(/^\d+ /, '') || '2014', s: 'by Mr. Satvir Singh and Dr. (Mrs.) Roopam Singh' },
     { k: 'Works', v: company.landArea.replace('Approximately ', '~'), s: 'Moradabad, Uttar Pradesh' },
-    { k: 'Quality & environment', v: 'ISO 9001 · ISO 14001', s: 'ISO 14001:2015 certificate available to view' },
+    { k: 'Quality & environment', v: 'ISO 9001 · ISO 14001', s: 'ISO 9001:2015 and ISO 14001:2015 certificates available to view' },
     { k: 'Standards', v: 'DIN · EN · SAE · IS · BS', s: 'hose specifications we manufacture to' },
   ]
   return (
@@ -84,7 +85,6 @@ export function RailwayShowcase() {
               </div>
               <div className="flex gap-2">
                 <Link href={`/products/${current.id}`} className="btn btn-secondary btn-sm">Details</Link>
-                <button onClick={() => openEnquiry(current.id)} className="btn btn-primary btn-sm">Request quote</button>
               </div>
             </div>
           </div>
@@ -211,7 +211,7 @@ export function PressureFinder() {
                 </div>
                 <span className="font-mono text-sm font-bold text-slate-900">{p.maxPressureBar} bar</span>
                 <span className="hidden w-44 font-mono text-[11px] text-slate-500 md:block">{p.temperatureRange?.split(' (')[0]}</span>
-                <button onClick={() => openEnquiry(p.id)} className="btn btn-secondary btn-sm">Quote</button>
+                <Link href={`/products/${p.id}`} className="btn btn-secondary btn-sm">Details</Link>
               </li>
             ))}
           </ul>
@@ -282,19 +282,25 @@ export function Works() {
             ))}
           </ul>
           <h3 data-reveal className="mt-8 font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-slate-400">Certification</h3>
-          <ul data-reveal className="mt-3 grid gap-3 sm:grid-cols-3">
-            {company.certifications.map((c) => (
-              <li key={c.name} className="rounded-sm border border-slate-800 p-3">
-                <p className="text-sm font-bold text-white">{c.name}</p>
-                <p className="mt-1 flex items-center gap-1 text-[11px] text-slate-400">
-                  <FileCheck2 size={12} className={c.status === 'verified' ? 'text-emerald-400' : 'text-slate-500'} />
-                  {c.status === 'verified' ? 'Certificate on file' : 'Stated by company'}
-                </p>
-                {c.documentUrl && (
-                  <a href={c.documentUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-xs font-semibold text-brand-accent hover:underline">View certificate (PDF)</a>
-                )}
-              </li>
-            ))}
+          <ul data-reveal className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            {company.certifications.map((c) => {
+              const kind = certKind(c.name)
+              return (
+                <li key={c.name} className="cert-card flex items-center gap-3 rounded-sm border border-slate-800 p-3">
+                  {kind && <CertBadge kind={kind} className="h-16 w-16 shrink-0" />}
+                  <div className="min-w-0">
+                    <p className="text-sm font-bold text-white">{c.name}</p>
+                    <p className="mt-1 flex items-center gap-1 text-[11px] text-slate-400">
+                      <FileCheck2 size={12} className={c.status === 'verified' ? 'text-emerald-400' : 'text-slate-500'} />
+                      {c.status === 'verified' ? 'Certificate on file' : 'Stated by company'}
+                    </p>
+                    {c.documentUrl && (
+                      <a href={c.documentUrl} target="_blank" rel="noopener noreferrer" className="mt-1 inline-block text-xs font-semibold text-brand-accent hover:underline">View certificate (PDF)</a>
+                    )}
+                  </div>
+                </li>
+              )
+            })}
           </ul>
         </div>
       </div>
@@ -312,10 +318,10 @@ export function QuoteBand() {
       <div className="container flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
         <div data-reveal className="max-w-2xl">
           <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl">Tell us what you need to connect, seal or absorb.</h2>
-          <p className="mt-2 text-sm text-blue-100">Send a specification or drawing — our team will come back with a quotation.</p>
+          <p className="mt-2 text-sm text-blue-100">Send a specification or drawing and our team will get back to you.</p>
         </div>
         <div data-reveal className="flex flex-wrap gap-3">
-          <button onClick={() => openEnquiry()} className="btn btn-accent btn-lg">Request a quote <ArrowRight size={16} /></button>
+          <Link href="/contact" className="btn btn-accent btn-lg">Contact us <ArrowRight size={16} /></Link>
           <a href={CATALOGUE_URL} target="_blank" rel="noopener noreferrer" className="btn btn-lg border-white/40 bg-transparent text-white hover:border-white hover:bg-white/10"><Download size={16} /> Hose catalogue</a>
           <a href={`tel:${company.phone.replace(/\s/g, '')}`} className="btn btn-lg border-white/40 bg-transparent text-white hover:border-white hover:bg-white/10"><Phone size={16} /> {company.phone}</a>
         </div>

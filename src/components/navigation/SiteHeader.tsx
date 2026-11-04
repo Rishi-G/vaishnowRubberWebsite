@@ -3,7 +3,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ChevronDown, Download, Mail, Menu, Phone, Wrench, X } from 'lucide-react'
+import { ChevronDown, Download, Mail, Menu, Phone, X } from 'lucide-react'
 import type { PageRoute, Product, ProductCategory } from '@/types'
 import { useSiteData } from '@/lib/site-context'
 
@@ -153,9 +153,6 @@ export const SiteHeader: React.FC<Props> = ({ currentRoute, onOpenEnquiry }) => 
         </nav>
 
         <div className="flex items-center gap-3">
-          <button onClick={() => onOpenEnquiry()} className="btn btn-primary btn-sm hidden sm:inline-flex">
-            <Wrench size={15} /> Request quote
-          </button>
           <button onClick={() => setDrawer(true)} className="rounded-md p-2 text-slate-700 hover:bg-slate-100 lg:hidden" aria-label="Open menu" aria-expanded={drawer}>
             <Menu size={24} />
           </button>
@@ -211,9 +208,6 @@ export const SiteHeader: React.FC<Props> = ({ currentRoute, onOpenEnquiry }) => 
                   <a href={CATALOGUE_URL} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 rounded bg-brand-blue px-3 py-2 text-xs font-semibold text-white hover:bg-brand-hover">
                     <Download size={13} /> Download PDF
                   </a>
-                  <button onClick={() => onOpenEnquiry()} className="w-full rounded border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-800 hover:border-brand-blue">
-                    Request a quote
-                  </button>
                 </div>
               </div>
             </div>
@@ -264,7 +258,6 @@ export const SiteHeader: React.FC<Props> = ({ currentRoute, onOpenEnquiry }) => 
               ))}
             </nav>
             <div className="shrink-0 space-y-2 border-t border-slate-200 p-5">
-              <button onClick={() => { setDrawer(false); onOpenEnquiry() }} className="btn btn-primary btn-lg w-full">Request a quote</button>
               <a href={phoneHref} className="btn btn-secondary btn-lg w-full"><Phone size={16} /> {company.phone}</a>
             </div>
           </motion.div>
