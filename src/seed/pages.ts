@@ -10,6 +10,83 @@ const t = (...items: string[]) => items.map((text) => ({ text }))
 const photo = (src: string, alt: string, caption = '') => ({ src, alt, caption })
 
 export const PAGES = {
+  home: {
+    hero: {
+      eyebrow: 'VEXTRA® · Vaishno Rubber Industries',
+      heading: 'Rubber components and hoses for *Indian Railways* and industry.',
+      text: 'Made at our works in Moradabad: railway rubber-metal parts, and hydraulic, industrial, LPG and automotive hoses.',
+      primaryLabel: 'Product range',
+      railwayPrimaryLabel: 'Railway range',
+      secondaryLabel: 'Contact us',
+      tabs: { hydraulic: 'Hydraulic hoses', industrial: 'Industrial & LPG hoses', automotive: 'Automotive hoses', railway: 'Railway components' },
+      cover: {
+        eyebrow: '02 — Cover',
+        title: 'Built to take the knocks',
+        body: '{cover}. The VEXTRA mark and rating are printed along the length.',
+        note: 'Print shown is illustrative.',
+      },
+      fittings: {
+        eyebrow: '03 — Assemblies',
+        title: 'Supplied with fittings',
+        body: 'VEXTRA also supplies hydraulic hose fittings and adapters, so hose and end connection come from one works.',
+        note: 'Fitting shown is illustrative; adapter range is in the catalogue.',
+      },
+      layers: {
+        eyebrow: '04 — Construction',
+        title: 'Built in layers',
+        body: 'Tube: {tube}. Reinforcement: {reinforcement}. Cover: {cover}.',
+        note: 'Illustrative construction — the data sheet is the reference.',
+      },
+      rating: { eyebrow: '05 — Rating', buttonLabel: 'View data sheet' },
+    },
+    facts: [
+      { label: 'Incorporated', value: '{year}', sub: 'by {founders}' },
+      { label: 'Works', value: '{area}', sub: 'Moradabad, Uttar Pradesh' },
+      { label: 'Quality & environment', value: 'ISO 9001 · ISO 14001', sub: 'ISO 9001:2015 and ISO 14001:2015 certificates available to view' },
+      { label: 'Standards', value: 'DIN · EN · SAE · IS · BS', sub: 'hose specifications we manufacture to' },
+    ],
+    railway: {
+      eyebrow: 'Railway components',
+      heading: 'Rubber and rubber-metal parts for the rails.',
+      text: 'Pads, brake-hose couplings, gangway mountings and bogie components for Indian Railways and railway OEMs. Pick a part and watch what it does.',
+      detailsLabel: 'Details',
+    },
+    hoses: {
+      eyebrow: 'Hoses & assemblies',
+      heading: 'The full VEXTRA hose range.',
+      families: [
+        { title: 'Hydraulic hoses', blurb: 'Wire and textile braided hoses to SAE 100, EN 853 and DIN 20022, plus SH33, jack and loader hoses.', categories: ['hydraulic'] as ProductCategory[], photo: photo('/assets/hydraulic-hose.jpg', 'Hydraulic hoses — VEXTRA') },
+        { title: 'Industrial & LPG hoses', blurb: 'Steam hoses to IS 10655, rock drill hoses to IS 446, and LPG hoses to BS EN 1762 and IS 9573.', categories: ['industrial', 'lpg'] as ProductCategory[], photo: photo('/assets/industrial-hoses.jpg', 'Industrial & LPG hoses — VEXTRA') },
+        { title: 'Automotive hoses', blurb: 'Governor, tractor trolley, CNG and air-conditioning suction hoses.', categories: ['automotive'] as ProductCategory[], photo: photo('/assets/automotive-hoses.jpg', 'Automotive hoses — VEXTRA') },
+      ],
+    },
+    finder: {
+      eyebrow: 'Hose finder',
+      heading: 'Start from the pressure you need.',
+      text: 'Lists the product lines whose highest working pressure meets your figure. The rating falls as bore size grows, so confirm the size you need on the data sheet.',
+      noMatch: 'No hose line reaches {need} bar in this family. Contact us — custom constructions may be possible.',
+    },
+    customers: {
+      eyebrow: 'Who we supply',
+      heading: 'Indian Railways and the railway supply chain.',
+      text: 'Customers and organisations we work with, as listed by the company.',
+    },
+    works: {
+      eyebrow: 'The works',
+      heading: 'Compounding, moulding, hose-making and testing under one roof.',
+      aboutLabel: 'About the company',
+      contactLabel: 'Contact sales',
+      capabilitiesHeading: 'Capabilities',
+      certificationHeading: 'Certification',
+    },
+    quote: {
+      heading: 'Tell us what you need to connect, seal or absorb.',
+      text: 'Send a specification or drawing and our team will get back to you.',
+      contactLabel: 'Contact us',
+      catalogueLabel: 'Hose catalogue',
+    },
+  },
+
   contact: {
     hero: {
       title: 'Talk to the Moradabad works.',

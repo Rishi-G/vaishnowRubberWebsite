@@ -4,10 +4,10 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ArrowRight } from 'lucide-react'
 import { useSiteData } from '@/lib/site-context'
 import { useDemoStage } from '@/components/three/useStage'
 import type { StartRef } from './HeroStory'
+import { HeroIntro, type HeroContent } from './HeroIntro'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -23,7 +23,7 @@ const smooth = (t: number) => {
  * only, and the stage renders when they change — same contract as the hose story.
  * Models are illustrative: no drawings have been supplied.
  */
-export function RailwayHero({ tabs, triggerRef }: { tabs: React.ReactNode; triggerRef: StartRef }) {
+export function RailwayHero({ hero, tabs, triggerRef }: { hero: HeroContent; tabs: React.ReactNode; triggerRef: StartRef }) {
   const { products } = useSiteData()
   const items = useMemo(() => products.filter((p) => p.category === 'railway'), [products])
 
@@ -180,25 +180,7 @@ export function RailwayHero({ tabs, triggerRef }: { tabs: React.ReactNode; trigg
         <div className="container relative z-10 h-full">
           {/* intro — same copy as the hose slides, fades as the story starts */}
           <div ref={introRef} className="absolute left-6 top-4 max-w-[min(36rem,calc(100%-3rem))] lg:left-10 lg:top-8">
-            <div className="pt-2 lg:pt-6">
-              <span className="font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-brand-blue">VEXTRA® · Vaishno Rubber Industries</span>
-              <h1 className="mt-3 text-[1.7rem] font-extrabold leading-[1.08] tracking-tight text-slate-950 sm:text-5xl xl:text-6xl">
-                Rubber components and hoses for <span className="text-brand-blue">Indian Railways</span> and industry.
-              </h1>
-              <p className="mt-4 hidden max-w-lg text-sm leading-relaxed text-slate-600 sm:block sm:text-base">
-                Made at our works in Moradabad: railway rubber-metal parts, and hydraulic, industrial, LPG and automotive hoses.
-              </p>
-              {tabs}
-              <div className="mt-4 flex gap-2 sm:mt-6 sm:gap-3">
-                <Link href="/products?category=railway" className="btn btn-primary btn-sm sm:px-7 sm:py-4 sm:text-base">
-                  Railway range
-                  <ArrowRight size={16} />
-                </Link>
-                <Link href="/contact" className="btn btn-secondary btn-sm sm:px-7 sm:py-4 sm:text-base">
-                  Contact us
-                </Link>
-              </div>
-            </div>
+            <HeroIntro hero={hero} tabs={tabs} primaryHref="/products?category=railway" primaryLabel={hero.railwayPrimaryLabel} />
           </div>
 
           {/* the part currently on show */}

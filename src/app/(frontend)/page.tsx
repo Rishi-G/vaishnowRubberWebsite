@@ -1,5 +1,6 @@
 import { HomeView } from '@/components/site/Views'
+import { getPage } from '@/lib/cms'
 
-export default function Page() {
-  return <HomeView />
+export default async function Page() {
+  return <HomeView content={await getPage('home')} />
 }

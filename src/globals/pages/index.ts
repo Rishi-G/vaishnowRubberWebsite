@@ -102,4 +102,80 @@ export const ResourcesPageGlobal = pageGlobal('page-resources', 'Resources page'
   ]),
 ])
 
-export const PageGlobals = [ContactPageGlobal, CompanyPageGlobal, IndustriesPageGlobal, ResourcesPageGlobal]
+const chapter = (name: string, label: string, tokens = '') =>
+  group(name, label, [
+    { type: 'row', fields: [text('eyebrow', 'Small label', 40), text('title', 'Heading', 80)] },
+    textarea('body', 'Text', 400),
+    text('note', 'Small print', 160),
+  ], tokens ? `Tokens filled from the product on show: ${tokens}.` : undefined)
+
+const section = (name: string, label: string, extra: Field[] = []): Field =>
+  group(name, label, [{ type: 'row', fields: [text('eyebrow', 'Small label', 40), text('heading', 'Heading', 160)] }, ...extra])
+
+export const HomePageGlobal = pageGlobal('page-home', 'Home page', '/', [
+  {
+    type: 'tabs',
+    tabs: [
+      {
+        label: '3D banner',
+        fields: [
+          group('hero', 'Banner', [
+            text('eyebrow', 'Small label', 60),
+            text('heading', 'Heading', 160),
+            textarea('text', 'Intro line', 300),
+            { type: 'row', fields: [text('primaryLabel', 'Main button (hoses)', 40), text('railwayPrimaryLabel', 'Main button (railway)', 40), text('secondaryLabel', 'Second button', 40)] },
+            group('tabs', 'Family tabs', [
+              { type: 'row', fields: [text('hydraulic', 'Hydraulic', 40), text('industrial', 'Industrial & LPG', 40)] },
+              { type: 'row', fields: [text('automotive', 'Automotive', 40), text('railway', 'Railway', 40)] },
+            ]),
+            chapter('cover', 'Scroll step 2 — cover', '{cover}'),
+            chapter('fittings', 'Scroll step 3 — fittings'),
+            chapter('layers', 'Scroll step 4 — layers', '{tube}, {reinforcement}, {cover}'),
+            group('rating', 'Scroll step 5 — rating (heading and text come from the data sheet)', [
+              { type: 'row', fields: [text('eyebrow', 'Small label', 40), text('buttonLabel', 'Button', 40)] },
+            ]),
+          ], 'In the heading, put *stars* around the words shown in blue. Keep texts short: they sit over the 3D model.'),
+        ],
+      },
+      {
+        label: 'Sections',
+        fields: [
+          {
+            name: 'facts',
+            label: 'Facts strip',
+            type: 'array',
+            maxRows: 4,
+            admin: { description: 'Tokens: {year}, {founders}, {area} (from Company Info).' },
+            fields: [{ type: 'row', fields: [text('label', 'Label', 40), text('value', 'Value', 60), text('sub', 'Small text', 120)] }],
+          },
+          section('railway', 'Railway parts in action', [textarea('text', 'Text', 400), text('detailsLabel', 'Details button', 40)]),
+          section('hoses', 'Hose range', [
+            {
+              name: 'families',
+              label: 'Hose families',
+              type: 'array',
+              fields: [
+                { type: 'row', fields: [{ name: 'title', type: 'text', required: true, maxLength: 80 }, { name: 'categories', type: 'select', hasMany: true, required: true, options: CATEGORY_OPTIONS }] },
+                textarea('blurb', 'Text', 400),
+                photo(),
+              ],
+            },
+          ]),
+          section('finder', 'Hose finder', [textarea('text', 'Text', 400), textarea('noMatch', 'No-match message ({need} = the pressure chosen)', 300)]),
+          section('customers', 'Customers (names are edited in Company Info)', [textarea('text', 'Text', 300)]),
+          section('works', 'The works (dark section)', [
+            { type: 'row', fields: [text('aboutLabel', 'First button', 40), text('contactLabel', 'Second button', 40)] },
+            { type: 'row', fields: [text('capabilitiesHeading', 'Capabilities heading', 40), text('certificationHeading', 'Certification heading', 40)] },
+          ]),
+          group('quote', 'Blue band at the bottom', [
+            text('heading', 'Heading', 160),
+            textarea('text', 'Text', 300),
+            { type: 'row', fields: [text('contactLabel', 'Contact button', 40), text('catalogueLabel', 'Catalogue button', 40)] },
+          ]),
+        ],
+      },
+    ],
+  },
+])
+
+export const PageGlobals = [HomePageGlobal, ContactPageGlobal, CompanyPageGlobal, IndustriesPageGlobal, ResourcesPageGlobal]

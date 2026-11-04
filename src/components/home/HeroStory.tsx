@@ -4,13 +4,14 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ArrowRight } from 'lucide-react'
 import { useSiteData } from '@/lib/site-context'
 import { specFromProduct } from '@/three/spec'
 import { SHOTS } from '@/three/shots'
 import type { HoseStage } from '@/three/stage'
 import { useHoseStage } from '@/components/three/useStage'
 import { RailwayHero } from './RailwayHero'
+import { HeroIntro, type HeroContent } from './HeroIntro'
+import { fill } from '@/lib/content'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -35,20 +36,21 @@ const pickShots = () =>
  */
 /** Hero slides: each hose family is told by one representative hose, with the same scroll story; railway has its own story. */
 const FAMILIES = [
-  { key: 'hydraulic', label: 'Hydraulic hoses', slug: 'sae-100-r2' },
-  { key: 'industrial', label: 'Industrial & LPG hoses', slug: 'steam-hose-type-2' },
-  { key: 'automotive', label: 'Automotive hoses', slug: 'governor-hose' },
-  { key: 'railway', label: 'Railway components', slug: '' },
+  { key: 'hydraulic', slug: 'sae-100-r2' },
+  { key: 'industrial', slug: 'steam-hose-type-2' },
+  { key: 'automotive', slug: 'governor-hose' },
+  { key: 'railway', slug: '' },
 ] as const
 
 export type FamilyKey = (typeof FAMILIES)[number]['key']
 export type StartRef = React.MutableRefObject<ScrollTrigger | null>
 interface HeroProps {
+  hero: HeroContent
   tabs: React.ReactNode
   triggerRef: StartRef
 }
 
-function HoseHero({ family, tabs, triggerRef }: HeroProps & { family: FamilyKey }) {
+function HoseHero({ hero, family, tabs, triggerRef }: HeroProps & { family: FamilyKey }) {
   const { products } = useSiteData()
   const product = useMemo(() => {
     const slug = FAMILIES.find((f) => f.key === family)?.slug
@@ -201,25 +203,22 @@ function HoseHero({ family, tabs, triggerRef }: HeroProps & { family: FamilyKey 
 
   const chapters = [
     {
-      eyebrow: '02 — Cover',
-      title: 'Built to take the knocks',
-      body: `${product.construction?.cover ?? ''}. The VEXTRA mark and rating are printed along the length.`,
-      note: 'Print shown is illustrative.',
+      ...hero.cover,
+      body: fill(hero.cover.body, { cover: product.construction?.cover ?? '' }),
     },
     {
-      eyebrow: '03 — Assemblies',
-      title: 'Supplied with fittings',
-      body: 'VEXTRA also supplies hydraulic hose fittings and adapters, so hose and end connection come from one works.',
-      note: 'Fitting shown is illustrative; adapter range is in the catalogue.',
+      ...hero.fittings,
     },
     {
-      eyebrow: '04 — Construction',
-      title: 'Built in layers',
-      body: `Tube: ${product.construction?.tube}. Reinforcement: ${product.construction?.reinforcement?.toLowerCase()}. Cover: ${product.construction?.cover?.toLowerCase()}.`,
-      note: 'Illustrative construction — the data sheet is the reference.',
+      ...hero.layers,
+      body: fill(hero.layers.body, {
+        tube: product.construction?.tube ?? '',
+        reinforcement: product.construction?.reinforcement?.toLowerCase() ?? '',
+        cover: product.construction?.cover?.toLowerCase() ?? '',
+      }),
     },
     {
-      eyebrow: '05 — Rating',
+      eyebrow: hero.rating.eyebrow,
       title: `${product.name.split('/')[0].trim()}, rated by size`,
       body: `Working pressure from ${facts.wpMin} to ${facts.wpMax} bar across ${facts.sizes}${facts.burstRatio ? `; minimum burst pressure is ${facts.burstRatio}× working pressure` : ''}.`,
       note: product.standard,
@@ -277,25 +276,7 @@ function HoseHero({ family, tabs, triggerRef }: HeroProps & { family: FamilyKey 
         <div className="container relative z-10 h-full">
           {/* chapter 0 — intro */}
           <div data-chapter className="absolute left-6 top-4 max-w-[min(36rem,calc(100%-3rem))] lg:left-10 lg:top-8">
-            <div className="pt-2 lg:pt-6">
-              <span className="font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-brand-blue">VEXTRA® · Vaishno Rubber Industries</span>
-              <h1 className="mt-3 text-[1.7rem] font-extrabold leading-[1.08] tracking-tight text-slate-950 sm:text-5xl xl:text-6xl">
-                Rubber components and hoses for <span className="text-brand-blue">Indian Railways</span> and industry.
-              </h1>
-              <p className="mt-4 hidden max-w-lg text-sm leading-relaxed text-slate-600 sm:block sm:text-base">
-                Made at our works in Moradabad: railway rubber-metal parts, and hydraulic, industrial, LPG and automotive hoses.
-              </p>
-              {tabs}
-              <div className="mt-4 flex gap-2 sm:mt-6 sm:gap-3">
-                <Link href="/products" className="btn btn-primary btn-sm sm:px-7 sm:py-4 sm:text-base">
-                  Product range
-                  <ArrowRight size={16} />
-                </Link>
-                <Link href="/contact" className="btn btn-secondary btn-sm sm:px-7 sm:py-4 sm:text-base">
-                  Contact us
-                </Link>
-              </div>
-            </div>
+            <HeroIntro hero={hero} tabs={tabs} primaryHref="/products" primaryLabel={hero.primaryLabel} />
           </div>
 
           {/* chapters 1–4 */}
@@ -308,7 +289,7 @@ function HoseHero({ family, tabs, triggerRef }: HeroProps & { family: FamilyKey 
               {i === 3 && (
                 <div className="mt-4 flex gap-3">
                   <Link href={`/products/${product.id}`} className="btn btn-primary btn-sm">
-                    View data sheet
+                    {hero.rating.buttonLabel}
                   </Link>
                 </div>
               )}
@@ -346,7 +327,7 @@ function HoseHero({ family, tabs, triggerRef }: HeroProps & { family: FamilyKey 
 }
 
 /** Tab bar shared by both heroes. Choosing a family restarts the story from the top. */
-function FamilyTabs({ family, onChoose }: { family: FamilyKey; onChoose: (k: FamilyKey) => void }) {
+function FamilyTabs({ labels, family, onChoose }: { labels: HeroContent['tabs']; family: FamilyKey; onChoose: (k: FamilyKey) => void }) {
   return (
     <div id="range" role="tablist" aria-label="Product family" className="mt-4 flex flex-wrap gap-1.5 sm:mt-5 sm:gap-2">
       {FAMILIES.map((f) => (
@@ -357,14 +338,14 @@ function FamilyTabs({ family, onChoose }: { family: FamilyKey; onChoose: (k: Fam
           onClick={() => onChoose(f.key)}
           className={`inline-flex items-center rounded-sm border px-2.5 py-1 text-[11px] font-semibold transition-colors sm:px-3 sm:py-1.5 sm:text-xs ${f.key === family ? 'border-brand-blue bg-brand-blue text-white' : 'border-slate-300 bg-white/80 text-slate-800 hover:border-brand-blue hover:text-brand-blue'}`}
         >
-          {f.label}
+          {labels[f.key]}
         </button>
       ))}
     </div>
   )
 }
 
-export function HeroStory() {
+export function HeroStory({ hero }: { hero: HeroContent }) {
   const [family, setFamily] = useState<FamilyKey>('hydraulic')
   const triggerRef = useRef<ScrollTrigger | null>(null)
   const choose = (key: FamilyKey) => {
@@ -372,6 +353,6 @@ export function HeroStory() {
     window.scrollTo({ top: triggerRef.current?.start ?? 0, behavior: 'auto' }) // the new slide's story starts from the top
     setFamily(key)
   }
-  const tabs = <FamilyTabs family={family} onChoose={choose} />
-  return family === 'railway' ? <RailwayHero tabs={tabs} triggerRef={triggerRef} /> : <HoseHero family={family} tabs={tabs} triggerRef={triggerRef} />
+  const tabs = <FamilyTabs labels={hero.tabs} family={family} onChoose={choose} />
+  return family === 'railway' ? <RailwayHero hero={hero} tabs={tabs} triggerRef={triggerRef} /> : <HoseHero hero={hero} family={family} tabs={tabs} triggerRef={triggerRef} />
 }

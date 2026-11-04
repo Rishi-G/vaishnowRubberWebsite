@@ -95,6 +95,7 @@ export interface Config {
     'company-info': CompanyInfo;
     'site-settings': SiteSetting;
     navigation: Navigation;
+    'page-home': PageHome;
     'page-contact': PageContact;
     'page-company': PageCompany;
     'page-industries': PageIndustry;
@@ -104,6 +105,7 @@ export interface Config {
     'company-info': CompanyInfoSelect<false> | CompanyInfoSelect<true>;
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     navigation: NavigationSelect<false> | NavigationSelect<true>;
+    'page-home': PageHomeSelect<false> | PageHomeSelect<true>;
     'page-contact': PageContactSelect<false> | PageContactSelect<true>;
     'page-company': PageCompanySelect<false> | PageCompanySelect<true>;
     'page-industries': PageIndustriesSelect<false> | PageIndustriesSelect<true>;
@@ -791,6 +793,125 @@ export interface Navigation {
  * Empty fields keep the current text of the page.
  *
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "page-home".
+ */
+export interface PageHome {
+  id: number;
+  /**
+   * In the heading, put *stars* around the words shown in blue. Keep texts short: they sit over the 3D model.
+   */
+  hero?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+    primaryLabel?: string | null;
+    railwayPrimaryLabel?: string | null;
+    secondaryLabel?: string | null;
+    tabs?: {
+      hydraulic?: string | null;
+      industrial?: string | null;
+      automotive?: string | null;
+      railway?: string | null;
+    };
+    /**
+     * Tokens filled from the product on show: {cover}.
+     */
+    cover?: {
+      eyebrow?: string | null;
+      title?: string | null;
+      body?: string | null;
+      note?: string | null;
+    };
+    fittings?: {
+      eyebrow?: string | null;
+      title?: string | null;
+      body?: string | null;
+      note?: string | null;
+    };
+    /**
+     * Tokens filled from the product on show: {tube}, {reinforcement}, {cover}.
+     */
+    layers?: {
+      eyebrow?: string | null;
+      title?: string | null;
+      body?: string | null;
+      note?: string | null;
+    };
+    rating?: {
+      eyebrow?: string | null;
+      buttonLabel?: string | null;
+    };
+  };
+  /**
+   * Tokens: {year}, {founders}, {area} (from Company Info).
+   */
+  facts?:
+    | {
+        label?: string | null;
+        value?: string | null;
+        sub?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  railway?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+    detailsLabel?: string | null;
+  };
+  hoses?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    families?:
+      | {
+          title: string;
+          categories: ('railway' | 'hydraulic' | 'industrial' | 'lpg' | 'automotive')[];
+          blurb?: string | null;
+          photo?: {
+            file?: (number | null) | Media;
+            /**
+             * e.g. /assets/photos/vestibule.jpg
+             */
+            src?: string | null;
+            alt?: string | null;
+            caption?: string | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+  finder?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+    noMatch?: string | null;
+  };
+  customers?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+  };
+  works?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    aboutLabel?: string | null;
+    contactLabel?: string | null;
+    capabilitiesHeading?: string | null;
+    certificationHeading?: string | null;
+  };
+  quote?: {
+    heading?: string | null;
+    text?: string | null;
+    contactLabel?: string | null;
+    catalogueLabel?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Empty fields keep the current text of the page.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "page-contact".
  */
 export interface PageContact {
@@ -1146,6 +1267,134 @@ export interface NavigationSelect<T extends boolean = true> {
         id?: T;
       };
   footerCatalogueLabel?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "page-home_select".
+ */
+export interface PageHomeSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        text?: T;
+        primaryLabel?: T;
+        railwayPrimaryLabel?: T;
+        secondaryLabel?: T;
+        tabs?:
+          | T
+          | {
+              hydraulic?: T;
+              industrial?: T;
+              automotive?: T;
+              railway?: T;
+            };
+        cover?:
+          | T
+          | {
+              eyebrow?: T;
+              title?: T;
+              body?: T;
+              note?: T;
+            };
+        fittings?:
+          | T
+          | {
+              eyebrow?: T;
+              title?: T;
+              body?: T;
+              note?: T;
+            };
+        layers?:
+          | T
+          | {
+              eyebrow?: T;
+              title?: T;
+              body?: T;
+              note?: T;
+            };
+        rating?:
+          | T
+          | {
+              eyebrow?: T;
+              buttonLabel?: T;
+            };
+      };
+  facts?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        sub?: T;
+        id?: T;
+      };
+  railway?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        text?: T;
+        detailsLabel?: T;
+      };
+  hoses?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        families?:
+          | T
+          | {
+              title?: T;
+              categories?: T;
+              blurb?: T;
+              photo?:
+                | T
+                | {
+                    file?: T;
+                    src?: T;
+                    alt?: T;
+                    caption?: T;
+                  };
+              id?: T;
+            };
+      };
+  finder?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        text?: T;
+        noMatch?: T;
+      };
+  customers?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        text?: T;
+      };
+  works?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        aboutLabel?: T;
+        contactLabel?: T;
+        capabilitiesHeading?: T;
+        certificationHeading?: T;
+      };
+  quote?:
+    | T
+    | {
+        heading?: T;
+        text?: T;
+        contactLabel?: T;
+        catalogueLabel?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
