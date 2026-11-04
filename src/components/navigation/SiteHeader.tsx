@@ -91,7 +91,10 @@ export const SiteHeader: React.FC<Props> = ({ currentRoute, onOpenEnquiry }) => 
   const phoneHref = `tel:${company.phone.replace(/\s/g, '')}`
 
   return (
-    <header ref={headerRef} className="fixed left-0 right-0 top-0 z-50 border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur-md">
+    <header ref={headerRef} className="fixed left-0 right-0 top-0 z-50 border-b border-slate-200 shadow-sm">
+      {/* Blur lives on this layer, not the header: backdrop-filter on the header would make it the
+          containing block for the fixed mobile drawer and clip the drawer to the header's height. */}
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-white/95 backdrop-blur-md" />
       {/* utility bar */}
       <div className="border-b border-slate-800 bg-slate-950 py-2 text-xs text-slate-300">
         <div className="container flex flex-wrap items-center justify-between gap-2">

@@ -11,6 +11,8 @@ interface Props {
   onOpenEnquiry: (productId?: string) => void
 }
 
+const SOCIAL_LABELS: Record<string, string> = { linkedin: 'LinkedIn', facebook: 'Facebook', instagram: 'Instagram', youtube: 'YouTube', x: 'X' }
+
 export const SiteFooter: React.FC<Props> = ({ onOpenEnquiry }) => {
   const { company, settings, navigation } = useSiteData()
   const iso = company.certifications.filter((c) => c.name.startsWith('ISO'))
@@ -33,7 +35,7 @@ export const SiteFooter: React.FC<Props> = ({ onOpenEnquiry }) => {
             {company.socials.length > 0 && (
               <ul className="mt-4 flex flex-wrap gap-3 text-xs">
                 {company.socials.map((sl) => (
-                  <li key={sl.url}><a href={sl.url} target="_blank" rel="noopener noreferrer" className="capitalize text-white hover:text-brand-accent">{sl.platform === 'x' ? 'X' : sl.platform}</a></li>
+                  <li key={sl.platform}><a href={sl.url} target="_blank" rel="noopener noreferrer" className="text-white hover:text-brand-accent">{SOCIAL_LABELS[sl.platform] ?? sl.platform}</a></li>
                 ))}
               </ul>
             )}
