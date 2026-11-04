@@ -6,31 +6,26 @@ import { Download, Search } from 'lucide-react'
 import type { PageRoute, ProductCategory } from '@/types'
 import { useSiteData } from '@/lib/site-context'
 import { PageHead } from '@/components/site/PageHead'
+import { fill } from '@/lib/content'
+import type { PageContent } from '@/seed/pages'
 
 interface Props {
+  content: PageContent<'products'>
   onNavigate?: (route: PageRoute) => void
   onOpenEnquiry: (productId?: string) => void
 }
 
-const TABS: { key: ProductCategory | 'all'; label: string }[] = [
-  { key: 'all', label: 'All' },
-  { key: 'railway', label: 'Railway components' },
-  { key: 'hydraulic', label: 'Hydraulic hoses' },
-  { key: 'industrial', label: 'Industrial hoses' },
-  { key: 'lpg', label: 'LPG hoses' },
-  { key: 'automotive', label: 'Automotive hoses' },
-]
-
-export const ProductsPage: React.FC<Props> = ({ onOpenEnquiry }) => {
-  const { products } = useSiteData()
+export const ProductsPage: React.FC<Props> = ({ content: c }) => {
+  const { products, categories } = useSiteData()
+  const tabs: { key: ProductCategory | 'all'; label: string }[] = [{ key: 'all', label: c.allLabel }, ...categories.map((k) => ({ key: k.slug, label: k.tabLabel }))]
   const [cat, setCat] = useState<ProductCategory | 'all'>('all')
   const [q, setQ] = useState('')
 
   // deep links from the home page and menus: /products?category=railway
   useEffect(() => {
-    const c = new URLSearchParams(window.location.search).get('category')
-    if (c && TABS.some((t) => t.key === c)) setCat(c as ProductCategory)
-  }, [])
+    const q0 = new URLSearchParams(window.location.search).get('category')
+    if (q0 && categories.some((k) => k.slug === q0)) setCat(q0)
+  }, [categories])
 
   const pick = (k: ProductCategory | 'all') => {
     setCat(k)
@@ -53,15 +48,15 @@ export const ProductsPage: React.FC<Props> = ({ onOpenEnquiry }) => {
     <div className="bg-white">
       <PageHead
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Products' }]}
-        eyebrow="Product range"
-        title="Railway components and VEXTRA hoses."
-        lede="Search by name, standard or product code. Hose data sheets list every size with working and burst pressure."
+        eyebrow={c.hero.eyebrow}
+        title={c.hero.title}
+        lede={c.hero.lede}
       />
 
       <div className="sticky top-[106px] z-30 border-b border-slate-200 bg-white/95 backdrop-blur">
         <div className="container flex flex-col gap-3 py-3 lg:flex-row lg:items-center lg:justify-between">
           <div className="-mx-1 flex gap-1 overflow-x-auto px-1 pb-1 lg:pb-0" role="tablist" aria-label="Product family">
-            {TABS.map((t) => (
+            {tabs.map((t) => (
               <button key={t.key} role="tab" aria-selected={cat === t.key} onClick={() => pick(t.key)}
                 className={`shrink-0 rounded-sm border px-3 py-1.5 text-xs font-semibold transition-colors ${cat === t.key ? 'border-brand-blue bg-brand-blue text-white' : 'border-slate-300 text-slate-700 hover:border-brand-blue'}`}>
                 {t.label} <span className="opacity-60">{count(t.key)}</span>
@@ -71,7 +66,7 @@ export const ProductsPage: React.FC<Props> = ({ onOpenEnquiry }) => {
           <label className="relative block lg:w-80">
             <span className="sr-only">Search products</span>
             <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-            <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search name, standard or code" className="w-full rounded-sm border border-slate-300 py-2 pl-9 pr-3 text-sm outline-none focus:border-brand-blue" />
+            <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={c.searchPlaceholder} className="w-full rounded-sm border border-slate-300 py-2 pl-9 pr-3 text-sm outline-none focus:border-brand-blue" />
           </label>
         </div>
       </div>
@@ -79,7 +74,7 @@ export const ProductsPage: React.FC<Props> = ({ onOpenEnquiry }) => {
       <div className="container py-8">
         <p className="mb-3 font-mono text-xs text-slate-500" aria-live="polite">{list.length} product{list.length === 1 ? '' : 's'}</p>
         <ul className="divide-y divide-slate-200 border-y border-slate-200">
-          {list.length === 0 && <li className="py-10 text-sm text-slate-500">Nothing matches “{q}”. Try a standard such as “EN 853” or a code such as “02-8”.</li>}
+          {list.length === 0 && <li className="py-10 text-sm text-slate-500">{fill(c.noMatch, { q })}</li>}
           {list.map((p) => (
             <li key={p.id} className="grid items-center gap-4 py-4 sm:grid-cols-[6rem_1fr_auto] lg:grid-cols-[6rem_1fr_14rem_auto]">
               <Link href={`/products/${p.id}`} className="hidden aspect-[4/3] overflow-hidden rounded-sm bg-slate-100 sm:block" aria-hidden tabIndex={-1}>

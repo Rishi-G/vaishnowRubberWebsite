@@ -68,6 +68,7 @@ export interface Config {
   blocks: {};
   collections: {
     products: Product;
+    'product-categories': ProductCategory;
     enquiries: Enquiry;
     media: Media;
     users: User;
@@ -79,6 +80,7 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     products: ProductsSelect<false> | ProductsSelect<true>;
+    'product-categories': ProductCategoriesSelect<false> | ProductCategoriesSelect<true>;
     enquiries: EnquiriesSelect<false> | EnquiriesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -96,6 +98,7 @@ export interface Config {
     'site-settings': SiteSetting;
     navigation: Navigation;
     'page-home': PageHome;
+    'page-products': PageProduct;
     'page-contact': PageContact;
     'page-company': PageCompany;
     'page-industries': PageIndustry;
@@ -106,6 +109,7 @@ export interface Config {
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     navigation: NavigationSelect<false> | NavigationSelect<true>;
     'page-home': PageHomeSelect<false> | PageHomeSelect<true>;
+    'page-products': PageProductsSelect<false> | PageProductsSelect<true>;
     'page-contact': PageContactSelect<false> | PageContactSelect<true>;
     'page-company': PageCompanySelect<false> | PageCompanySelect<true>;
     'page-industries': PageIndustriesSelect<false> | PageIndustriesSelect<true>;
@@ -151,13 +155,12 @@ export interface Product {
    */
   slug: string;
   kind: 'hose' | 'component';
-  category: 'railway' | 'hydraulic' | 'industrial' | 'lpg' | 'automotive';
+  category: number | ProductCategory;
   order?: number | null;
   /**
    * Shown in the home page 3D story
    */
   isHero?: boolean | null;
-  categoryLabel: string;
   standard: string;
   tagline: string;
   description: string;
@@ -223,6 +226,36 @@ export interface Product {
         id?: string | null;
       }[]
     | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-categories".
+ */
+export interface ProductCategory {
+  id: number;
+  /**
+   * Shown on product pages and breadcrumbs, e.g. "Hydraulic Hoses".
+   */
+  name: string;
+  /**
+   * URL key, e.g. lpg → /products?category=lpg. Do not change once in use.
+   */
+  slug: string;
+  order?: number | null;
+  /**
+   * Products page tab, e.g. "Hydraulic hoses".
+   */
+  tabLabel: string;
+  /**
+   * Hose finder button, e.g. "Hydraulic".
+   */
+  shortLabel: string;
+  /**
+   * Shown in the quote form's "Product Family" list, e.g. "Hydraulic Hoses (SAE 100 R1, R2, SH33, Jack)". Empty = not listed.
+   */
+  enquiryLabel?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -327,6 +360,10 @@ export interface PayloadLockedDocument {
         value: number | Product;
       } | null)
     | ({
+        relationTo: 'product-categories';
+        value: number | ProductCategory;
+      } | null)
+    | ({
         relationTo: 'enquiries';
         value: number | Enquiry;
       } | null)
@@ -391,7 +428,6 @@ export interface ProductsSelect<T extends boolean = true> {
   category?: T;
   order?: T;
   isHero?: T;
-  categoryLabel?: T;
   standard?: T;
   tagline?: T;
   description?: T;
@@ -444,6 +480,20 @@ export interface ProductsSelect<T extends boolean = true> {
         bendRadiusMm?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-categories_select".
+ */
+export interface ProductCategoriesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  order?: T;
+  tabLabel?: T;
+  shortLabel?: T;
+  enquiryLabel?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -621,8 +671,9 @@ export interface CompanyInfo {
         name: string;
         detail?: string | null;
         status?: ('verified' | 'stated') | null;
+        document?: (number | null) | Media;
         /**
-         * e.g. /documents/iso-14001-certificate.pdf
+         * Used when no PDF is chosen above, e.g. /documents/iso-14001-certificate.pdf
          */
         documentUrl?: string | null;
         id?: string | null;
@@ -743,7 +794,7 @@ export interface Navigation {
   megaColumns?:
     | {
         title: string;
-        categories: ('railway' | 'hydraulic' | 'industrial' | 'lpg' | 'automotive')[];
+        categories: (number | ProductCategory)[];
         maxItems?: number | null;
         id?: string | null;
       }[]
@@ -755,6 +806,10 @@ export interface Navigation {
     browseLabel?: string | null;
     downloadLabel?: string | null;
   };
+  /**
+   * Used by the products menu, footer and home page. Empty = the link below.
+   */
+  catalogueFile?: (number | null) | Media;
   /**
    * Used by the products menu and the footer, e.g. /documents/vextra-hose-catalogue.pdf
    */
@@ -865,7 +920,7 @@ export interface PageHome {
     families?:
       | {
           title: string;
-          categories: ('railway' | 'hydraulic' | 'industrial' | 'lpg' | 'automotive')[];
+          categories: (number | ProductCategory)[];
           blurb?: string | null;
           photo?: {
             file?: (number | null) | Media;
@@ -905,6 +960,25 @@ export interface PageHome {
     contactLabel?: string | null;
     catalogueLabel?: string | null;
   };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Empty fields keep the current text of the page.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "page-products".
+ */
+export interface PageProduct {
+  id: number;
+  hero?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    lede?: string | null;
+  };
+  allLabel?: string | null;
+  searchPlaceholder?: string | null;
+  noMatch?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1023,7 +1097,7 @@ export interface PageIndustry {
   sectors?:
     | {
         title: string;
-        category: 'railway' | 'hydraulic' | 'industrial' | 'lpg' | 'automotive';
+        category: number | ProductCategory;
         lead?: string | null;
         body?: string | null;
         photo?: {
@@ -1143,6 +1217,7 @@ export interface CompanyInfoSelect<T extends boolean = true> {
         name?: T;
         detail?: T;
         status?: T;
+        document?: T;
         documentUrl?: T;
         id?: T;
       };
@@ -1248,6 +1323,7 @@ export interface NavigationSelect<T extends boolean = true> {
         browseLabel?: T;
         downloadLabel?: T;
       };
+  catalogueFile?: T;
   catalogueUrl?: T;
   footerProductsHeading?: T;
   footerCompanyHeading?: T;
@@ -1395,6 +1471,25 @@ export interface PageHomeSelect<T extends boolean = true> {
         contactLabel?: T;
         catalogueLabel?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "page-products_select".
+ */
+export interface PageProductsSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        lede?: T;
+      };
+  allLabel?: T;
+  searchPlaceholder?: T;
+  noMatch?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

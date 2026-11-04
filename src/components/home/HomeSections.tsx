@@ -154,7 +154,7 @@ export function HoseFamilies({ c }: { c: Home['hoses'] }) {
 
 /* ───────────────────────── find a hose by pressure ───────────────────────── */
 export function PressureFinder({ c }: { c: Home['finder'] }) {
-  const { products, openEnquiry } = useSiteData()
+  const { products, categories, openEnquiry } = useSiteData()
   const hoses = useMemo(() => products.filter((p) => p.kind === 'hose'), [products])
   const top = Math.max(...hoses.map((p) => p.maxPressureBar ?? 0))
   const [need, setNeed] = useState(100)
@@ -169,7 +169,8 @@ export function PressureFinder({ c }: { c: Home['finder'] }) {
         .sort((a, b) => (a.maxPressureBar ?? 0) - (b.maxPressureBar ?? 0)),
     [hoses, need, cat],
   )
-  const cats: (ProductCategory | 'all')[] = ['all', 'hydraulic', 'industrial', 'lpg', 'automotive']
+  const cats: (ProductCategory | 'all')[] = ['all', ...categories.filter((k) => hoses.some((p) => p.category === k.slug)).map((k) => k.slug)]
+  const shortLabel = (k: ProductCategory | 'all') => (k === 'all' ? 'all' : categories.find((x) => x.slug === k)?.shortLabel ?? k)
 
   return (
     <section ref={ref} className="section-spacing bg-white">
@@ -191,7 +192,7 @@ export function PressureFinder({ c }: { c: Home['finder'] }) {
           <div className="mt-4 flex flex-wrap gap-2" role="group" aria-label="Hose family">
             {cats.map((c) => (
               <button key={c} onClick={() => setCat(c)} aria-pressed={cat === c} className={`rounded-sm border px-3 py-1.5 text-xs font-semibold capitalize transition-colors ${cat === c ? 'border-brand-blue bg-brand-blue text-white' : 'border-slate-300 text-slate-700 hover:border-brand-blue'}`}>
-                {c === 'lpg' ? 'LPG' : c}
+                {shortLabel(c)}
               </button>
             ))}
           </div>

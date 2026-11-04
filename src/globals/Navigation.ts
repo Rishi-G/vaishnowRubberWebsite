@@ -1,14 +1,6 @@
 import type { Field, GlobalConfig } from 'payload'
 import { revalidatePath } from 'next/cache'
 
-const CATEGORY_OPTIONS = [
-  { label: 'Railway Components', value: 'railway' },
-  { label: 'Hydraulic Hoses', value: 'hydraulic' },
-  { label: 'Industrial Hoses', value: 'industrial' },
-  { label: 'LPG Hoses', value: 'lpg' },
-  { label: 'Automotive Hoses', value: 'automotive' },
-]
-
 /** Internal path (/company) or full URL (https://…); anything else would be a broken link. */
 const validHref = (v: string | null | undefined) =>
   !v || /^\/(?!\/)/.test(v) || /^https?:\/\//.test(v) ? true : 'Start with / for a page on this site, or https:// for another site'
@@ -75,7 +67,7 @@ export const Navigation: GlobalConfig = {
                   type: 'row',
                   fields: [
                     { name: 'title', type: 'text', required: true, maxLength: 40 },
-                    { name: 'categories', type: 'select', hasMany: true, required: true, options: CATEGORY_OPTIONS },
+                    { name: 'categories', type: 'relationship', relationTo: 'product-categories', hasMany: true, required: true },
                     { name: 'maxItems', label: 'Max products shown', type: 'number', min: 1, max: 12, defaultValue: 6 },
                   ],
                 },
@@ -103,9 +95,10 @@ export const Navigation: GlobalConfig = {
                 },
               ],
             },
+            { name: 'catalogueFile', label: 'Catalogue PDF', type: 'upload', relationTo: 'media', admin: { description: 'Used by the products menu, footer and home page. Empty = the link below.' } },
             {
               name: 'catalogueUrl',
-              label: 'Catalogue PDF link',
+              label: 'Or catalogue link',
               type: 'text',
               validate: validHref,
               admin: { description: 'Used by the products menu and the footer, e.g. /documents/vextra-hose-catalogue.pdf' },

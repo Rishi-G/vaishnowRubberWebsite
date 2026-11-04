@@ -68,7 +68,8 @@ export const CompanyInfo: GlobalConfig = {
             { label: 'Stated by company — certificate not yet supplied', value: 'stated' },
           ],
         },
-        { name: 'documentUrl', type: 'text', admin: { description: 'e.g. /documents/iso-14001-certificate.pdf' } },
+        { name: 'document', label: 'Certificate PDF', type: 'upload', relationTo: 'media' },
+        { name: 'documentUrl', label: 'Or certificate link', type: 'text', admin: { description: 'Used when no PDF is chosen above, e.g. /documents/iso-14001-certificate.pdf' } },
       ],
     },
     {

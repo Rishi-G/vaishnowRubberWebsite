@@ -19,10 +19,11 @@ export function withFallback<T>(doc: any, fb: T): T {
   return (doc ?? fb) as T
 }
 
-/** Payload list item → plain value: drop ids, nulls → '', uploads → their URL. */
+/** Payload list item → plain value: drop ids, nulls → '', uploads → their URL, linked categories → their slug. */
 function clean(v: any): any {
   if (Array.isArray(v)) return v.map(clean)
   if (!v || typeof v !== 'object') return v ?? ''
+  if (typeof v.slug === 'string' && 'createdAt' in v) return v.slug
   const r = resolveFile(v)
   const out: any = {}
   for (const [k, x] of Object.entries(r)) if (k !== 'id') out[k] = clean(x)

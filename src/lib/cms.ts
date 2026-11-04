@@ -5,7 +5,7 @@ import config from '@payload-config'
 import { NAVIGATION as NAV_FALLBACK, SETTINGS as SETTINGS_FALLBACK } from '@/seed/data'
 import { PAGES, type PageContent, type PageSlug } from '@/seed/pages'
 import { withFallback } from '@/lib/content'
-import type { Navigation, NavLink, Product, ProductCategory, SeoPage, SiteSettings } from '@/types'
+import type { Category, Navigation, NavLink, Product, SeoPage, SiteSettings } from '@/types'
 
 export interface Certification {
   name: string
@@ -41,14 +41,15 @@ const texts = (arr: any[] | null | undefined): string[] => (arr ?? []).map((i) =
 
 /** Payload document → frontend Product */
 function toProduct(doc: any): Product {
+  const cat = doc.category && typeof doc.category === 'object' ? doc.category : null
   const upload = doc.imageUpload && typeof doc.imageUpload === 'object' ? doc.imageUpload.url : null
   const c = doc.construction
   return {
     id: doc.slug,
     name: doc.name,
     kind: doc.kind,
-    category: doc.category as ProductCategory,
-    categoryLabel: doc.categoryLabel,
+    category: cat?.slug ?? '',
+    categoryLabel: cat?.name ?? '',
     standard: doc.standard,
     tagline: doc.tagline,
     description: doc.description,
@@ -97,7 +98,7 @@ export const getCompany = cache(async (): Promise<CompanyFacts> => {
     founders: (d.founders ?? []).map((x: any) => x.name),
     emails: (d.emails ?? []).map((x: any) => x.email),
     capabilities: texts(d.capabilities),
-    certifications: (d.certifications ?? []).map((x: any) => ({ name: x.name, detail: x.detail ?? '', status: x.status ?? 'stated', documentUrl: x.documentUrl ?? '' })),
+    certifications: (d.certifications ?? []).map((x: any) => ({ name: x.name, detail: x.detail ?? '', status: x.status ?? 'stated', documentUrl: uploadUrl(x.document) ?? x.documentUrl ?? '' })),
     customers: (d.customers ?? []).map((x: any) => ({ name: x.name, group: x.group })),
     strengths: (d.strengths ?? []).map((x: any) => ({ title: x.title, detail: x.detail ?? '' })),
   }
@@ -143,7 +144,7 @@ export const getNavigation = cache(async (): Promise<Navigation> => {
     productsLabel: d.productsLabel || fb.productsLabel,
     headerLinks: navLinks(d.headerLinks, fb.headerLinks),
     megaColumns: d.megaColumns?.length
-      ? d.megaColumns.map((c: any) => ({ title: c.title, categories: c.categories ?? [], maxItems: c.maxItems ?? 6 }))
+      ? d.megaColumns.map((c: any) => ({ title: c.title, categories: (c.categories ?? []).map((x: any) => (typeof x === 'object' ? x.slug : x)), maxItems: c.maxItems ?? 6 }))
       : fb.megaColumns,
     catalogueCard: {
       badge: card.badge || fb.catalogueCard.badge,
@@ -152,7 +153,7 @@ export const getNavigation = cache(async (): Promise<Navigation> => {
       browseLabel: card.browseLabel || fb.catalogueCard.browseLabel,
       downloadLabel: card.downloadLabel || fb.catalogueCard.downloadLabel,
     },
-    catalogueUrl: d.catalogueUrl || fb.catalogueUrl,
+    catalogueUrl: uploadUrl(d.catalogueFile) || d.catalogueUrl || fb.catalogueUrl,
     footerProductsHeading: d.footerProductsHeading || fb.footerProductsHeading,
     footerCompanyHeading: d.footerCompanyHeading || fb.footerCompanyHeading,
     footerContactHeading: d.footerContactHeading || fb.footerContactHeading,
@@ -167,4 +168,10 @@ export const getPage = cache(async <K extends PageSlug>(slug: K): Promise<PageCo
   const payload = await getPayloadClient()
   const d = await payload.findGlobal({ slug: `page-${slug}` as any, depth: 1 })
   return withFallback(d, PAGES[slug])
+})
+
+export const getCategories = cache(async (): Promise<Category[]> => {
+  const payload = await getPayloadClient()
+  const res = await payload.find({ collection: 'product-categories', limit: 100, sort: 'order', depth: 0 })
+  return res.docs.map((c: any) => ({ slug: c.slug, name: c.name, tabLabel: c.tabLabel, shortLabel: c.shortLabel, enquiryLabel: c.enquiryLabel ?? '' }))
 })

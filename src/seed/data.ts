@@ -614,6 +614,16 @@ export const PRODUCTS: Product[] = [
   }),
 ]
 
+/* ───────────── product categories ───────────── */
+
+export const CATEGORIES = [
+  { slug: 'railway', name: 'Railway Components', tabLabel: 'Railway components', shortLabel: 'Railway', enquiryLabel: '' },
+  { slug: 'hydraulic', name: 'Hydraulic Hoses', tabLabel: 'Hydraulic hoses', shortLabel: 'Hydraulic', enquiryLabel: 'Hydraulic Hoses (SAE 100 R1, R2, SH33, Jack)' },
+  { slug: 'industrial', name: 'Industrial Hoses', tabLabel: 'Industrial hoses', shortLabel: 'Industrial', enquiryLabel: 'Industrial Hoses (Steam, Rock Drill, LPG)' },
+  { slug: 'lpg', name: 'LPG Hoses', tabLabel: 'LPG hoses', shortLabel: 'LPG', enquiryLabel: '' },
+  { slug: 'automotive', name: 'Automotive Hoses', tabLabel: 'Automotive hoses', shortLabel: 'Automotive', enquiryLabel: 'Automotive Hoses (A/C, CNG, Governor)' },
+]
+
 /* ───────────── company ───────────── */
 
 export const COMPANY = {

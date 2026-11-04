@@ -1,4 +1,14 @@
-export type ProductCategory = 'railway' | 'hydraulic' | 'industrial' | 'lpg' | 'automotive'
+/** A product category's slug (from the Product Categories collection). "railway" switches on the railway layouts. */
+export type ProductCategory = string
+
+export interface Category {
+  slug: ProductCategory
+  name: string
+  tabLabel: string
+  shortLabel: string
+  /** '' when the category is not offered in the quote form */
+  enquiryLabel: string
+}
 /** kept as an alias — older components still import this name */
 export type HoseCategory = ProductCategory
 

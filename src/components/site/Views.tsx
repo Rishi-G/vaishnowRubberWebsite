@@ -20,7 +20,7 @@ function useNav() {
 }
 
 export const HomeView = ({ content }: { content: PageContent<'home'> }) => <HomePage content={content} />
-export const ProductsView = () => <ProductsPage {...useNav()} />
+export const ProductsView = ({ content }: { content: PageContent<'products'> }) => <ProductsPage content={content} {...useNav()} />
 export const ProductDetailView = ({ productId }: { productId: string }) => (
   <ProductDetailPage productId={productId} {...useNav()} />
 )

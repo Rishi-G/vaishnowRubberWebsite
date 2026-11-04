@@ -1,14 +1,6 @@
 import type { Field } from 'payload'
 import { group, hero, link, list, pageGlobal, photo, text, textarea } from './fields'
 
-const CATEGORY_OPTIONS = [
-  { label: 'Railway Components', value: 'railway' },
-  { label: 'Hydraulic Hoses', value: 'hydraulic' },
-  { label: 'Industrial Hoses', value: 'industrial' },
-  { label: 'LPG Hoses', value: 'lpg' },
-  { label: 'Automotive Hoses', value: 'automotive' },
-]
-
 const button = (): Field[] => [
   { type: 'row', fields: [text('buttonLabel', 'Button label', 40), link('buttonHref', 'Button link')] },
 ]
@@ -52,7 +44,7 @@ export const IndustriesPageGlobal = pageGlobal('page-industries', 'Industries pa
     type: 'array',
     admin: { description: 'Each sector lists up to 8 products of its category. Leave the photo empty for the line drawing.' },
     fields: [
-      { type: 'row', fields: [{ name: 'title', type: 'text', required: true, maxLength: 80 }, { name: 'category', type: 'select', required: true, options: CATEGORY_OPTIONS }] },
+      { type: 'row', fields: [{ name: 'title', type: 'text', required: true, maxLength: 80 }, { name: 'category', type: 'relationship', relationTo: 'product-categories', required: true }] },
       textarea('lead', 'Lead sentence', 300),
       textarea('body', 'Details', 800),
       photo(),
@@ -155,7 +147,7 @@ export const HomePageGlobal = pageGlobal('page-home', 'Home page', '/', [
               label: 'Hose families',
               type: 'array',
               fields: [
-                { type: 'row', fields: [{ name: 'title', type: 'text', required: true, maxLength: 80 }, { name: 'categories', type: 'select', hasMany: true, required: true, options: CATEGORY_OPTIONS }] },
+                { type: 'row', fields: [{ name: 'title', type: 'text', required: true, maxLength: 80 }, { name: 'categories', type: 'relationship', relationTo: 'product-categories', hasMany: true, required: true }] },
                 textarea('blurb', 'Text', 400),
                 photo(),
               ],
@@ -178,4 +170,11 @@ export const HomePageGlobal = pageGlobal('page-home', 'Home page', '/', [
   },
 ])
 
-export const PageGlobals = [HomePageGlobal, ContactPageGlobal, CompanyPageGlobal, IndustriesPageGlobal, ResourcesPageGlobal]
+export const ProductsPageGlobal = pageGlobal('page-products', 'Products page', '/products', [
+  group('hero', 'Page header', [text('eyebrow', 'Small label', 40), text('title', 'Heading', 120), textarea('lede', 'Intro line', 300)]),
+  text('allLabel', '"All" tab label', 30),
+  text('searchPlaceholder', 'Search box placeholder', 80),
+  textarea('noMatch', 'No-match message ({q} = what was searched)', 300),
+])
+
+export const PageGlobals = [HomePageGlobal, ProductsPageGlobal, ContactPageGlobal, CompanyPageGlobal, IndustriesPageGlobal, ResourcesPageGlobal]

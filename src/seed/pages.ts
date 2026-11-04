@@ -10,6 +10,17 @@ const t = (...items: string[]) => items.map((text) => ({ text }))
 const photo = (src: string, alt: string, caption = '') => ({ src, alt, caption })
 
 export const PAGES = {
+  products: {
+    hero: {
+      eyebrow: 'Product range',
+      title: 'Railway components and VEXTRA hoses.',
+      lede: 'Search by name, standard or product code. Hose data sheets list every size with working and burst pressure.',
+    },
+    allLabel: 'All',
+    searchPlaceholder: 'Search name, standard or code',
+    noMatch: 'Nothing matches “{q}”. Try a standard such as “EN 853” or a code such as “02-8”.',
+  },
+
   home: {
     hero: {
       eyebrow: 'VEXTRA® · Vaishno Rubber Industries',

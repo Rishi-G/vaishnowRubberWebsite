@@ -19,12 +19,13 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
   onClose,
   initialProductId
 }) => {
-  const { products: PRODUCTS, company } = useSiteData();
+  const { products: PRODUCTS, categories, company } = useSiteData();
+  const enquiryCategories = categories.filter((k) => k.enquiryLabel);
   const contact = { phone: company.phone, email: company.emails[0] ?? '' };
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   // Form State
-  const [category, setCategory] = useState<HoseCategory | 'custom'>('hydraulic');
+  const [category, setCategory] = useState<HoseCategory | 'custom'>(enquiryCategories[0]?.slug ?? 'custom');
   const [productId, setProductId] = useState<string>(initialProductId || 'sae-100-r1');
   const [idSize, setIdSize] = useState<string>('1/2"');
   const [workingPressure, setWorkingPressure] = useState<string>('275');
@@ -262,9 +263,9 @@ Location: ${location}
                     onChange={(e) => setCategory(e.target.value as HoseCategory)}
                     className="w-full text-xs font-medium p-2.5 border border-slate-300 rounded bg-white focus:border-blue-600 focus:outline-none"
                   >
-                    <option value="hydraulic">Hydraulic Hoses (SAE 100 R1, R2, SH33, Jack)</option>
-                    <option value="industrial">Industrial Hoses (Steam, Rock Drill, LPG)</option>
-                    <option value="automotive">Automotive Hoses (A/C, CNG, Governor)</option>
+                    {enquiryCategories.map((k) => (
+                      <option key={k.slug} value={k.slug}>{k.enquiryLabel}</option>
+                    ))}
                     <option value="custom">Custom Assembly / Rubber-to-Metal</option>
                   </select>
                 </div>

@@ -8,21 +8,43 @@
  */
 import { getPayload } from 'payload'
 import config from '@payload-config'
-import { PRODUCTS, COMPANY, SETTINGS, NAVIGATION } from './data'
+import { PRODUCTS, COMPANY, SETTINGS, NAVIGATION, CATEGORIES } from './data'
 import { PAGES } from './pages'
 
 const wrap = (arr: string[]) => arr.map((text) => ({ text }))
 const payload = await getPayload({ config })
+
+// Categories first: products and the category pickers in Navigation and Pages link to them by id.
+const categoryId: Record<string, number> = {}
+for (const [order, c] of CATEGORIES.entries()) {
+  const existing = await payload.find({ collection: 'product-categories', where: { slug: { equals: c.slug } }, limit: 1 })
+  const doc = existing.docs[0]
+    ? await payload.update({ collection: 'product-categories', id: existing.docs[0].id, data: { ...c, order } })
+    : await payload.create({ collection: 'product-categories', data: { ...c, order } })
+  categoryId[c.slug] = doc.id
+}
+
+/** Seed data names categories by slug; the CMS stores ids. Replaces every `category`/`categories` value. */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const withCategoryIds = (v: any): any => {
+  if (Array.isArray(v)) return v.map(withCategoryIds)
+  if (!v || typeof v !== 'object') return v
+  return Object.fromEntries(
+    Object.entries(v).map(([k, x]) => [
+      k,
+      k === 'category' && typeof x === 'string' ? categoryId[x] : k === 'categories' && Array.isArray(x) ? x.map((s) => categoryId[s]) : withCategoryIds(x),
+    ]),
+  )
+}
 
 for (const [order, p] of PRODUCTS.entries()) {
   const data = {
     name: p.name,
     slug: p.id,
     kind: p.kind,
-    category: p.category,
+    category: categoryId[p.category],
     order,
     isHero: Boolean(p.isHero),
-    categoryLabel: p.categoryLabel,
     standard: p.standard,
     tagline: p.tagline,
     description: p.description,
@@ -80,11 +102,11 @@ await payload.updateGlobal({
   },
 })
 
-await payload.updateGlobal({ slug: 'navigation', data: NAVIGATION })
+await payload.updateGlobal({ slug: 'navigation', data: withCategoryIds(NAVIGATION) })
 
 for (const [slug, data] of Object.entries(PAGES)) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  await payload.updateGlobal({ slug: `page-${slug}` as any, data: data as any })
+  await payload.updateGlobal({ slug: `page-${slug}` as any, data: withCategoryIds(data) })
 }
 
 const { SEED_ADMIN_EMAIL: email, SEED_ADMIN_PASSWORD: password } = process.env
@@ -96,5 +118,5 @@ if (email && password) {
   }
 }
 
-payload.logger.info(`Seed complete: ${PRODUCTS.length} products, company info, site settings, navigation, ${Object.keys(PAGES).length} pages.`)
+payload.logger.info(`Seed complete: ${CATEGORIES.length} categories, ${PRODUCTS.length} products, company info, site settings, navigation, ${Object.keys(PAGES).length} pages.`)
 process.exit(0)
