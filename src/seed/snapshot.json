@@ -1,0 +1,3095 @@
+{
+  "products": [
+    {
+      "id": "elastomeric-pads-design-b",
+      "name": "Elastomeric Pads (Design-B)",
+      "kind": "component",
+      "category": "railway",
+      "categoryLabel": "Railway Components",
+      "standard": "Specification & drawings on request",
+      "tagline": "Elastomeric pads for Indian Railways and OEMs",
+      "description": "Elastomeric pads (Design-B) supplied to Indian Railways and railway OEMs. Manufactured at the Moradabad works, which has in-house compound mixing, automated rubber injection moulding and shear-fatigue testing.",
+      "features": [],
+      "applications": [
+        "Indian Railways",
+        "Railway OEMs"
+      ],
+      "recommendedFluids": [],
+      "isHero": false,
+      "specs": []
+    },
+    {
+      "id": "air-brake-hose-coupling",
+      "name": "Air Brake Hose Coupling (BP & FP)",
+      "kind": "component",
+      "category": "railway",
+      "categoryLabel": "Railway Components",
+      "standard": "Specification & drawings on request",
+      "tagline": "Brake pipe and feed pipe hose couplings for railway brake systems",
+      "description": "Connection for brake system and air brake hose coupling for brake pipe (BP) and feed pipe (FP), used in railway applications. Manufactured at the Moradabad works, which has in-house compound mixing, automated rubber injection moulding and shear-fatigue testing.",
+      "features": [],
+      "applications": [
+        "Indian Railways",
+        "Railway OEMs"
+      ],
+      "recommendedFluids": [],
+      "isHero": false,
+      "specs": []
+    },
+    {
+      "id": "inter-car-gangway-mounting",
+      "name": "Inter-car Gangway Mounting (Vestibules)",
+      "kind": "component",
+      "category": "railway",
+      "categoryLabel": "Railway Components",
+      "standard": "Specification & drawings on request",
+      "tagline": "Inter-car gangway mountings for passenger coaches",
+      "description": "Inter-car gangway mounting (vestibule) products for Indian Railways. Manufactured at the Moradabad works, which has in-house compound mixing, automated rubber injection moulding and shear-fatigue testing.",
+      "features": [],
+      "applications": [
+        "Indian Railways"
+      ],
+      "recommendedFluids": [],
+      "isHero": false,
+      "specs": []
+    },
+    {
+      "id": "uic-elastomer-flange-connections",
+      "name": "UIC Type Elastomer Flange Connections",
+      "kind": "component",
+      "category": "railway",
+      "categoryLabel": "Railway Components",
+      "standard": "Specification & drawings on request",
+      "tagline": "Inter-communication between passenger coaches",
+      "description": "UIC type elastomer flange connections for inter-communication between passenger coaches. Manufactured at the Moradabad works, which has in-house compound mixing, automated rubber injection moulding and shear-fatigue testing.",
+      "features": [],
+      "applications": [
+        "Passenger coaches"
+      ],
+      "recommendedFluids": [],
+      "isHero": false,
+      "specs": []
+    },
+    {
+      "id": "elastomer-metal-bonded-fiat-bogie",
+      "name": "Elastomer-Metal Bonded Items for FIAT Bogie",
+      "kind": "component",
+      "category": "railway",
+      "categoryLabel": "Railway Components",
+      "standard": "Specification & drawings on request",
+      "tagline": "Rubber-to-metal bonded components for FIAT bogies",
+      "description": "Elastomer-metal bonded items for FIAT bogies. Manufactured at the Moradabad works, which has in-house compound mixing, automated rubber injection moulding and shear-fatigue testing.",
+      "features": [],
+      "applications": [
+        "Railway bogies"
+      ],
+      "recommendedFluids": [],
+      "isHero": false,
+      "specs": []
+    },
+    {
+      "id": "pu-constant-contact-side-bearers",
+      "name": "PU Constant Contact Side Bearers (PU CCSB)",
+      "kind": "component",
+      "category": "railway",
+      "categoryLabel": "Railway Components",
+      "standard": "Specification & drawings on request",
+      "tagline": "Polyurethane side bearers for freight stock bogies",
+      "description": "Polyurethane constant contact side bearers (PU CCSB) used in freight stock operating on bogies. The works has PU casting machinery from Covestro Elastomers SAS, France.",
+      "features": [],
+      "applications": [
+        "Freight stock bogies"
+      ],
+      "recommendedFluids": [],
+      "isHero": false,
+      "specs": []
+    },
+    {
+      "id": "elastic-ring-traction-link",
+      "name": "Elastic Ring for Traction Link",
+      "kind": "component",
+      "category": "railway",
+      "categoryLabel": "Railway Components",
+      "standard": "Specification & drawings on request",
+      "tagline": "Elastic rings for three-phase electric locomotives",
+      "description": "Elastic ring used in the traction link of three-phase electric locomotives. Manufactured at the Moradabad works, which has in-house compound mixing, automated rubber injection moulding and shear-fatigue testing.",
+      "features": [],
+      "applications": [
+        "Three-phase electric locomotives"
+      ],
+      "recommendedFluids": [],
+      "isHero": false,
+      "specs": []
+    },
+    {
+      "id": "spheriblocs",
+      "name": "Spheriblocs",
+      "kind": "component",
+      "category": "railway",
+      "categoryLabel": "Railway Components",
+      "standard": "Specification & drawings on request",
+      "tagline": "Spheriblocs for Indian Railways",
+      "description": "Spheriblocs for Indian Railways. Manufactured at the Moradabad works, which has in-house compound mixing, automated rubber injection moulding and shear-fatigue testing.",
+      "features": [],
+      "applications": [
+        "Indian Railways"
+      ],
+      "recommendedFluids": [],
+      "isHero": false,
+      "specs": []
+    },
+    {
+      "id": "sae-100-r1",
+      "name": "SAE 100 R1 AT / EN 853 1SN",
+      "kind": "hose",
+      "category": "hydraulic",
+      "categoryLabel": "Hydraulic Hoses",
+      "standard": "SAE 100 R1 AT Hi-Impulse / DIN 20022 Part 3 / EN 853-1SN",
+      "tagline": "Single wire braided hydraulic hose",
+      "description": "Single wire braided hydraulic hose. Tube: Synthetic rubber, resistant to hydraulic fluids. Reinforcement: one braid of high tensile steel wire. Cover: oil, weather & abrasion resistant synthetic rubber.",
+      "features": [],
+      "construction": {
+        "tube": "Synthetic rubber, resistant to hydraulic fluids",
+        "reinforcement": "One braid of high tensile steel wire",
+        "cover": "Oil, weather & abrasion resistant synthetic rubber"
+      },
+      "temperatureRange": "-40°C to +100°C (max 120°C intermittent)",
+      "applications": [
+        "Hydraulic hoses and assemblies for earthmovers and Indian Railways"
+      ],
+      "recommendedFluids": [
+        "Hydraulic fluids"
+      ],
+      "maxPressureBar": 225,
+      "maxPressurePsi": 3263,
+      "sizeRange": "1/4\" to 2\" (DN6–DN51)",
+      "image": "/assets/sae-100-r1.jpg",
+      "isHero": false,
+      "specs": [
+        {
+          "code": "01-4",
+          "dashSize": "4",
+          "dn": 6,
+          "idInch": "1/4\"",
+          "idMm": 6.4,
+          "odMm": 13.4,
+          "workingPressureBar": 225,
+          "workingPressurePsi": 3263,
+          "burstPressureBar": 900,
+          "burstPressurePsi": 13050,
+          "bendRadiusMm": 100
+        },
+        {
+          "code": "01-5",
+          "dashSize": "5",
+          "dn": 8,
+          "idInch": "5/16\"",
+          "idMm": 7.9,
+          "odMm": 15,
+          "workingPressureBar": 215,
+          "workingPressurePsi": 3118,
+          "burstPressureBar": 850,
+          "burstPressurePsi": 12325,
+          "bendRadiusMm": 115
+        },
+        {
+          "code": "01-6",
+          "dashSize": "6",
+          "dn": 10,
+          "idInch": "3/8\"",
+          "idMm": 9.5,
+          "odMm": 17.4,
+          "workingPressureBar": 180,
+          "workingPressurePsi": 2610,
+          "burstPressureBar": 720,
+          "burstPressurePsi": 10440,
+          "bendRadiusMm": 130
+        },
+        {
+          "code": "01-8",
+          "dashSize": "8",
+          "dn": 12,
+          "idInch": "1/2\"",
+          "idMm": 12.7,
+          "odMm": 20.5,
+          "workingPressureBar": 160,
+          "workingPressurePsi": 2320,
+          "burstPressureBar": 640,
+          "burstPressurePsi": 9280,
+          "bendRadiusMm": 180
+        },
+        {
+          "code": "01-10",
+          "dashSize": "10",
+          "dn": 16,
+          "idInch": "5/8\"",
+          "idMm": 15.9,
+          "odMm": 23.6,
+          "workingPressureBar": 130,
+          "workingPressurePsi": 1885,
+          "burstPressureBar": 520,
+          "burstPressurePsi": 7540,
+          "bendRadiusMm": 200
+        },
+        {
+          "code": "01-12",
+          "dashSize": "12",
+          "dn": 19,
+          "idInch": "3/4\"",
+          "idMm": 19,
+          "odMm": 27.7,
+          "workingPressureBar": 105,
+          "workingPressurePsi": 1523,
+          "burstPressureBar": 420,
+          "burstPressurePsi": 6090,
+          "bendRadiusMm": 240
+        },
+        {
+          "code": "01-16",
+          "dashSize": "16",
+          "dn": 25,
+          "idInch": "1\"",
+          "idMm": 25.4,
+          "odMm": 35.4,
+          "workingPressureBar": 88,
+          "workingPressurePsi": 1276,
+          "burstPressureBar": 350,
+          "burstPressurePsi": 5075,
+          "bendRadiusMm": 300
+        },
+        {
+          "code": "01-20",
+          "dashSize": "20",
+          "dn": 31,
+          "idInch": "1 1/4\"",
+          "idMm": 31.8,
+          "odMm": 43.7,
+          "workingPressureBar": 63,
+          "workingPressurePsi": 914,
+          "burstPressureBar": 250,
+          "burstPressurePsi": 3625,
+          "bendRadiusMm": 420
+        },
+        {
+          "code": "01-24",
+          "dashSize": "24",
+          "dn": 38,
+          "idInch": "1 1/2\"",
+          "idMm": 38.1,
+          "odMm": 50,
+          "workingPressureBar": 50,
+          "workingPressurePsi": 725,
+          "burstPressureBar": 200,
+          "burstPressurePsi": 2900,
+          "bendRadiusMm": 500
+        },
+        {
+          "code": "01-32",
+          "dashSize": "32",
+          "dn": 51,
+          "idInch": "2\"",
+          "idMm": 50.8,
+          "odMm": 63.7,
+          "workingPressureBar": 40,
+          "workingPressurePsi": 580,
+          "burstPressureBar": 160,
+          "burstPressurePsi": 2320,
+          "bendRadiusMm": 630
+        }
+      ]
+    },
+    {
+      "id": "sae-100-r2",
+      "name": "SAE 100 R2 AT / EN 853 2SN",
+      "kind": "hose",
+      "category": "hydraulic",
+      "categoryLabel": "Hydraulic Hoses",
+      "standard": "SAE 100 R2 AT Hi-Impulse / DIN 20022 Part 4 / EN 853-2SN",
+      "tagline": "Double wire braided hydraulic hose",
+      "description": "Double wire braided hydraulic hose. Tube: Synthetic rubber, resistant to hydraulic fluids. Reinforcement: two braid of high tensile steel wire. Cover: oil, weather & abrasion resistant synthetic rubber.",
+      "features": [],
+      "construction": {
+        "tube": "Synthetic rubber, resistant to hydraulic fluids",
+        "reinforcement": "Two braid of high tensile steel wire",
+        "cover": "Oil, weather & abrasion resistant synthetic rubber"
+      },
+      "temperatureRange": "-40°C to +100°C (max 120°C intermittent)",
+      "applications": [
+        "Hydraulic hoses and assemblies for earthmovers and Indian Railways"
+      ],
+      "recommendedFluids": [
+        "Hydraulic fluids"
+      ],
+      "maxPressureBar": 400,
+      "maxPressurePsi": 5800,
+      "sizeRange": "1/4\" to 2\" (DN6–DN51)",
+      "image": "/assets/hydraulic-hose.jpg",
+      "isHero": true,
+      "specs": [
+        {
+          "code": "02-4",
+          "dashSize": "4",
+          "dn": 6,
+          "idInch": "1/4\"",
+          "idMm": 6.4,
+          "odMm": 14.9,
+          "workingPressureBar": 400,
+          "workingPressurePsi": 5800,
+          "burstPressureBar": 1600,
+          "burstPressurePsi": 23200,
+          "bendRadiusMm": 100
+        },
+        {
+          "code": "02-5",
+          "dashSize": "5",
+          "dn": 8,
+          "idInch": "5/16\"",
+          "idMm": 7.9,
+          "odMm": 16.6,
+          "workingPressureBar": 350,
+          "workingPressurePsi": 5075,
+          "burstPressureBar": 1400,
+          "burstPressurePsi": 20300,
+          "bendRadiusMm": 115
+        },
+        {
+          "code": "02-6",
+          "dashSize": "6",
+          "dn": 10,
+          "idInch": "3/8\"",
+          "idMm": 9.5,
+          "odMm": 18.9,
+          "workingPressureBar": 330,
+          "workingPressurePsi": 4785,
+          "burstPressureBar": 1320,
+          "burstPressurePsi": 19140,
+          "bendRadiusMm": 130
+        },
+        {
+          "code": "02-8",
+          "dashSize": "8",
+          "dn": 12,
+          "idInch": "1/2\"",
+          "idMm": 12.7,
+          "odMm": 22.1,
+          "workingPressureBar": 275,
+          "workingPressurePsi": 3988,
+          "burstPressureBar": 1100,
+          "burstPressurePsi": 15950,
+          "bendRadiusMm": 180
+        },
+        {
+          "code": "02-10",
+          "dashSize": "10",
+          "dn": 16,
+          "idInch": "5/8\"",
+          "idMm": 15.9,
+          "odMm": 25.4,
+          "workingPressureBar": 250,
+          "workingPressurePsi": 3625,
+          "burstPressureBar": 1000,
+          "burstPressurePsi": 14500,
+          "bendRadiusMm": 200
+        },
+        {
+          "code": "02-12",
+          "dashSize": "12",
+          "dn": 19,
+          "idInch": "3/4\"",
+          "idMm": 19,
+          "odMm": 29.3,
+          "workingPressureBar": 215,
+          "workingPressurePsi": 3118,
+          "burstPressureBar": 850,
+          "burstPressurePsi": 12325,
+          "bendRadiusMm": 240
+        },
+        {
+          "code": "02-16",
+          "dashSize": "16",
+          "dn": 25,
+          "idInch": "1\"",
+          "idMm": 25.4,
+          "odMm": 37.6,
+          "workingPressureBar": 165,
+          "workingPressurePsi": 2393,
+          "burstPressureBar": 650,
+          "burstPressurePsi": 9425,
+          "bendRadiusMm": 300
+        },
+        {
+          "code": "02-20",
+          "dashSize": "20",
+          "dn": 31,
+          "idInch": "1 1/4\"",
+          "idMm": 31.8,
+          "odMm": 47.5,
+          "workingPressureBar": 125,
+          "workingPressurePsi": 1813,
+          "burstPressureBar": 500,
+          "burstPressurePsi": 7250,
+          "bendRadiusMm": 420
+        },
+        {
+          "code": "02-24",
+          "dashSize": "24",
+          "dn": 38,
+          "idInch": "1 1/2\"",
+          "idMm": 38.1,
+          "odMm": 54.5,
+          "workingPressureBar": 90,
+          "workingPressurePsi": 1305,
+          "burstPressureBar": 360,
+          "burstPressurePsi": 5220,
+          "bendRadiusMm": 500
+        },
+        {
+          "code": "02-32",
+          "dashSize": "32",
+          "dn": 51,
+          "idInch": "2\"",
+          "idMm": 50.8,
+          "odMm": 67,
+          "workingPressureBar": 80,
+          "workingPressurePsi": 1160,
+          "burstPressureBar": 320,
+          "burstPressurePsi": 4640,
+          "bendRadiusMm": 630
+        }
+      ]
+    },
+    {
+      "id": "sh33-extra-high-pressure",
+      "name": "SH33 — Extra High Pressure Hose",
+      "kind": "hose",
+      "category": "hydraulic",
+      "categoryLabel": "Hydraulic Hoses",
+      "standard": "VR proprietary SH33",
+      "tagline": "Extra high pressure hose, three braids of steel wire",
+      "description": "Extra high pressure hose, three braids of steel wire. Tube: Synthetic rubber, resistant to hydraulic fluids. Reinforcement: three braid of high tensile steel wire. Cover: oil, weather & abrasion resistant synthetic rubber.",
+      "features": [],
+      "construction": {
+        "tube": "Synthetic rubber, resistant to hydraulic fluids",
+        "reinforcement": "Three braid of high tensile steel wire",
+        "cover": "Oil, weather & abrasion resistant synthetic rubber"
+      },
+      "temperatureRange": "-40°C to +100°C (max 120°C intermittent)",
+      "applications": [],
+      "recommendedFluids": [
+        "Hydraulic fluids"
+      ],
+      "maxPressureBar": 470,
+      "maxPressurePsi": 6815,
+      "sizeRange": "1/2\" to 1 1/4\" (DN12–DN31)",
+      "image": "/assets/hydraulic-hose.jpg",
+      "isHero": false,
+      "specs": [
+        {
+          "code": "VR 33-8",
+          "dashSize": "8",
+          "dn": 12,
+          "idInch": "1/2\"",
+          "idMm": 12.7,
+          "odMm": 24.8,
+          "workingPressureBar": 470,
+          "workingPressurePsi": 6815,
+          "burstPressureBar": 1880,
+          "burstPressurePsi": 27260,
+          "bendRadiusMm": 160
+        },
+        {
+          "code": "VR 33-10",
+          "dashSize": "10",
+          "dn": 16,
+          "idInch": "5/8\"",
+          "idMm": 15.9,
+          "odMm": 27.8,
+          "workingPressureBar": 400,
+          "workingPressurePsi": 5800,
+          "burstPressureBar": 1600,
+          "burstPressurePsi": 23200,
+          "bendRadiusMm": 216
+        },
+        {
+          "code": "VR 33-12",
+          "dashSize": "12",
+          "dn": 19,
+          "idInch": "3/4\"",
+          "idMm": 19,
+          "odMm": 32.5,
+          "workingPressureBar": 355,
+          "workingPressurePsi": 5148,
+          "burstPressureBar": 1420,
+          "burstPressurePsi": 20590,
+          "bendRadiusMm": 260
+        },
+        {
+          "code": "VR 33-16",
+          "dashSize": "16",
+          "dn": 25,
+          "idInch": "1\"",
+          "idMm": 25.4,
+          "odMm": 40,
+          "workingPressureBar": 310,
+          "workingPressurePsi": 4495,
+          "burstPressureBar": 1240,
+          "burstPressurePsi": 17980,
+          "bendRadiusMm": 310
+        },
+        {
+          "code": "VR 33-20",
+          "dashSize": "20",
+          "dn": 31,
+          "idInch": "1 1/4\"",
+          "idMm": 31.8,
+          "odMm": 46.5,
+          "workingPressureBar": 240,
+          "workingPressurePsi": 3480,
+          "burstPressureBar": 960,
+          "burstPressurePsi": 13920,
+          "bendRadiusMm": 410
+        }
+      ]
+    },
+    {
+      "id": "jack-hose",
+      "name": "Jack Hose 725 Bar WP",
+      "kind": "hose",
+      "category": "hydraulic",
+      "categoryLabel": "Hydraulic Hoses",
+      "standard": "VR Jack Hose 725 bar working pressure",
+      "tagline": "Two-braid hose for hydraulic jacking",
+      "description": "Two-braid hose for hydraulic jacking. Tube: Synthetic rubber, resistant to hydraulic fluids. Reinforcement: two braid of high tensile steel wire. Cover: oil, weather & abrasion resistant synthetic rubber.",
+      "features": [
+        "Ideal for hydraulic jacking systems."
+      ],
+      "construction": {
+        "tube": "Synthetic rubber, resistant to hydraulic fluids",
+        "reinforcement": "Two braid of high tensile steel wire",
+        "cover": "Oil, weather & abrasion resistant synthetic rubber"
+      },
+      "temperatureRange": "-40°C to +50°C",
+      "applications": [
+        "Ideal for hydraulic jacking systems"
+      ],
+      "recommendedFluids": [
+        "Hydraulic fluids"
+      ],
+      "maxPressureBar": 725,
+      "maxPressurePsi": 10513,
+      "sizeRange": "1/4\" to 3/8\" (DN6–DN10)",
+      "image": "/assets/hydraulic-hose.jpg",
+      "isHero": false,
+      "specs": [
+        {
+          "code": "Jack-4",
+          "dashSize": "4",
+          "dn": 6,
+          "idInch": "1/4\"",
+          "idMm": 6.4,
+          "odMm": 14.2,
+          "workingPressureBar": 725,
+          "workingPressurePsi": 10513,
+          "burstPressureBar": 1450,
+          "burstPressurePsi": 21025,
+          "bendRadiusMm": 100
+        },
+        {
+          "code": "Jack-6",
+          "dashSize": "6",
+          "dn": 10,
+          "idInch": "3/8\"",
+          "idMm": 9.5,
+          "odMm": 17.5,
+          "workingPressureBar": 725,
+          "workingPressurePsi": 10513,
+          "burstPressureBar": 1450,
+          "burstPressurePsi": 21025,
+          "bendRadiusMm": 130
+        }
+      ]
+    },
+    {
+      "id": "loader-hose",
+      "name": "Loader Hose — Super Loader Series",
+      "kind": "hose",
+      "category": "hydraulic",
+      "categoryLabel": "Hydraulic Hoses",
+      "standard": "VR Super Loader Series",
+      "tagline": "Two-braid hose for extra high pressure loader application",
+      "description": "Two-braid hose for extra high pressure loader application. Tube: Synthetic rubber, resistant to hydraulic fluids. Reinforcement: two braid of high tensile steel wire. Cover: oil, weather & abrasion resistant synthetic rubber.",
+      "features": [
+        "Suitable for extra high pressure loader application."
+      ],
+      "construction": {
+        "tube": "Synthetic rubber, resistant to hydraulic fluids",
+        "reinforcement": "Two braid of high tensile steel wire",
+        "cover": "Oil, weather & abrasion resistant synthetic rubber"
+      },
+      "temperatureRange": "-40°C to +100°C (max 120°C intermittent)",
+      "applications": [
+        "extra high pressure loader application"
+      ],
+      "recommendedFluids": [
+        "Hydraulic fluids"
+      ],
+      "maxPressureBar": 345,
+      "maxPressurePsi": 5000,
+      "sizeRange": "1/2\" to 1\" (DN12–DN25)",
+      "image": "/assets/hydraulic-hose.jpg",
+      "isHero": false,
+      "specs": [
+        {
+          "code": "Loader-8",
+          "dashSize": "8",
+          "dn": 12,
+          "idInch": "1/2\"",
+          "idMm": 12.7,
+          "odMm": 22.5,
+          "workingPressureBar": 345,
+          "workingPressurePsi": 5000,
+          "burstPressureBar": 1380,
+          "burstPressurePsi": 20010,
+          "bendRadiusMm": 180
+        },
+        {
+          "code": "Loader-12",
+          "dashSize": "12",
+          "dn": 19,
+          "idInch": "3/4\"",
+          "idMm": 19,
+          "odMm": 29.5,
+          "workingPressureBar": 260,
+          "workingPressurePsi": 3770,
+          "burstPressureBar": 1040,
+          "burstPressurePsi": 15080,
+          "bendRadiusMm": 240
+        },
+        {
+          "code": "Loader-16",
+          "dashSize": "16",
+          "dn": 25,
+          "idInch": "1\"",
+          "idMm": 25.4,
+          "odMm": 38,
+          "workingPressureBar": 220,
+          "workingPressurePsi": 3200,
+          "burstPressureBar": 880,
+          "burstPressurePsi": 12760,
+          "bendRadiusMm": 300
+        }
+      ]
+    },
+    {
+      "id": "sae-100-r3",
+      "name": "SAE 100 R3",
+      "kind": "hose",
+      "category": "hydraulic",
+      "categoryLabel": "Hydraulic Hoses",
+      "standard": "SAE 100 R3",
+      "tagline": "Double textile braided hydraulic hose",
+      "description": "Double textile braided hydraulic hose. Tube: Synthetic rubber, resistant to hydraulic fluids. Reinforcement: two textile braided. Cover: oil, weather & abrasion resistant synthetic rubber.",
+      "features": [
+        "Suitable for use with petroleum & water based hydraulic fluids."
+      ],
+      "construction": {
+        "tube": "Synthetic rubber, resistant to hydraulic fluids",
+        "reinforcement": "Two textile braided",
+        "cover": "Oil, weather & abrasion resistant synthetic rubber"
+      },
+      "temperatureRange": "-40°C to +100°C",
+      "applications": [
+        "use with petroleum & water based hydraulic fluids"
+      ],
+      "recommendedFluids": [
+        "Petroleum & water based hydraulic fluids"
+      ],
+      "maxPressureBar": 87,
+      "maxPressurePsi": 1262,
+      "sizeRange": "1/4\" to 1\" (DN6–DN25)",
+      "image": "/assets/hydraulic-hose.jpg",
+      "isHero": false,
+      "specs": [
+        {
+          "code": "03-4",
+          "dashSize": "4",
+          "dn": 6,
+          "idInch": "1/4\"",
+          "idMm": 6.4,
+          "odMm": 14.8,
+          "workingPressureBar": 87,
+          "workingPressurePsi": 1262,
+          "burstPressureBar": 348,
+          "burstPressurePsi": 5046,
+          "bendRadiusMm": 75
+        },
+        {
+          "code": "03-5",
+          "dashSize": "5",
+          "dn": 8,
+          "idInch": "5/16\"",
+          "idMm": 7.9,
+          "odMm": 17.3,
+          "workingPressureBar": 84,
+          "workingPressurePsi": 1218,
+          "burstPressureBar": 336,
+          "burstPressurePsi": 4872,
+          "bendRadiusMm": 100
+        },
+        {
+          "code": "03-6",
+          "dashSize": "6",
+          "dn": 10,
+          "idInch": "3/8\"",
+          "idMm": 9.5,
+          "odMm": 19,
+          "workingPressureBar": 78,
+          "workingPressurePsi": 1131,
+          "burstPressureBar": 312,
+          "burstPressurePsi": 4524,
+          "bendRadiusMm": 100
+        },
+        {
+          "code": "03-8",
+          "dashSize": "8",
+          "dn": 12,
+          "idInch": "1/2\"",
+          "idMm": 12.7,
+          "odMm": 23.8,
+          "workingPressureBar": 70,
+          "workingPressurePsi": 1015,
+          "burstPressureBar": 280,
+          "burstPressurePsi": 4060,
+          "bendRadiusMm": 125
+        },
+        {
+          "code": "03-10",
+          "dashSize": "10",
+          "dn": 16,
+          "idInch": "5/8\"",
+          "idMm": 15.9,
+          "odMm": 26.9,
+          "workingPressureBar": 61,
+          "workingPressurePsi": 885,
+          "burstPressureBar": 244,
+          "burstPressurePsi": 3538,
+          "bendRadiusMm": 140
+        },
+        {
+          "code": "03-12",
+          "dashSize": "12",
+          "dn": 19,
+          "idInch": "3/4\"",
+          "idMm": 19,
+          "odMm": 31.5,
+          "workingPressureBar": 52,
+          "workingPressurePsi": 754,
+          "burstPressureBar": 208,
+          "burstPressurePsi": 3016,
+          "bendRadiusMm": 150
+        },
+        {
+          "code": "03-16",
+          "dashSize": "16",
+          "dn": 25,
+          "idInch": "1\"",
+          "idMm": 25.4,
+          "odMm": 38,
+          "workingPressureBar": 39,
+          "workingPressurePsi": 566,
+          "burstPressureBar": 156,
+          "burstPressurePsi": 2262,
+          "bendRadiusMm": 205
+        }
+      ]
+    },
+    {
+      "id": "sae-100-r6",
+      "name": "SAE 100 R6",
+      "kind": "hose",
+      "category": "hydraulic",
+      "categoryLabel": "Hydraulic Hoses",
+      "standard": "SAE 100 R6 (not covered under SAE)",
+      "tagline": "Single textile braided hydraulic hose",
+      "description": "Single textile braided hydraulic hose. Tube: Synthetic rubber, resistant to hydraulic fluids. Reinforcement: single textile braided. Cover: oil, weather & abrasion resistant synthetic rubber.",
+      "features": [],
+      "construction": {
+        "tube": "Synthetic rubber, resistant to hydraulic fluids",
+        "reinforcement": "Single textile braided",
+        "cover": "Oil, weather & abrasion resistant synthetic rubber"
+      },
+      "temperatureRange": "-40°C to +100°C",
+      "applications": [],
+      "recommendedFluids": [
+        "Hydraulic fluids"
+      ],
+      "maxPressureBar": 28,
+      "maxPressurePsi": 406,
+      "sizeRange": "1/4\" to 1\" (DN6–DN25)",
+      "image": "/assets/hydraulic-hose.jpg",
+      "isHero": false,
+      "specs": [
+        {
+          "code": "06-4",
+          "dashSize": "4",
+          "dn": 6,
+          "idInch": "1/4\"",
+          "idMm": 6.4,
+          "odMm": 13,
+          "workingPressureBar": 28,
+          "workingPressurePsi": 406,
+          "burstPressureBar": 112,
+          "burstPressurePsi": 1624,
+          "bendRadiusMm": 65
+        },
+        {
+          "code": "06-5",
+          "dashSize": "5",
+          "dn": 8,
+          "idInch": "5/16\"",
+          "idMm": 7.9,
+          "odMm": 14.2,
+          "workingPressureBar": 28,
+          "workingPressurePsi": 406,
+          "burstPressureBar": 112,
+          "burstPressurePsi": 1624,
+          "bendRadiusMm": 75
+        },
+        {
+          "code": "06-6",
+          "dashSize": "6",
+          "dn": 10,
+          "idInch": "3/8\"",
+          "idMm": 9.5,
+          "odMm": 15.7,
+          "workingPressureBar": 28,
+          "workingPressurePsi": 406,
+          "burstPressureBar": 112,
+          "burstPressurePsi": 1624,
+          "bendRadiusMm": 75
+        },
+        {
+          "code": "06-8",
+          "dashSize": "8",
+          "dn": 12,
+          "idInch": "1/2\"",
+          "idMm": 12.7,
+          "odMm": 19.7,
+          "workingPressureBar": 28,
+          "workingPressurePsi": 406,
+          "burstPressureBar": 112,
+          "burstPressurePsi": 1624,
+          "bendRadiusMm": 100
+        },
+        {
+          "code": "06-10",
+          "dashSize": "10",
+          "dn": 16,
+          "idInch": "5/8\"",
+          "idMm": 15.9,
+          "odMm": 23.2,
+          "workingPressureBar": 24,
+          "workingPressurePsi": 348,
+          "burstPressureBar": 96,
+          "burstPressurePsi": 1392,
+          "bendRadiusMm": 125
+        },
+        {
+          "code": "06-12",
+          "dashSize": "12",
+          "dn": 19,
+          "idInch": "3/4\"",
+          "idMm": 19,
+          "odMm": 26,
+          "workingPressureBar": 21,
+          "workingPressurePsi": 305,
+          "burstPressureBar": 84,
+          "burstPressurePsi": 1218,
+          "bendRadiusMm": 150
+        },
+        {
+          "code": "06-16*",
+          "dashSize": "16",
+          "dn": 25,
+          "idInch": "1\"",
+          "idMm": 25.4,
+          "odMm": 33.1,
+          "workingPressureBar": 15,
+          "workingPressurePsi": 218,
+          "burstPressureBar": 60,
+          "burstPressurePsi": 870,
+          "bendRadiusMm": 177
+        }
+      ]
+    },
+    {
+      "id": "sae-100-r5",
+      "name": "SAE 100 R5",
+      "kind": "hose",
+      "category": "hydraulic",
+      "categoryLabel": "Hydraulic Hoses",
+      "standard": "SAE 100 R5",
+      "tagline": "Textile braid separated by one wire braid, cotton braid cover",
+      "description": "Textile braid separated by one wire braid, cotton braid cover. Tube: Synthetic rubber, resistant to hydraulic fluids. Reinforcement: one braid of high tensile steel wire & textile braided. Cover: oil & mildew resistant rubber impregnated black cotton braid.",
+      "features": [
+        "Suitable for use with petroleum & water based hydraulic fluids."
+      ],
+      "construction": {
+        "tube": "Synthetic rubber, resistant to hydraulic fluids",
+        "reinforcement": "One braid of high tensile steel wire & textile braided",
+        "cover": "Oil & mildew resistant rubber impregnated black cotton braid"
+      },
+      "temperatureRange": "-40°C to +100°C",
+      "applications": [
+        "use with petroleum & water based hydraulic fluids"
+      ],
+      "recommendedFluids": [
+        "Petroleum & water based hydraulic fluids"
+      ],
+      "maxPressureBar": 210,
+      "maxPressurePsi": 3045,
+      "sizeRange": "3/16\" to 1 13/16\" (DN5–DN46)",
+      "image": "/assets/hydraulic-hose.jpg",
+      "isHero": false,
+      "specs": [
+        {
+          "code": "05-4",
+          "dashSize": "4",
+          "dn": 5,
+          "idInch": "3/16\"",
+          "idMm": 4.8,
+          "odMm": 13.4,
+          "workingPressureBar": 210,
+          "workingPressurePsi": 3045,
+          "burstPressureBar": 840,
+          "burstPressurePsi": 12180,
+          "bendRadiusMm": 75
+        },
+        {
+          "code": "05-5",
+          "dashSize": "5",
+          "dn": 6,
+          "idInch": "1/4\"",
+          "idMm": 6.4,
+          "odMm": 14.8,
+          "workingPressureBar": 210,
+          "workingPressurePsi": 3045,
+          "burstPressureBar": 840,
+          "burstPressurePsi": 12180,
+          "bendRadiusMm": 85
+        },
+        {
+          "code": "05-6",
+          "dashSize": "6",
+          "dn": 8,
+          "idInch": "5/16\"",
+          "idMm": 7.9,
+          "odMm": 17.2,
+          "workingPressureBar": 157,
+          "workingPressurePsi": 2277,
+          "burstPressureBar": 628,
+          "burstPressurePsi": 9108,
+          "bendRadiusMm": 100
+        },
+        {
+          "code": "05-8",
+          "dashSize": "8",
+          "dn": 10,
+          "idInch": "13/32\"",
+          "idMm": 10.3,
+          "odMm": 19.3,
+          "workingPressureBar": 140,
+          "workingPressurePsi": 2030,
+          "burstPressureBar": 560,
+          "burstPressurePsi": 8120,
+          "bendRadiusMm": 115
+        },
+        {
+          "code": "05-10",
+          "dashSize": "10",
+          "dn": 12,
+          "idInch": "1/2\"",
+          "idMm": 12.7,
+          "odMm": 23.3,
+          "workingPressureBar": 122,
+          "workingPressurePsi": 1769,
+          "burstPressureBar": 488,
+          "burstPressurePsi": 7076,
+          "bendRadiusMm": 140
+        },
+        {
+          "code": "05-12",
+          "dashSize": "12",
+          "dn": 16,
+          "idInch": "5/8\"",
+          "idMm": 15.9,
+          "odMm": 27.4,
+          "workingPressureBar": 105,
+          "workingPressurePsi": 1523,
+          "burstPressureBar": 420,
+          "burstPressurePsi": 6090,
+          "bendRadiusMm": 165
+        },
+        {
+          "code": "05-16",
+          "dashSize": "16",
+          "dn": 22,
+          "idInch": "7/8\"",
+          "idMm": 22.2,
+          "odMm": 31.3,
+          "workingPressureBar": 56,
+          "workingPressurePsi": 812,
+          "burstPressureBar": 224,
+          "burstPressurePsi": 3248,
+          "bendRadiusMm": 185
+        },
+        {
+          "code": "05-20",
+          "dashSize": "20",
+          "dn": 29,
+          "idInch": "1 1/8\"",
+          "idMm": 28.6,
+          "odMm": 38.4,
+          "workingPressureBar": 43,
+          "workingPressurePsi": 625,
+          "burstPressureBar": 172,
+          "burstPressurePsi": 2494,
+          "bendRadiusMm": 230
+        },
+        {
+          "code": "05-24",
+          "dashSize": "24",
+          "dn": 35,
+          "idInch": "1 3/8\"",
+          "idMm": 34.9,
+          "odMm": 44.9,
+          "workingPressureBar": 35,
+          "workingPressurePsi": 500,
+          "burstPressureBar": 140,
+          "burstPressurePsi": 2030,
+          "bendRadiusMm": 265
+        },
+        {
+          "code": "05-32",
+          "dashSize": "32",
+          "dn": 46,
+          "idInch": "1 13/16\"",
+          "idMm": 46,
+          "odMm": 56.2,
+          "workingPressureBar": 24,
+          "workingPressurePsi": 350,
+          "burstPressureBar": 96,
+          "burstPressurePsi": 1392,
+          "bendRadiusMm": 335
+        }
+      ]
+    },
+    {
+      "id": "sae-100-r5r",
+      "name": "SAE 100 R5R",
+      "kind": "hose",
+      "category": "hydraulic",
+      "categoryLabel": "Hydraulic Hoses",
+      "standard": "SAE 100 R5R",
+      "tagline": "Textile inner braid and wire reinforcement with rubber outer cover",
+      "description": "Textile inner braid and wire reinforcement with rubber outer cover. Tube: Synthetic rubber, resistant to hydraulic fluids. Reinforcement: one braid of high tensile steel wire & textile braided. Cover: oil, weather & abrasion resistant synthetic rubber.",
+      "features": [
+        "Suitable for use with petroleum & water based hydraulic fluids."
+      ],
+      "construction": {
+        "tube": "Synthetic rubber, resistant to hydraulic fluids",
+        "reinforcement": "One braid of high tensile steel wire & textile braided",
+        "cover": "Oil, weather & abrasion resistant synthetic rubber"
+      },
+      "temperatureRange": "-40°C to +100°C",
+      "applications": [
+        "use with petroleum & water based hydraulic fluids"
+      ],
+      "recommendedFluids": [
+        "Petroleum & water based hydraulic fluids"
+      ],
+      "maxPressureBar": 210,
+      "maxPressurePsi": 3045,
+      "sizeRange": "3/16\" to 1 13/16\" (DN5–DN46)",
+      "image": "/assets/hydraulic-hose.jpg",
+      "isHero": false,
+      "specs": [
+        {
+          "code": "5R-4",
+          "dashSize": "4",
+          "dn": 5,
+          "idInch": "3/16\"",
+          "idMm": 4.8,
+          "odMm": 13.2,
+          "workingPressureBar": 210,
+          "workingPressurePsi": 3045,
+          "burstPressureBar": 840,
+          "burstPressurePsi": 12180,
+          "bendRadiusMm": 75
+        },
+        {
+          "code": "5R-5",
+          "dashSize": "5",
+          "dn": 6,
+          "idInch": "1/4\"",
+          "idMm": 6.4,
+          "odMm": 14.7,
+          "workingPressureBar": 210,
+          "workingPressurePsi": 3045,
+          "burstPressureBar": 840,
+          "burstPressurePsi": 12180,
+          "bendRadiusMm": 85
+        },
+        {
+          "code": "5R-6",
+          "dashSize": "6",
+          "dn": 8,
+          "idInch": "5/16\"",
+          "idMm": 7.9,
+          "odMm": 17,
+          "workingPressureBar": 157,
+          "workingPressurePsi": 2277,
+          "burstPressureBar": 628,
+          "burstPressurePsi": 9108,
+          "bendRadiusMm": 100
+        },
+        {
+          "code": "5R-8",
+          "dashSize": "8",
+          "dn": 10,
+          "idInch": "13/32\"",
+          "idMm": 10.3,
+          "odMm": 19.3,
+          "workingPressureBar": 140,
+          "workingPressurePsi": 2030,
+          "burstPressureBar": 560,
+          "burstPressurePsi": 8120,
+          "bendRadiusMm": 115
+        },
+        {
+          "code": "5R-10",
+          "dashSize": "10",
+          "dn": 12,
+          "idInch": "1/2\"",
+          "idMm": 12.7,
+          "odMm": 23.3,
+          "workingPressureBar": 122,
+          "workingPressurePsi": 1769,
+          "burstPressureBar": 488,
+          "burstPressurePsi": 7076,
+          "bendRadiusMm": 140
+        },
+        {
+          "code": "5R-12",
+          "dashSize": "12",
+          "dn": 16,
+          "idInch": "5/8\"",
+          "idMm": 15.9,
+          "odMm": 27.2,
+          "workingPressureBar": 105,
+          "workingPressurePsi": 1523,
+          "burstPressureBar": 420,
+          "burstPressurePsi": 6090,
+          "bendRadiusMm": 165
+        },
+        {
+          "code": "5R-16",
+          "dashSize": "16",
+          "dn": 22,
+          "idInch": "7/8\"",
+          "idMm": 22.2,
+          "odMm": 31.2,
+          "workingPressureBar": 56,
+          "workingPressurePsi": 812,
+          "burstPressureBar": 224,
+          "burstPressurePsi": 3248,
+          "bendRadiusMm": 185
+        },
+        {
+          "code": "5R-20",
+          "dashSize": "20",
+          "dn": 29,
+          "idInch": "1 1/8\"",
+          "idMm": 28.6,
+          "odMm": 38.1,
+          "workingPressureBar": 43,
+          "workingPressurePsi": 625,
+          "burstPressureBar": 172,
+          "burstPressurePsi": 2494,
+          "bendRadiusMm": 230
+        },
+        {
+          "code": "5R-24",
+          "dashSize": "24",
+          "dn": 35,
+          "idInch": "1 3/8\"",
+          "idMm": 34.9,
+          "odMm": 44.7,
+          "workingPressureBar": 35,
+          "workingPressurePsi": 500,
+          "burstPressureBar": 140,
+          "burstPressurePsi": 2030,
+          "bendRadiusMm": 265
+        },
+        {
+          "code": "5R-32",
+          "dashSize": "32",
+          "dn": 46,
+          "idInch": "1 13/16\"",
+          "idMm": 46,
+          "odMm": 56.4,
+          "workingPressureBar": 24,
+          "workingPressurePsi": 350,
+          "burstPressureBar": 96,
+          "burstPressurePsi": 1392,
+          "bendRadiusMm": 335
+        }
+      ]
+    },
+    {
+      "id": "steam-hose-type-2",
+      "name": "Steam Hose Type-2 — 51 Series",
+      "kind": "hose",
+      "category": "industrial",
+      "categoryLabel": "Industrial Hoses",
+      "standard": "IS 10655 Type-2",
+      "tagline": "Single wire braided steam hose, WP 10 bar",
+      "description": "Single wire braided steam hose, WP 10 bar. Tube: Synthetic rubber, saturated steam & heat resistant. Reinforcement: one high tensile steel wire braided. Cover: steam & heat resistant synthetic rubber.",
+      "features": [
+        "Suitable for use with saturated steam application."
+      ],
+      "construction": {
+        "tube": "Synthetic rubber, saturated steam & heat resistant",
+        "reinforcement": "One high tensile steel wire braided",
+        "cover": "Steam & heat resistant synthetic rubber"
+      },
+      "temperatureRange": "-40°C to +195°C",
+      "applications": [
+        "use with saturated steam application"
+      ],
+      "recommendedFluids": [
+        "Saturated steam"
+      ],
+      "maxPressureBar": 10,
+      "maxPressurePsi": 145,
+      "sizeRange": "3/8\" to 2\" (DN10–DN51)",
+      "image": "/assets/industrial-hoses.jpg",
+      "isHero": false,
+      "specs": [
+        {
+          "code": "51 - 6",
+          "dashSize": "6",
+          "dn": 10,
+          "idInch": "3/8\"",
+          "idMm": 9.5,
+          "odMm": 18.9,
+          "workingPressureBar": 10,
+          "workingPressurePsi": 145,
+          "burstPressureBar": 100,
+          "burstPressurePsi": 1450,
+          "bendRadiusMm": 130
+        },
+        {
+          "code": "51 - 8",
+          "dashSize": "8",
+          "dn": 12,
+          "idInch": "1/2\"",
+          "idMm": 12.7,
+          "odMm": 22,
+          "workingPressureBar": 10,
+          "workingPressurePsi": 145,
+          "burstPressureBar": 100,
+          "burstPressurePsi": 1450,
+          "bendRadiusMm": 180
+        },
+        {
+          "code": "51 - 10",
+          "dashSize": "10",
+          "dn": 16,
+          "idInch": "5/8\"",
+          "idMm": 15.9,
+          "odMm": 25.4,
+          "workingPressureBar": 10,
+          "workingPressurePsi": 145,
+          "burstPressureBar": 100,
+          "burstPressurePsi": 1450,
+          "bendRadiusMm": 200
+        },
+        {
+          "code": "51 - 12",
+          "dashSize": "12",
+          "dn": 19,
+          "idInch": "3/4\"",
+          "idMm": 19,
+          "odMm": 28.7,
+          "workingPressureBar": 10,
+          "workingPressurePsi": 145,
+          "burstPressureBar": 100,
+          "burstPressurePsi": 1450,
+          "bendRadiusMm": 240
+        },
+        {
+          "code": "51 - 16",
+          "dashSize": "16",
+          "dn": 25,
+          "idInch": "1\"",
+          "idMm": 25.4,
+          "odMm": 35.9,
+          "workingPressureBar": 10,
+          "workingPressurePsi": 145,
+          "burstPressureBar": 100,
+          "burstPressurePsi": 1450,
+          "bendRadiusMm": 300
+        },
+        {
+          "code": "51 - 20",
+          "dashSize": "20",
+          "dn": 31,
+          "idInch": "1 1/4\"",
+          "idMm": 31.8,
+          "odMm": 43.5,
+          "workingPressureBar": 10,
+          "workingPressurePsi": 145,
+          "burstPressureBar": 100,
+          "burstPressurePsi": 1450,
+          "bendRadiusMm": 400
+        },
+        {
+          "code": "51 - 24",
+          "dashSize": "24",
+          "dn": 38,
+          "idInch": "1 1/2\"",
+          "idMm": 38.1,
+          "odMm": 50.5,
+          "workingPressureBar": 10,
+          "workingPressurePsi": 145,
+          "burstPressureBar": 100,
+          "burstPressurePsi": 1450,
+          "bendRadiusMm": 500
+        },
+        {
+          "code": "51 - 32",
+          "dashSize": "32",
+          "dn": 51,
+          "idInch": "2\"",
+          "idMm": 50.8,
+          "odMm": 63.5,
+          "workingPressureBar": 10,
+          "workingPressurePsi": 145,
+          "burstPressureBar": 100,
+          "burstPressurePsi": 1450,
+          "bendRadiusMm": 650
+        }
+      ]
+    },
+    {
+      "id": "steam-hose-type-3",
+      "name": "Steam Hose Type-3 — 52 Series",
+      "kind": "hose",
+      "category": "industrial",
+      "categoryLabel": "Industrial Hoses",
+      "standard": "IS 10655 Type-3",
+      "tagline": "Double wire braided steam hose, WP 17 bar",
+      "description": "Double wire braided steam hose, WP 17 bar. Tube: Synthetic rubber, saturated steam & heat resistant. Reinforcement: two high tensile steel wire braided. Cover: steam & heat resistant synthetic rubber.",
+      "features": [
+        "Suitable for use with saturated steam application."
+      ],
+      "construction": {
+        "tube": "Synthetic rubber, saturated steam & heat resistant",
+        "reinforcement": "Two high tensile steel wire braided",
+        "cover": "Steam & heat resistant synthetic rubber"
+      },
+      "temperatureRange": "-40°C to +210°C",
+      "applications": [
+        "use with saturated steam application"
+      ],
+      "recommendedFluids": [
+        "Saturated steam"
+      ],
+      "maxPressureBar": 17,
+      "maxPressurePsi": 247,
+      "sizeRange": "3/8\" to 2\" (DN10–DN51)",
+      "image": "/assets/industrial-hoses.jpg",
+      "isHero": false,
+      "specs": [
+        {
+          "code": "52 - 6",
+          "dashSize": "6",
+          "dn": 10,
+          "idInch": "3/8\"",
+          "idMm": 9.5,
+          "odMm": 21,
+          "workingPressureBar": 17,
+          "workingPressurePsi": 247,
+          "burstPressureBar": 160,
+          "burstPressurePsi": 2320,
+          "bendRadiusMm": 130
+        },
+        {
+          "code": "52 - 8",
+          "dashSize": "8",
+          "dn": 12,
+          "idInch": "1/2\"",
+          "idMm": 12.7,
+          "odMm": 24,
+          "workingPressureBar": 17,
+          "workingPressurePsi": 247,
+          "burstPressureBar": 160,
+          "burstPressurePsi": 2320,
+          "bendRadiusMm": 180
+        },
+        {
+          "code": "52 - 10",
+          "dashSize": "10",
+          "dn": 16,
+          "idInch": "5/8\"",
+          "idMm": 15.9,
+          "odMm": 27.6,
+          "workingPressureBar": 17,
+          "workingPressurePsi": 247,
+          "burstPressureBar": 160,
+          "burstPressurePsi": 2320,
+          "bendRadiusMm": 200
+        },
+        {
+          "code": "52 - 12",
+          "dashSize": "12",
+          "dn": 19,
+          "idInch": "3/4\"",
+          "idMm": 19,
+          "odMm": 30.9,
+          "workingPressureBar": 17,
+          "workingPressurePsi": 247,
+          "burstPressureBar": 160,
+          "burstPressurePsi": 2320,
+          "bendRadiusMm": 240
+        },
+        {
+          "code": "52 - 16",
+          "dashSize": "16",
+          "dn": 25,
+          "idInch": "1\"",
+          "idMm": 25.4,
+          "odMm": 38.6,
+          "workingPressureBar": 17,
+          "workingPressurePsi": 247,
+          "burstPressureBar": 160,
+          "burstPressurePsi": 2320,
+          "bendRadiusMm": 300
+        },
+        {
+          "code": "52 - 20",
+          "dashSize": "20",
+          "dn": 31,
+          "idInch": "1 1/4\"",
+          "idMm": 31.8,
+          "odMm": 46,
+          "workingPressureBar": 17,
+          "workingPressurePsi": 247,
+          "burstPressureBar": 160,
+          "burstPressurePsi": 2320,
+          "bendRadiusMm": 400
+        },
+        {
+          "code": "52 - 24",
+          "dashSize": "24",
+          "dn": 38,
+          "idInch": "1 1/2\"",
+          "idMm": 38.1,
+          "odMm": 54.3,
+          "workingPressureBar": 17,
+          "workingPressurePsi": 247,
+          "burstPressureBar": 160,
+          "burstPressurePsi": 2320,
+          "bendRadiusMm": 500
+        },
+        {
+          "code": "52 - 32",
+          "dashSize": "32",
+          "dn": 51,
+          "idInch": "2\"",
+          "idMm": 50.8,
+          "odMm": 67.5,
+          "workingPressureBar": 17,
+          "workingPressurePsi": 247,
+          "burstPressureBar": 160,
+          "burstPressurePsi": 2320,
+          "bendRadiusMm": 650
+        }
+      ]
+    },
+    {
+      "id": "rock-drill-hose-wire",
+      "name": "Super Dynamic Rock Drill Hose — Wire Braided",
+      "kind": "hose",
+      "category": "industrial",
+      "categoryLabel": "Industrial Hoses",
+      "standard": "IS 446 Type-3 (wire braided), WP 500 psi",
+      "tagline": "Wire braided rock drill hose for pneumatic service",
+      "description": "Wire braided rock drill hose for pneumatic service. Tube: Synthetic rubber. Reinforcement: one high tensile steel wire braided. Cover: oil, weather & abrasion resistant synthetic rubber.",
+      "features": [
+        "Suitable for heavy duty high pressure pneumatic application (with oil resistance)."
+      ],
+      "construction": {
+        "tube": "Synthetic rubber",
+        "reinforcement": "One high tensile steel wire braided",
+        "cover": "Oil, weather & abrasion resistant synthetic rubber"
+      },
+      "temperatureRange": "-40°C to +70°C",
+      "applications": [
+        "heavy duty high pressure pneumatic application (with oil resistance)"
+      ],
+      "recommendedFluids": [
+        "Compressed air (pneumatic)"
+      ],
+      "maxPressureBar": 35,
+      "maxPressurePsi": 500,
+      "sizeRange": "1/2\" to 2\" (DN12–DN51)",
+      "image": "/assets/industrial-hoses.jpg",
+      "isHero": false,
+      "specs": [
+        {
+          "code": "RDH - 8 (1W)",
+          "dashSize": "8",
+          "dn": 12,
+          "idInch": "1/2\"",
+          "idMm": 12.7,
+          "odMm": 21.2,
+          "workingPressureBar": 35,
+          "workingPressurePsi": 500,
+          "burstPressureBar": 138,
+          "burstPressurePsi": 2000,
+          "bendRadiusMm": 180
+        },
+        {
+          "code": "RDH - 10 (1W)",
+          "dashSize": "10",
+          "dn": 16,
+          "idInch": "5/8\"",
+          "idMm": 15.9,
+          "odMm": 24,
+          "workingPressureBar": 35,
+          "workingPressurePsi": 500,
+          "burstPressureBar": 138,
+          "burstPressurePsi": 2000,
+          "bendRadiusMm": 200
+        },
+        {
+          "code": "RDH - 12 (1W)",
+          "dashSize": "12",
+          "dn": 19,
+          "idInch": "3/4\"",
+          "idMm": 19,
+          "odMm": 27.7,
+          "workingPressureBar": 35,
+          "workingPressurePsi": 500,
+          "burstPressureBar": 138,
+          "burstPressurePsi": 2000,
+          "bendRadiusMm": 240
+        },
+        {
+          "code": "RDH - 16 (1W)",
+          "dashSize": "16",
+          "dn": 25,
+          "idInch": "1\"",
+          "idMm": 25.4,
+          "odMm": 35.7,
+          "workingPressureBar": 35,
+          "workingPressurePsi": 500,
+          "burstPressureBar": 138,
+          "burstPressurePsi": 2000,
+          "bendRadiusMm": 300
+        },
+        {
+          "code": "RDH - 20 (1W)",
+          "dashSize": "20",
+          "dn": 31,
+          "idInch": "1 1/4\"",
+          "idMm": 31.8,
+          "odMm": 43,
+          "workingPressureBar": 35,
+          "workingPressurePsi": 500,
+          "burstPressureBar": 138,
+          "burstPressurePsi": 2000,
+          "bendRadiusMm": 420
+        },
+        {
+          "code": "RDH - 24 (1W)",
+          "dashSize": "24",
+          "dn": 38,
+          "idInch": "1 1/2\"",
+          "idMm": 38.1,
+          "odMm": 50.5,
+          "workingPressureBar": 35,
+          "workingPressurePsi": 500,
+          "burstPressureBar": 138,
+          "burstPressurePsi": 2000,
+          "bendRadiusMm": 500
+        },
+        {
+          "code": "RDH - 32 (1W)",
+          "dashSize": "32",
+          "dn": 51,
+          "idInch": "2\"",
+          "idMm": 50.8,
+          "odMm": 63.5,
+          "workingPressureBar": 35,
+          "workingPressurePsi": 500,
+          "burstPressureBar": 138,
+          "burstPressurePsi": 2000,
+          "bendRadiusMm": 630
+        }
+      ]
+    },
+    {
+      "id": "rock-drill-hose-yarn",
+      "name": "Super Dynamic Rock Drill Hose — Yarn Braided",
+      "kind": "hose",
+      "category": "industrial",
+      "categoryLabel": "Industrial Hoses",
+      "standard": "IS 446 Type-3 (yarn braided)",
+      "tagline": "Yarn braided rock drill hose for pneumatic service",
+      "description": "Yarn braided rock drill hose for pneumatic service. Tube: Synthetic rubber. Reinforcement: one yarn braided. Cover: oil, weather & abrasion resistant synthetic rubber.",
+      "features": [
+        "Suitable for high pressure pneumatic application (with oil resistance)."
+      ],
+      "construction": {
+        "tube": "Synthetic rubber",
+        "reinforcement": "One yarn braided",
+        "cover": "Oil, weather & abrasion resistant synthetic rubber"
+      },
+      "temperatureRange": "-40°C to +70°C",
+      "applications": [
+        "high pressure pneumatic application (with oil resistance)"
+      ],
+      "recommendedFluids": [
+        "Compressed air (pneumatic)"
+      ],
+      "maxPressureBar": 21,
+      "maxPressurePsi": 300,
+      "sizeRange": "1/2\" to 2\" (DN12–DN51)",
+      "image": "/assets/industrial-hoses.jpg",
+      "isHero": false,
+      "specs": [
+        {
+          "code": "RDH - 8 (1Y)",
+          "dashSize": "8",
+          "dn": 12,
+          "idInch": "1/2\"",
+          "idMm": 12.7,
+          "odMm": 21.2,
+          "workingPressureBar": 21,
+          "workingPressurePsi": 300,
+          "burstPressureBar": 83,
+          "burstPressurePsi": 1200
+        },
+        {
+          "code": "RDH - 12 (1Y)",
+          "dashSize": "12",
+          "dn": 19,
+          "idInch": "3/4\"",
+          "idMm": 19,
+          "odMm": 27.7,
+          "workingPressureBar": 21,
+          "workingPressurePsi": 300,
+          "burstPressureBar": 83,
+          "burstPressurePsi": 1200
+        },
+        {
+          "code": "RDH - 16 (1Y)",
+          "dashSize": "16",
+          "dn": 25,
+          "idInch": "1\"",
+          "idMm": 25.4,
+          "odMm": 36,
+          "workingPressureBar": 21,
+          "workingPressurePsi": 300,
+          "burstPressureBar": 83,
+          "burstPressurePsi": 1200
+        },
+        {
+          "code": "RDH - 20 (1Y)",
+          "dashSize": "20",
+          "dn": 31,
+          "idInch": "1 1/4\"",
+          "idMm": 31.8,
+          "odMm": 43,
+          "workingPressureBar": 14,
+          "workingPressurePsi": 200,
+          "burstPressureBar": 55,
+          "burstPressurePsi": 800
+        },
+        {
+          "code": "RDH - 24 (1Y)",
+          "dashSize": "24",
+          "dn": 38,
+          "idInch": "1 1/2\"",
+          "idMm": 38.1,
+          "odMm": 50.5,
+          "workingPressureBar": 14,
+          "workingPressurePsi": 200,
+          "burstPressureBar": 55,
+          "burstPressurePsi": 800
+        },
+        {
+          "code": "RDH - 32 (1Y)",
+          "dashSize": "32",
+          "dn": 51,
+          "idInch": "2\"",
+          "idMm": 50.8,
+          "odMm": 63.5,
+          "workingPressureBar": 14,
+          "workingPressurePsi": 200,
+          "burstPressureBar": 55,
+          "burstPressurePsi": 800
+        }
+      ]
+    },
+    {
+      "id": "lpg-hose-en-1762-type-d",
+      "name": "LPG Hose — BS EN 1762 Type-D",
+      "kind": "hose",
+      "category": "lpg",
+      "categoryLabel": "LPG Hoses",
+      "standard": "BS EN 1762 Type-D",
+      "tagline": "Single wire braided LPG hose",
+      "description": "Single wire braided LPG hose. Tube: Synthetic rubber, resistant to LPG. Reinforcement: one high tensile steel wire braided. Cover: oil, weather & abrasion resistant synthetic rubber.",
+      "features": [],
+      "construction": {
+        "tube": "Synthetic rubber, resistant to LPG",
+        "reinforcement": "One high tensile steel wire braided",
+        "cover": "Oil, weather & abrasion resistant synthetic rubber"
+      },
+      "temperatureRange": "-40°C to +70°C",
+      "applications": [],
+      "recommendedFluids": [
+        "LPG"
+      ],
+      "maxPressureBar": 25,
+      "maxPressurePsi": 363,
+      "sizeRange": "1/2\" to 1\" (DN12–DN25)",
+      "image": "/assets/industrial-hoses.jpg",
+      "isHero": false,
+      "specs": [
+        {
+          "code": "1762D - 8",
+          "dashSize": "8",
+          "dn": 12,
+          "idInch": "1/2\"",
+          "idMm": 12.7,
+          "odMm": 22.7,
+          "workingPressureBar": 25,
+          "workingPressurePsi": 363,
+          "burstPressureBar": 100,
+          "burstPressurePsi": 1450,
+          "bendRadiusMm": 100
+        },
+        {
+          "code": "1762D - 10",
+          "dashSize": "10",
+          "dn": 16,
+          "idInch": "5/8\"",
+          "idMm": 15.9,
+          "odMm": 25.4,
+          "workingPressureBar": 25,
+          "workingPressurePsi": 363,
+          "burstPressureBar": 100,
+          "burstPressurePsi": 1450,
+          "bendRadiusMm": 125
+        },
+        {
+          "code": "1762D - 12",
+          "dashSize": "12",
+          "dn": 19,
+          "idInch": "3/4\"",
+          "idMm": 19,
+          "odMm": 30.5,
+          "workingPressureBar": 25,
+          "workingPressurePsi": 363,
+          "burstPressureBar": 100,
+          "burstPressurePsi": 1450,
+          "bendRadiusMm": 160
+        },
+        {
+          "code": "1762D - 16",
+          "dashSize": "16",
+          "dn": 25,
+          "idInch": "1\"",
+          "idMm": 25.4,
+          "odMm": 37.5,
+          "workingPressureBar": 25,
+          "workingPressurePsi": 363,
+          "burstPressureBar": 100,
+          "burstPressurePsi": 1450,
+          "bendRadiusMm": 200
+        }
+      ]
+    },
+    {
+      "id": "lpg-hose-is-9573-type-ii",
+      "name": "LPG Hose — IS 9573 Type-II",
+      "kind": "hose",
+      "category": "lpg",
+      "categoryLabel": "LPG Hoses",
+      "standard": "IS 9573 Type-II",
+      "tagline": "Single wire braided LPG hose with orange cover",
+      "description": "Single wire braided LPG hose with orange cover. Tube: Synthetic rubber, resistant to LPG. Reinforcement: one high tensile steel wire braided. Cover: oil & weather resistant synthetic rubber, orange colour.",
+      "features": [],
+      "construction": {
+        "tube": "Synthetic rubber, resistant to LPG",
+        "reinforcement": "One high tensile steel wire braided",
+        "cover": "Oil & weather resistant synthetic rubber, orange colour"
+      },
+      "temperatureRange": "-40°C to +70°C",
+      "applications": [],
+      "recommendedFluids": [
+        "LPG"
+      ],
+      "maxPressureBar": 10,
+      "maxPressurePsi": 145,
+      "sizeRange": "5/16\" to 1/2\" (DN8–DN12)",
+      "image": "/assets/industrial-hoses.jpg",
+      "isHero": false,
+      "coverColor": 14251034,
+      "specs": [
+        {
+          "code": "95734 - 5",
+          "dashSize": "5",
+          "dn": 8,
+          "idInch": "5/16\"",
+          "idMm": 7.9,
+          "odMm": 15,
+          "workingPressureBar": 10,
+          "workingPressurePsi": 145,
+          "burstPressureBar": 50,
+          "burstPressurePsi": 725,
+          "bendRadiusMm": 95
+        },
+        {
+          "code": "95734 - 6",
+          "dashSize": "6",
+          "dn": 10,
+          "idInch": "3/8\"",
+          "idMm": 9.5,
+          "odMm": 18,
+          "workingPressureBar": 10,
+          "workingPressurePsi": 145,
+          "burstPressureBar": 50,
+          "burstPressurePsi": 725,
+          "bendRadiusMm": 120
+        },
+        {
+          "code": "95734 - 8",
+          "dashSize": "8",
+          "dn": 12,
+          "idInch": "1/2\"",
+          "idMm": 12.7,
+          "odMm": 20.2,
+          "workingPressureBar": 10,
+          "workingPressurePsi": 145,
+          "burstPressureBar": 50,
+          "burstPressurePsi": 725,
+          "bendRadiusMm": 150
+        }
+      ]
+    },
+    {
+      "id": "lpg-hose-is-9573-type-i",
+      "name": "LPG Hose — IS 9573 Type-I (ARAI Approved)",
+      "kind": "hose",
+      "category": "lpg",
+      "categoryLabel": "LPG Hoses",
+      "standard": "IS 9573 Type-I — ARAI Approved",
+      "tagline": "Single wire braided LPG hose",
+      "description": "Single wire braided LPG hose. Tube: Synthetic rubber, resistant to LPG. Reinforcement: one high tensile steel wire braided. Cover: oil, weather & abrasion resistant synthetic rubber.",
+      "features": [],
+      "construction": {
+        "tube": "Synthetic rubber, resistant to LPG",
+        "reinforcement": "One high tensile steel wire braided",
+        "cover": "Oil, weather & abrasion resistant synthetic rubber"
+      },
+      "temperatureRange": "-40°C to +70°C",
+      "applications": [],
+      "recommendedFluids": [
+        "LPG"
+      ],
+      "maxPressureBar": 25,
+      "maxPressurePsi": 363,
+      "sizeRange": "1/4\" to 1/4\" (DN6–DN6)",
+      "image": "/assets/industrial-hoses.jpg",
+      "isHero": false,
+      "specs": [
+        {
+          "code": "9573-4",
+          "dashSize": "4",
+          "dn": 6,
+          "idInch": "1/4\"",
+          "idMm": 6.4,
+          "odMm": 13.2,
+          "workingPressureBar": 25,
+          "workingPressurePsi": 363,
+          "burstPressureBar": 125,
+          "burstPressurePsi": 1813,
+          "bendRadiusMm": 70
+        }
+      ]
+    },
+    {
+      "id": "governor-hose",
+      "name": "Governor Hose",
+      "kind": "hose",
+      "category": "automotive",
+      "categoryLabel": "Automotive Hoses",
+      "standard": "VEXTRA Governor Hose",
+      "tagline": "Single wire braided governor hose",
+      "description": "Single wire braided governor hose. Tube: Synthetic rubber, resistant to oil & petroleum based fuel. Reinforcement: one high tensile steel wire braided. Cover: oil, weather & abrasion resistant synthetic rubber.",
+      "features": [],
+      "construction": {
+        "tube": "Synthetic rubber, resistant to oil & petroleum based fuel",
+        "reinforcement": "One high tensile steel wire braided",
+        "cover": "Oil, weather & abrasion resistant synthetic rubber"
+      },
+      "temperatureRange": "-40°C to +55°C",
+      "applications": [],
+      "recommendedFluids": [
+        "Oil & petroleum based fuel"
+      ],
+      "maxPressureBar": 7,
+      "maxPressurePsi": 100,
+      "sizeRange": "1/4\" to 1/4\" (DN6–DN6)",
+      "image": "/assets/automotive-hoses.jpg",
+      "isHero": false,
+      "dataNote": "Burst pressure (414 bar / 6000 psi) is printed as-is from the catalogue and is out of proportion to the 7 bar working pressure — confirm with the client before publishing.",
+      "specs": [
+        {
+          "code": "GH-4",
+          "dashSize": "4",
+          "dn": 6,
+          "idInch": "1/4\"",
+          "idMm": 6.4,
+          "odMm": 12.8,
+          "workingPressureBar": 7,
+          "workingPressurePsi": 100,
+          "burstPressureBar": 414,
+          "burstPressurePsi": 6000,
+          "bendRadiusMm": 100
+        }
+      ]
+    },
+    {
+      "id": "tractor-trolley-hose",
+      "name": "Tractor Trolley Hose",
+      "kind": "hose",
+      "category": "automotive",
+      "categoryLabel": "Automotive Hoses",
+      "standard": "VEXTRA Tractor Trolley Hose",
+      "tagline": "Two-braid hydraulic hose for tractor trolleys",
+      "description": "Two-braid hydraulic hose for tractor trolleys. Tube: Synthetic rubber, resistant to hydraulic fluids. Reinforcement: two braid of high tensile steel wire. Cover: oil, weather & abrasion resistant synthetic rubber.",
+      "features": [],
+      "construction": {
+        "tube": "Synthetic rubber, resistant to hydraulic fluids",
+        "reinforcement": "Two braid of high tensile steel wire",
+        "cover": "Oil, weather & abrasion resistant synthetic rubber"
+      },
+      "temperatureRange": "-40°C to +70°C",
+      "applications": [],
+      "recommendedFluids": [
+        "Hydraulic fluids"
+      ],
+      "maxPressureBar": 207,
+      "maxPressurePsi": 3000,
+      "sizeRange": "3/8\" to 1/2\" (DN10–DN12)",
+      "image": "/assets/automotive-hoses.jpg",
+      "isHero": false,
+      "specs": [
+        {
+          "code": "TT - 6 (2w)",
+          "dashSize": "6",
+          "dn": 10,
+          "idInch": "3/8\"",
+          "idMm": 9.5,
+          "odMm": 18.5,
+          "workingPressureBar": 207,
+          "workingPressurePsi": 3000,
+          "burstPressureBar": 690,
+          "burstPressurePsi": 10000,
+          "bendRadiusMm": 130
+        },
+        {
+          "code": "TT - 8 (2w)",
+          "dashSize": "8",
+          "dn": 12,
+          "idInch": "1/2\"",
+          "idMm": 12.7,
+          "odMm": 21.7,
+          "workingPressureBar": 172,
+          "workingPressurePsi": 2500,
+          "burstPressureBar": 552,
+          "burstPressurePsi": 8000,
+          "bendRadiusMm": 180
+        }
+      ]
+    },
+    {
+      "id": "cng-hose",
+      "name": "CNG Hose — SAE J30 R6",
+      "kind": "hose",
+      "category": "automotive",
+      "categoryLabel": "Automotive Hoses",
+      "standard": "SAE J30 R6",
+      "tagline": "Yarn braided fuel hose",
+      "description": "Yarn braided fuel hose. Tube: Fuel resistant synthetic rubber. Reinforcement: one yarn braided. Cover: oil & highly weather resistant synthetic rubber.",
+      "features": [],
+      "construction": {
+        "tube": "Fuel resistant synthetic rubber",
+        "reinforcement": "One yarn braided",
+        "cover": "Oil & highly weather resistant synthetic rubber"
+      },
+      "temperatureRange": "-40°C to +70°C",
+      "applications": [],
+      "recommendedFluids": [
+        "Fuel"
+      ],
+      "maxPressureBar": 21,
+      "maxPressurePsi": 305,
+      "sizeRange": "1/4\" to 1\" (DN6–DN25)",
+      "image": "/assets/automotive-hoses.jpg",
+      "isHero": false,
+      "specs": [
+        {
+          "code": "CNG-4",
+          "dashSize": "4",
+          "dn": 6,
+          "idInch": "1/4\"",
+          "idMm": 6.4,
+          "odMm": 12.7,
+          "workingPressureBar": 21,
+          "workingPressurePsi": 305,
+          "burstPressureBar": 48,
+          "burstPressurePsi": 700,
+          "bendRadiusMm": 65
+        },
+        {
+          "code": "CNG-5",
+          "dashSize": "5",
+          "dn": 8,
+          "idInch": "5/16\"",
+          "idMm": 7.9,
+          "odMm": 14.3,
+          "workingPressureBar": 21,
+          "workingPressurePsi": 305,
+          "burstPressureBar": 48,
+          "burstPressurePsi": 700,
+          "bendRadiusMm": 75
+        },
+        {
+          "code": "CNG-6",
+          "dashSize": "6",
+          "dn": 10,
+          "idInch": "3/8\"",
+          "idMm": 9.5,
+          "odMm": 15.8,
+          "workingPressureBar": 21,
+          "workingPressurePsi": 305,
+          "burstPressureBar": 48,
+          "burstPressurePsi": 700,
+          "bendRadiusMm": 75
+        },
+        {
+          "code": "CNG-8",
+          "dashSize": "8",
+          "dn": 12,
+          "idInch": "1/2\"",
+          "idMm": 12.7,
+          "odMm": 19.8,
+          "workingPressureBar": 21,
+          "workingPressurePsi": 305,
+          "burstPressureBar": 48,
+          "burstPressurePsi": 700,
+          "bendRadiusMm": 100
+        },
+        {
+          "code": "CNG-10",
+          "dashSize": "10",
+          "dn": 16,
+          "idInch": "5/8\"",
+          "idMm": 15.9,
+          "odMm": 23.8,
+          "workingPressureBar": 21,
+          "workingPressurePsi": 305,
+          "burstPressureBar": 48,
+          "burstPressurePsi": 700,
+          "bendRadiusMm": 125
+        },
+        {
+          "code": "CNG-12",
+          "dashSize": "12",
+          "dn": 19,
+          "idInch": "3/4\"",
+          "idMm": 19,
+          "odMm": 28.6,
+          "workingPressureBar": 21,
+          "workingPressurePsi": 305,
+          "burstPressureBar": 48,
+          "burstPressurePsi": 700,
+          "bendRadiusMm": 150
+        },
+        {
+          "code": "CNG-16",
+          "dashSize": "16",
+          "dn": 25,
+          "idInch": "1\"",
+          "idMm": 25.4,
+          "odMm": 35,
+          "workingPressureBar": 21,
+          "workingPressurePsi": 305,
+          "burstPressureBar": 48,
+          "burstPressurePsi": 700,
+          "bendRadiusMm": 177
+        }
+      ]
+    },
+    {
+      "id": "ac-suction-hose",
+      "name": "Air Conditioning Suction Hose — SAE J2064 Type-B",
+      "kind": "hose",
+      "category": "automotive",
+      "categoryLabel": "Automotive Hoses",
+      "standard": "SAE J2064 Type-B",
+      "tagline": "Low permeation, one wire braided A/C suction hose",
+      "description": "Low permeation, one wire braided A/C suction hose. Tube: Low permeable synthetic rubber. Reinforcement: one wire braided. Cover: weather & heat resistant synthetic rubber.",
+      "features": [],
+      "construction": {
+        "tube": "Low permeable synthetic rubber",
+        "reinforcement": "One wire braided",
+        "cover": "Weather & heat resistant synthetic rubber"
+      },
+      "temperatureRange": "-30°C to +125°C",
+      "applications": [],
+      "recommendedFluids": [
+        "Air-conditioning refrigerant (as per SAE J2064)"
+      ],
+      "maxPressureBar": 34.5,
+      "maxPressurePsi": 500,
+      "sizeRange": "5/16\" to 1 1/8\" (DN8–DN29)",
+      "image": "/assets/automotive-hoses.jpg",
+      "isHero": false,
+      "specs": [
+        {
+          "code": "AC Suction - 5",
+          "dashSize": "5",
+          "dn": 8,
+          "idInch": "5/16\"",
+          "idMm": 7.9,
+          "odMm": 17,
+          "workingPressureBar": 34.5,
+          "workingPressurePsi": 500,
+          "burstPressureBar": 138,
+          "burstPressurePsi": 2000,
+          "bendRadiusMm": 115
+        },
+        {
+          "code": "AC Suction - 6.5",
+          "dashSize": "6.5",
+          "dn": 10,
+          "idInch": "13/32\"",
+          "idMm": 10.3,
+          "odMm": 19.5,
+          "workingPressureBar": 34.5,
+          "workingPressurePsi": 500,
+          "burstPressureBar": 138,
+          "burstPressurePsi": 2000,
+          "bendRadiusMm": 130
+        },
+        {
+          "code": "AC Suction - 8",
+          "dashSize": "8",
+          "dn": 12,
+          "idInch": "1/2\"",
+          "idMm": 12.7,
+          "odMm": 22.5,
+          "workingPressureBar": 34.5,
+          "workingPressurePsi": 500,
+          "burstPressureBar": 138,
+          "burstPressurePsi": 2000,
+          "bendRadiusMm": 140
+        },
+        {
+          "code": "AC Suction - 10",
+          "dashSize": "10",
+          "dn": 16,
+          "idInch": "5/8\"",
+          "idMm": 15.9,
+          "odMm": 25.5,
+          "workingPressureBar": 34.5,
+          "workingPressurePsi": 500,
+          "burstPressureBar": 138,
+          "burstPressurePsi": 2000,
+          "bendRadiusMm": 165
+        },
+        {
+          "code": "AC Suction - 12",
+          "dashSize": "12",
+          "dn": 19,
+          "idInch": "3/4\"",
+          "idMm": 19,
+          "odMm": 28.7,
+          "workingPressureBar": 34.5,
+          "workingPressurePsi": 500,
+          "burstPressureBar": 138,
+          "burstPressurePsi": 2000,
+          "bendRadiusMm": 180
+        },
+        {
+          "code": "AC Suction - 14",
+          "dashSize": "14",
+          "dn": 22,
+          "idInch": "7/8\"",
+          "idMm": 22.2,
+          "odMm": 31.4,
+          "workingPressureBar": 34.5,
+          "workingPressurePsi": 500,
+          "burstPressureBar": 138,
+          "burstPressurePsi": 2000,
+          "bendRadiusMm": 190
+        },
+        {
+          "code": "AC Suction - 18",
+          "dashSize": "18",
+          "dn": 29,
+          "idInch": "1 1/8\"",
+          "idMm": 28.6,
+          "odMm": 38.5,
+          "workingPressureBar": 34.5,
+          "workingPressurePsi": 500,
+          "burstPressureBar": 138,
+          "burstPressurePsi": 2000,
+          "bendRadiusMm": 230
+        }
+      ]
+    }
+  ],
+  "categories": [
+    {
+      "slug": "railway",
+      "name": "Railway Components",
+      "tabLabel": "Railway components",
+      "shortLabel": "Railway",
+      "enquiryLabel": ""
+    },
+    {
+      "slug": "hydraulic",
+      "name": "Hydraulic Hoses",
+      "tabLabel": "Hydraulic hoses",
+      "shortLabel": "Hydraulic",
+      "enquiryLabel": "Hydraulic Hoses (SAE 100 R1, R2, SH33, Jack)"
+    },
+    {
+      "slug": "industrial",
+      "name": "Industrial Hoses",
+      "tabLabel": "Industrial hoses",
+      "shortLabel": "Industrial",
+      "enquiryLabel": "Industrial Hoses (Steam, Rock Drill, LPG)"
+    },
+    {
+      "slug": "lpg",
+      "name": "LPG Hoses",
+      "tabLabel": "LPG hoses",
+      "shortLabel": "LPG",
+      "enquiryLabel": ""
+    },
+    {
+      "slug": "automotive",
+      "name": "Automotive Hoses",
+      "tabLabel": "Automotive hoses",
+      "shortLabel": "Automotive",
+      "enquiryLabel": "Automotive Hoses (A/C, CNG, Governor)"
+    }
+  ],
+  "company": {
+    "name": "Vaishno Rubber Industries Pvt. Ltd.",
+    "brandName": "VEXTRA",
+    "incorporated": "14 November 2014",
+    "landArea": "Approximately 5 acres",
+    "location": "NH-24 (Delhi-Haridwar Bypass Road), Village Kokerpur, P.O. Aghwanpur, Moradabad - 244001 (U.P.), India",
+    "phone": "+91 98102 94483",
+    "whatsapp": "+91 98102 94483",
+    "businessHours": "Mon–Sat, 9:30 am – 6:00 pm IST",
+    "mapUrl": "https://maps.app.goo.gl/BZrHy9Vhr3SX7b3K6",
+    "socials": [
+      {
+        "platform": "facebook",
+        "url": "https://vaishnorubber.com/"
+      },
+      {
+        "platform": "instagram",
+        "url": "https://vaishnorubber.com/"
+      },
+      {
+        "platform": "youtube",
+        "url": "https://vaishnorubber.com/"
+      },
+      {
+        "platform": "x",
+        "url": "https://vaishnorubber.com/"
+      }
+    ],
+    "profile": "The company makes wire and textile braided hoses and hose assemblies (LPG, industrial and hydraulic hoses) conforming to DIN, EN, SAE, IS and BS specifications, alongside railway rubber and rubber-metal components. Long-length hoses are produced on flexible nylon mandrels for capacity and consistent quality.",
+    "founders": [
+      "Mr. Satvir Singh",
+      "Dr. (Mrs.) Roopam Singh"
+    ],
+    "emails": [
+      "info@vaishnorubber.com",
+      "satvir21@gmail.com"
+    ],
+    "capabilities": [
+      "In-house compound mixing (intermix & kneader)",
+      "Automated rubber injection moulding — Klöckner DESMA Elastomertechnik GmbH, Germany",
+      "PU casting machine — Covestro Elastomers SAS, France",
+      "Long-length hose production on flexible nylon mandrels",
+      "Rheometer",
+      "Heat release rate tester",
+      "Toxicity tester",
+      "Ozone test apparatus",
+      "Universal testing machine",
+      "Shear fatigue testing machines (single, two and four axis)",
+      "Cold chamber (down to −50°C)"
+    ],
+    "certifications": [
+      {
+        "name": "ISO 14001:2015",
+        "detail": "Environmental Management System — certified by QFS Management Systems LLP (SCC accredited). Certificate no. SCC/2609VU/3448, valid 30.09.2026 to 29.09.2029; scope covers railway brake hose couplings, UIC elastomer flange connections, elastomer-metal bonded items, elastomeric pads, PU CCSB, elastic rings and spheriblocs.",
+        "status": "verified",
+        "documentUrl": "/documents/iso-14001-certificate.pdf"
+      },
+      {
+        "name": "ISO 9001:2015 · BSCIC",
+        "detail": "Quality Management System — certified by BSCIC Certifications Pvt. Ltd. (NABCB accredited, IAF member). Certificate no. BN23392/22379, issued 06.12.2024, valid to 05.12.2027; scope covers hydraulic, industrial and LPG hoses and hose assemblies, brake hose connections, air brake hose couplings, UIC elastomer flange connections, elastomer-metal bonded items for FIAT bogies and elastomeric pads.",
+        "status": "verified",
+        "documentUrl": "/documents/iso-9001-bscic-certificate.pdf"
+      },
+      {
+        "name": "ISO 9001:2015 · QFS",
+        "detail": "Quality Management System — certified by QFS Management Systems LLP (SCC accredited). Certificate no. SCC/2403VU/2032, dated 11.02.2026, valid to 14.03.2027; scope covers railway brake hose couplings, UIC elastomer flange connections, elastomer-metal bonded items for FIAT bogies and elastomeric pads.",
+        "status": "verified",
+        "documentUrl": "/documents/iso-9001-qfs-certificate.pdf"
+      },
+      {
+        "name": "IRIS",
+        "detail": "Railway industry standard — stated by the company; certificate not yet supplied.",
+        "status": "stated",
+        "documentUrl": ""
+      }
+    ],
+    "customers": [
+      {
+        "name": "RDSO, Lucknow",
+        "group": "Indian Railways"
+      },
+      {
+        "name": "Integral Coach Factory (ICF), Chennai",
+        "group": "Indian Railways"
+      },
+      {
+        "name": "Modern Coach Factory (MCF), Raebareli",
+        "group": "Indian Railways"
+      },
+      {
+        "name": "Rail Coach Factory (RCF), Kapurthala",
+        "group": "Indian Railways"
+      },
+      {
+        "name": "All Indian Railways (Zonal Railways)",
+        "group": "Indian Railways"
+      },
+      {
+        "name": "Knorr-Bremse India Pvt. Ltd.",
+        "group": "Railway OEMs"
+      },
+      {
+        "name": "Faiveley Transport Rail Technologies India Pvt. Ltd. (Wabtec Corp., USA)",
+        "group": "Railway OEMs"
+      },
+      {
+        "name": "Sona BLW Precision Forgings Ltd.",
+        "group": "Railway OEMs"
+      },
+      {
+        "name": "Hindusthan Engineering and Industries Limited (HEIL)",
+        "group": "Railway OEMs"
+      },
+      {
+        "name": "Titagarh Rail Systems Limited",
+        "group": "Railway OEMs"
+      },
+      {
+        "name": "Texmaco Rail & Engineering Limited",
+        "group": "Railway OEMs"
+      },
+      {
+        "name": "Jupiter Wagons Limited",
+        "group": "Railway OEMs"
+      },
+      {
+        "name": "Oriental Foundry Private Limited",
+        "group": "Railway OEMs"
+      },
+      {
+        "name": "Siena Engineering Pvt. Ltd.",
+        "group": "Railway OEMs"
+      },
+      {
+        "name": "Loco Casting Pvt. Ltd.",
+        "group": "Railway OEMs"
+      },
+      {
+        "name": "RV Casting and Engineering Pvt. Ltd.",
+        "group": "Railway OEMs"
+      },
+      {
+        "name": "San Engineering & Locomotive Co. Limited",
+        "group": "Railway OEMs"
+      },
+      {
+        "name": "River Engineering Private Limited",
+        "group": "Railway OEMs"
+      },
+      {
+        "name": "DCM Shriram Industries Limited",
+        "group": "Railway OEMs"
+      }
+    ],
+    "strengths": [
+      {
+        "title": "Specialised rubber products",
+        "detail": "High-quality rubber products for demanding service."
+      },
+      {
+        "title": "Indian Railways expertise",
+        "detail": "RDSO and Indian Railways product expertise."
+      },
+      {
+        "title": "Advanced testing & quality control",
+        "detail": "In-house laboratory with rheometer, ozone, cold-chamber and fatigue testing."
+      },
+      {
+        "title": "Integrated production & assembly",
+        "detail": "Compounding, moulding, hose production and assembly in one works."
+      },
+      {
+        "title": "Consistent supply",
+        "detail": "Consistent production and on-time delivery."
+      }
+    ]
+  },
+  "settings": {
+    "logoUrl": "/assets/logo.png",
+    "logoLightUrl": "",
+    "tagline": "",
+    "keywords": [],
+    "pageSeo": {
+      "products": {
+        "title": "Hose Product Catalogue",
+        "description": "Browse VEXTRA hydraulic, industrial and automotive hoses by family and working pressure, with full technical data sheets."
+      },
+      "company": {
+        "title": "Company & Moradabad Plant",
+        "description": "About Vaishno Rubber Industries: leadership, the 5-acre Moradabad manufacturing plant, machinery and quality systems."
+      },
+      "industries": {
+        "title": "Industries Served",
+        "description": "Hose solutions for earthmoving, mining, refineries, railways, automotive and agriculture."
+      },
+      "resources": {
+        "title": "Technical Resources",
+        "description": "Hose selection guidance, pressure conversion and the downloadable VEXTRA product catalogue."
+      },
+      "career": {
+        "title": "Careers",
+        "description": "Build a career at Vaishno Rubber Industries (VEXTRA), Moradabad. Send your details and resume to join our production, quality, sales and admin teams."
+      },
+      "contact": {
+        "title": "Contact Us",
+        "description": "Contact Vaishno Rubber Industries — technical sales desk, factory address in Moradabad and enquiry form."
+      }
+    },
+    "faviconUrl": "/assets/logo.png",
+    "shareImageUrl": "/assets/hydraulic-hose.jpg",
+    "preloaderEnabled": true,
+    "preloaderLabel": "Vaishno Rubber Industries",
+    "defaultTitle": "Vaishno Rubber Industries | VEXTRA® High-Pressure Hydraulic & Industrial Hoses",
+    "titleTemplate": "%s | Vaishno Rubber Industries (VEXTRA®)",
+    "description": "Vaishno Rubber Industries Pvt. Ltd. (VEXTRA) — manufacturer of SAE 100 R1, R2, SH33 hydraulic hoses, industrial, rock drill, steam and automotive hoses conforming to DIN, EN, SAE, IS standards."
+  },
+  "navigation": {
+    "productsLabel": "Products",
+    "headerLinks": [
+      {
+        "label": "Company",
+        "href": "/company"
+      },
+      {
+        "label": "Industries",
+        "href": "/industries"
+      },
+      {
+        "label": "Resources",
+        "href": "/resources"
+      },
+      {
+        "label": "Career",
+        "href": "/career"
+      },
+      {
+        "label": "Contact",
+        "href": "/contact"
+      }
+    ],
+    "megaColumns": [
+      {
+        "title": "Railway components",
+        "categories": [
+          "railway"
+        ],
+        "maxItems": 8
+      },
+      {
+        "title": "Hydraulic hoses",
+        "categories": [
+          "hydraulic"
+        ],
+        "maxItems": 6
+      },
+      {
+        "title": "Industrial & LPG hoses",
+        "categories": [
+          "industrial",
+          "lpg"
+        ],
+        "maxItems": 6
+      },
+      {
+        "title": "Automotive hoses",
+        "categories": [
+          "automotive"
+        ],
+        "maxItems": 6
+      }
+    ],
+    "catalogueCard": {
+      "badge": "Catalogue",
+      "title": "VEXTRA hose catalogue",
+      "text": "Dimensions, pressure ratings and installation guidance for the hose range.",
+      "browseLabel": "Browse all products →",
+      "downloadLabel": "Download PDF"
+    },
+    "catalogueUrl": "/documents/vextra-hose-catalogue.pdf",
+    "footerProductsHeading": "Products",
+    "footerCompanyHeading": "Company",
+    "footerContactHeading": "Works",
+    "footerProductLinks": [
+      {
+        "label": "Railway components",
+        "href": "/products?category=railway"
+      },
+      {
+        "label": "Hydraulic hoses",
+        "href": "/products?category=hydraulic"
+      },
+      {
+        "label": "Industrial hoses",
+        "href": "/products?category=industrial"
+      },
+      {
+        "label": "LPG hoses",
+        "href": "/products?category=lpg"
+      },
+      {
+        "label": "Automotive hoses",
+        "href": "/products?category=automotive"
+      }
+    ],
+    "footerCompanyLinks": [
+      {
+        "label": "Company",
+        "href": "/company"
+      },
+      {
+        "label": "Industries",
+        "href": "/industries"
+      },
+      {
+        "label": "Technical resources",
+        "href": "/resources"
+      },
+      {
+        "label": "Contact",
+        "href": "/contact"
+      }
+    ],
+    "footerCatalogueLabel": "Hose catalogue (PDF)"
+  },
+  "theme": {
+    "colors": {
+      "brandBlue": "#0c6db4",
+      "brandHover": "#0a5b96",
+      "accent": "#f69c2f",
+      "ink": "#0a1a2b",
+      "paper": "#f4f6f9"
+    },
+    "fonts": {
+      "body": "Plus Jakarta Sans",
+      "heading": "Space Grotesk"
+    }
+  },
+  "pages": {
+    "products": {
+      "hero": {
+        "eyebrow": "Product range",
+        "title": "Railway components and VEXTRA hoses.",
+        "lede": "Search by name, standard or product code. Hose data sheets list every size with working and burst pressure."
+      },
+      "allLabel": "All",
+      "searchPlaceholder": "Search name, standard or code",
+      "noMatch": "Nothing matches “{q}”. Try a standard such as “EN 853” or a code such as “02-8”."
+    },
+    "home": {
+      "hero": {
+        "eyebrow": "VEXTRA® · Vaishno Rubber Industries",
+        "heading": "Rubber components and hoses for *Indian Railways* and industry.",
+        "text": "Made at our works in Moradabad: railway rubber-metal parts, and hydraulic, industrial, LPG and automotive hoses.",
+        "primaryLabel": "Product range",
+        "railwayPrimaryLabel": "Railway range",
+        "secondaryLabel": "Contact us",
+        "tabs": {
+          "hydraulic": "Hydraulic hoses",
+          "industrial": "Industrial & LPG hoses",
+          "automotive": "Automotive hoses",
+          "railway": "Railway components"
+        },
+        "cover": {
+          "eyebrow": "02 — Cover",
+          "title": "Built to take the knocks",
+          "body": "{cover}. The VEXTRA mark and rating are printed along the length.",
+          "note": "Print shown is illustrative."
+        },
+        "fittings": {
+          "eyebrow": "03 — Assemblies",
+          "title": "Supplied with fittings",
+          "body": "VEXTRA also supplies hydraulic hose fittings and adapters, so hose and end connection come from one works.",
+          "note": "Fitting shown is illustrative; adapter range is in the catalogue."
+        },
+        "layers": {
+          "eyebrow": "04 — Construction",
+          "title": "Built in layers",
+          "body": "Tube: {tube}. Reinforcement: {reinforcement}. Cover: {cover}.",
+          "note": "Illustrative construction — the data sheet is the reference."
+        },
+        "rating": {
+          "eyebrow": "05 — Rating",
+          "buttonLabel": "View data sheet"
+        }
+      },
+      "facts": [
+        {
+          "label": "Incorporated",
+          "value": "{year}",
+          "sub": "by {founders}"
+        },
+        {
+          "label": "Works",
+          "value": "{area}",
+          "sub": "Moradabad, Uttar Pradesh"
+        },
+        {
+          "label": "Quality & environment",
+          "value": "ISO 9001 · ISO 14001",
+          "sub": "ISO 9001:2015 and ISO 14001:2015 certificates available to view"
+        },
+        {
+          "label": "Standards",
+          "value": "DIN · EN · SAE · IS · BS",
+          "sub": "hose specifications we manufacture to"
+        }
+      ],
+      "railway": {
+        "eyebrow": "Railway components",
+        "heading": "Rubber and rubber-metal parts for the rails.",
+        "text": "Pads, brake-hose couplings, gangway mountings and bogie components for Indian Railways and railway OEMs. Pick a part and watch what it does.",
+        "detailsLabel": "Details"
+      },
+      "hoses": {
+        "eyebrow": "Hoses & assemblies",
+        "heading": "The full VEXTRA hose range.",
+        "families": [
+          {
+            "title": "Hydraulic hoses",
+            "blurb": "Wire and textile braided hoses to SAE 100, EN 853 and DIN 20022, plus SH33, jack and loader hoses.",
+            "categories": [
+              "hydraulic"
+            ],
+            "photo": {
+              "src": "/assets/hydraulic-hose.jpg",
+              "alt": "Hydraulic hoses — VEXTRA",
+              "caption": ""
+            }
+          },
+          {
+            "title": "Industrial & LPG hoses",
+            "blurb": "Steam hoses to IS 10655, rock drill hoses to IS 446, and LPG hoses to BS EN 1762 and IS 9573.",
+            "categories": [
+              "industrial",
+              "lpg"
+            ],
+            "photo": {
+              "src": "/assets/industrial-hoses.jpg",
+              "alt": "Industrial & LPG hoses — VEXTRA",
+              "caption": ""
+            }
+          },
+          {
+            "title": "Automotive hoses",
+            "blurb": "Governor, tractor trolley, CNG and air-conditioning suction hoses.",
+            "categories": [
+              "automotive"
+            ],
+            "photo": {
+              "src": "/assets/automotive-hoses.jpg",
+              "alt": "Automotive hoses — VEXTRA",
+              "caption": ""
+            }
+          }
+        ]
+      },
+      "finder": {
+        "eyebrow": "Hose finder",
+        "heading": "Start from the pressure you need.",
+        "text": "Lists the product lines whose highest working pressure meets your figure. The rating falls as bore size grows, so confirm the size you need on the data sheet.",
+        "noMatch": "No hose line reaches {need} bar in this family. Contact us — custom constructions may be possible."
+      },
+      "customers": {
+        "eyebrow": "Who we supply",
+        "heading": "Indian Railways and the railway supply chain.",
+        "text": "Customers and organisations we work with, as listed by the company."
+      },
+      "works": {
+        "eyebrow": "The works",
+        "heading": "Compounding, moulding, hose-making and testing under one roof.",
+        "aboutLabel": "About the company",
+        "contactLabel": "Contact sales",
+        "capabilitiesHeading": "Capabilities",
+        "certificationHeading": "Certification"
+      },
+      "quote": {
+        "heading": "Tell us what you need to connect, seal or absorb.",
+        "text": "Send a specification or drawing and our team will get back to you.",
+        "contactLabel": "Contact us",
+        "catalogueLabel": "Hose catalogue"
+      }
+    },
+    "contact": {
+      "hero": {
+        "title": "Talk to the Moradabad works.",
+        "lede": "Send a requirement, specification or drawing for a quotation, or ask about export and technology partnerships."
+      },
+      "infoBox": {
+        "title": "Have a product and size in mind?",
+        "text": "Put the product, size and working pressure in your message."
+      },
+      "form": {
+        "heading": "Send a message",
+        "subjects": [
+          {
+            "text": "General enquiry"
+          },
+          {
+            "text": "Railway components"
+          },
+          {
+            "text": "Hose or hose assembly"
+          },
+          {
+            "text": "Export / technology partnership"
+          },
+          {
+            "text": "Other"
+          }
+        ],
+        "submitLabel": "Send message",
+        "successTitle": "Thank you, your message has been received.",
+        "successText": "Our sales team will get back to you. For anything urgent, call {phone}."
+      }
+    },
+    "company": {
+      "hero": {
+        "title": "Vaishno Rubber Industries Pvt. Ltd.",
+        "lede": "Maker of VEXTRA hoses and railway rubber components, at a works in Moradabad, Uttar Pradesh."
+      },
+      "facts": {
+        "incorporatedLabel": "Incorporated",
+        "areaLabel": "Works area",
+        "foundersLabel": "Founded by",
+        "locationLabel": "Located at",
+        "location": "Moradabad, Uttar Pradesh"
+      },
+      "profile": {
+        "heading": "A works built around rubber, steel and testing.",
+        "paragraph1": "Vaishno Rubber Industries Pvt. Ltd. was incorporated on {incorporated} by {founders}. {profile}",
+        "paragraph2": "The production unit in Moradabad (U.P.) is spread over {landArea}. The company also runs a laboratory (R&D) that tests the quality of each batch of rubber it makes.",
+        "photo": {
+          "src": "/assets/photos/hose-range.jpg",
+          "alt": "VEXTRA hose assemblies laid out on a pallet at the works",
+          "caption": "VEXTRA hose assemblies, photographed at the works."
+        }
+      },
+      "strengthsHeading": "Why buyers choose VEXTRA",
+      "plant": {
+        "heading": "Manufacturing and testing",
+        "text": "Equipment and facilities as listed by the company.",
+        "photo": {
+          "src": "/assets/photos/vestibule-label.jpg",
+          "alt": "Moulded VEXTRA label with month, year and batch number on a rubber vestibule",
+          "caption": "Each moulding carries the maker’s mark, month and year, and a batch number."
+        }
+      },
+      "certificationsHeading": "Certification",
+      "partnership": {
+        "heading": "Export and technology partnerships",
+        "text": "We are looking for technology-transfer partners in Europe, China and the USA for selected products, and welcome export enquiries.",
+        "buttonLabel": "Start a conversation",
+        "buttonHref": "/contact"
+      }
+    },
+    "industries": {
+      "hero": {
+        "title": "Where VEXTRA products work.",
+        "lede": "The sectors we supply today, and the products we make for each."
+      },
+      "sectors": [
+        {
+          "title": "Railways",
+          "category": "railway",
+          "lead": "Our core market: Indian Railways, its production units and railway OEMs.",
+          "body": "Elastomeric pads, air brake hose couplings (BP & FP), inter-car gangway mountings, UIC elastomer flange connections, bonded items for FIAT bogies, PU side bearers, elastic rings and spheriblocs — plus hydraulic hoses and assemblies.",
+          "photo": {
+            "src": "/assets/photos/vestibule.jpg",
+            "alt": "Black rubber inter-car vestibule frame laid out at the works",
+            "caption": "Inter-car gangway vestibule frame."
+          }
+        },
+        {
+          "title": "Earthmoving and heavy equipment",
+          "category": "hydraulic",
+          "lead": "High-pressure hydraulic hoses and hose assemblies for earthmovers.",
+          "body": "SAE 100 R1 and R2, SH33 extra-high-pressure, jack and loader hoses, with end fittings and adapters.",
+          "photo": {
+            "src": "/assets/photos/hose-fittings.jpg",
+            "alt": "Hydraulic hose assemblies with crimped steel fittings and blue dust caps",
+            "caption": "Hydraulic hose assemblies with crimped fittings."
+          }
+        },
+        {
+          "title": "Oil and gas distribution",
+          "category": "lpg",
+          "lead": "LPG hoses and hose assemblies for PSU oil companies and OEMs.",
+          "body": "LPG hoses to BS EN 1762 Type-D and IS 9573 Type-I and Type-II.",
+          "photo": {
+            "src": "",
+            "alt": "",
+            "caption": ""
+          }
+        }
+      ],
+      "cta": {
+        "text": "Working in a sector not listed here, such as defence? Tell us the requirement, and we will say whether we can supply it.",
+        "buttonLabel": "Send an enquiry",
+        "buttonHref": "/contact"
+      }
+    },
+    "resources": {
+      "hero": {
+        "title": "Catalogue, certificate and hose guidance.",
+        "lede": "Downloads, installation guidance and two calculators taken from the VEXTRA catalogue."
+      },
+      "downloads": {
+        "heading": "Downloads",
+        "items": [
+          {
+            "title": "VEXTRA hose catalogue",
+            "text": "Hydraulic, industrial, LPG and automotive hose data sheets, flow chart and installation guidance.",
+            "href": "/documents/vextra-hose-catalogue.pdf"
+          },
+          {
+            "title": "ISO 9001:2015 certificate (BSCIC)",
+            "text": "Quality Management System certificate issued by BSCIC Certifications Pvt. Ltd., valid to 5 December 2027.",
+            "href": "/documents/iso-9001-bscic-certificate.pdf"
+          },
+          {
+            "title": "ISO 9001:2015 certificate (QFS)",
+            "text": "Quality Management System certificate issued by QFS Management Systems LLP, valid to 14 March 2027.",
+            "href": "/documents/iso-9001-qfs-certificate.pdf"
+          },
+          {
+            "title": "ISO 14001:2015 certificate",
+            "text": "Environmental Management System certificate issued by QFS Management Systems LLP.",
+            "href": "/documents/iso-14001-certificate.pdf"
+          }
+        ]
+      },
+      "calculators": {
+        "flowHeading": "Hose size from flow",
+        "flowText": "The catalogue’s flow-capacity method, with the result drawn against the standard sizes.",
+        "pressureHeading": "Pressure units",
+        "pressureText": "Convert between bar, psi and MPa."
+      },
+      "guidance": {
+        "heading": "Installation: do’s and don’ts",
+        "text": "Eight points from the catalogue. In the drawings, red marks the mistake and blue marks the right way.",
+        "items": [
+          {
+            "kind": "twist",
+            "title": "Do not twist the hose",
+            "text": "Pressure applied to a twisted hose can result in hose failure or loosening of connections."
+          },
+          {
+            "kind": "slack",
+            "title": "Allow slack for length change",
+            "text": "When a hose is installed straight, leave enough slack to provide for the length changes that occur when pressure is applied."
+          },
+          {
+            "kind": "radius",
+            "title": "Keep bend radii as large as possible",
+            "text": "To avoid hose collapse and flow restriction, refer to the hose specification tables for minimum bend radii."
+          },
+          {
+            "kind": "adaptor",
+            "title": "Use proper angle adaptors",
+            "text": "Angle adaptors avoid a sharp twist or bend in the hose."
+          },
+          {
+            "kind": "length",
+            "title": "Allow adequate hose length",
+            "text": "Enough length distributes movement on flexing applications and avoids abrasion."
+          },
+          {
+            "kind": "elbow",
+            "title": "Use elbows and adaptors to relieve strain",
+            "text": "They give neater installations that are more accessible for inspection and maintenance."
+          },
+          {
+            "kind": "plane",
+            "title": "Bend in the plane of the motion",
+            "text": "Prevent twisting and distortion by bending the hose in the same plane as the motion of the part it connects to."
+          },
+          {
+            "kind": "clamp",
+            "title": "Avoid rubbing and abrasion",
+            "text": "Route hose away from moving parts. Clamps of the correct size can support long runs; a loose clamp lets the hose move inside it and causes abrasion."
+          }
+        ]
+      }
+    },
+    "career": {
+      "hero": {
+        "title": "Build your career with VEXTRA.",
+        "lede": "Join the team that makes hydraulic, industrial and railway rubber products at our Moradabad works. Send your details and resume below."
+      },
+      "stats": [
+        {
+          "value": "2014",
+          "label": "Company incorporated"
+        },
+        {
+          "value": "{landArea}",
+          "label": "Works area, Moradabad"
+        },
+        {
+          "value": "5",
+          "label": "Product families"
+        }
+      ],
+      "why": {
+        "heading": "Why work with us",
+        "text": "We are a manufacturer, so the work is hands-on and the result is a product you can hold.",
+        "items": [
+          {
+            "title": "Learn the craft",
+            "text": "Work next to experienced people on braiding, extrusion, vulcanising and testing of real products."
+          },
+          {
+            "title": "Work that matters",
+            "text": "Our hoses and components go into railways, mining, refineries and heavy industry."
+          },
+          {
+            "title": "Quality first",
+            "text": "Every product is made to national and international standards and tested before it leaves the works."
+          },
+          {
+            "title": "Room to grow",
+            "text": "A growing company with room to take on more responsibility as you build your skills."
+          }
+        ]
+      },
+      "roles": {
+        "heading": "Where we hire",
+        "text": "We look for people in these areas. If your skills fit, apply even when no role is advertised.",
+        "items": [
+          {
+            "title": "Production",
+            "text": "Machine operators and helpers for braiding, extrusion, moulding and assembly."
+          },
+          {
+            "title": "Quality & testing",
+            "text": "Inspection, pressure testing and documentation."
+          },
+          {
+            "title": "Maintenance & tooling",
+            "text": "Keeping machines and moulds running safely."
+          },
+          {
+            "title": "Design & development",
+            "text": "Product development, drawings and technical support."
+          },
+          {
+            "title": "Sales & dispatch",
+            "text": "Customer enquiries, quotations, packing and logistics."
+          },
+          {
+            "title": "Accounts & admin",
+            "text": "Accounts, purchase, stores and office support."
+          }
+        ]
+      },
+      "process": {
+        "heading": "How hiring works",
+        "items": [
+          {
+            "title": "Apply",
+            "text": "Fill in the form and attach your resume."
+          },
+          {
+            "title": "Review",
+            "text": "We read every application and shortlist by skills."
+          },
+          {
+            "title": "Talk",
+            "text": "We call shortlisted candidates for a conversation or interview."
+          },
+          {
+            "title": "Join",
+            "text": "If it is a fit, we make an offer and plan your start."
+          }
+        ]
+      },
+      "form": {
+        "heading": "Apply now",
+        "text": "Tell us a little about yourself and attach your resume.",
+        "resumeHint": "PDF or Word, up to 5 MB",
+        "submitLabel": "Submit application",
+        "successTitle": "Application received",
+        "successText": "Thank you for applying. Our team will review your resume and contact you if there is a fit. For anything urgent, call {phone}."
+      }
+    }
+  }
+}
