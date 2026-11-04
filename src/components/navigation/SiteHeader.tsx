@@ -3,7 +3,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ChevronDown, Download, Mail, Menu, Phone, X } from 'lucide-react'
+import { ChevronDown, Download, Mail, Menu, Phone, PhoneCall, X, type LucideIcon } from 'lucide-react'
 import type { PageRoute, Product } from '@/types'
 import { useSiteData } from '@/lib/site-context'
 
@@ -15,6 +15,11 @@ interface Props {
 
 /** Column dot colours by position; column titles and categories come from the Navigation global. */
 const DOTS = ['bg-brand-blue', 'bg-brand-accent', 'bg-emerald-600', 'bg-slate-500']
+
+/** Icon per header link, matched by its route; only Contact has one. */
+const NAV_ICONS: Record<string, LucideIcon> = {
+  '/contact': PhoneCall,
+}
 
 const short = (p: Product) => p.name.split(' — ')[0]
 
@@ -122,7 +127,7 @@ export const SiteHeader: React.FC<Props> = ({ currentRoute, onOpenEnquiry }) => 
           <img src={settings.logoUrl} alt={`${company.brandName} — ${company.name}`} width={338} height={142} className="h-12 w-auto object-contain sm:h-14" />
         </Link>
 
-        <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
+        <nav aria-label="Primary" className="ml-auto hidden items-center gap-1 lg:flex">
           <Link href="/" className={`rounded-md px-4 py-2 text-sm font-semibold transition-colors ${currentRoute === '/' ? 'bg-blue-50/80 text-brand-blue' : 'text-slate-700 hover:bg-slate-50 hover:text-brand-blue'}`}>
             Home
           </Link>
@@ -140,11 +145,15 @@ export const SiteHeader: React.FC<Props> = ({ currentRoute, onOpenEnquiry }) => 
             </button>
           </div>
 
-          {navigation.headerLinks.map((n) => (
-            <Link key={n.href} href={n.href} className={`rounded-md px-4 py-2 text-sm font-semibold transition-colors ${active(n.href)}`}>
-              {n.label}
-            </Link>
-          ))}
+          {navigation.headerLinks.map((n) => {
+            const Icon = NAV_ICONS[n.href]
+            return (
+              <Link key={n.href} href={n.href} className={`flex items-center gap-1.5 rounded-md px-4 py-2 text-sm font-semibold transition-colors ${active(n.href)}`}>
+                {Icon && <Icon size={16} />}
+                {n.label}
+              </Link>
+            )
+          })}
         </nav>
 
         <div className="flex items-center gap-3">
@@ -248,9 +257,15 @@ export const SiteHeader: React.FC<Props> = ({ currentRoute, onOpenEnquiry }) => 
                   )}
                 </div>
               ))}
-              {navigation.headerLinks.map((n) => (
-                <Link key={n.href} href={n.href} className="block border-b border-slate-100 py-3 text-lg font-bold text-slate-900">{n.label}</Link>
-              ))}
+              {navigation.headerLinks.map((n) => {
+                const Icon = NAV_ICONS[n.href]
+                return (
+                  <Link key={n.href} href={n.href} className="flex items-center gap-3 border-b border-slate-100 py-3 text-lg font-bold text-slate-900">
+                    {Icon && <Icon size={20} className="text-brand-blue" />}
+                    {n.label}
+                  </Link>
+                )
+              })}
             </nav>
             <div className="shrink-0 space-y-2 border-t border-slate-200 p-5">
               <a href={phoneHref} className="btn btn-secondary btn-lg w-full"><Phone size={16} /> {company.phone}</a>
