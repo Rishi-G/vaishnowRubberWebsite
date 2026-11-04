@@ -21,8 +21,8 @@ function LpgDrawing() {
       <rect x="150" y="70" width="110" height="190" rx="46" stroke="#ffffff" strokeWidth="2.5" />
       <path d="M150 120 H260 M150 215 H260" stroke="#ffffff" strokeOpacity="0.35" />
       <path d="M185 70 V48 H225 V70" stroke="#ffffff" strokeWidth="2.5" />
-      <rect x="196" y="34" width="18" height="14" rx="2" fill="#f69c2f" />
-      <path d="M214 41 C300 41 300 120 340 120 H395" stroke="#f69c2f" strokeWidth="9" />
+      <rect x="196" y="34" width="18" height="14" rx="2" fill="var(--color-brand-accent)" />
+      <path d="M214 41 C300 41 300 120 340 120 H395" stroke="var(--color-brand-accent)" strokeWidth="9" />
       <path d="M395 108 V132" stroke="#8c939c" strokeWidth="9" />
       <path d="M30 260 H390" stroke="#ffffff" strokeOpacity="0.25" strokeDasharray="6 6" />
       <text x="30" y="285" fill="#cbd5e1" fontSize="13">LPG hose to BS EN 1762 and IS 9573</text>

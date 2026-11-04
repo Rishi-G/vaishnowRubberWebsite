@@ -153,7 +153,7 @@ export function DemoViewer({ slug, name, heightClass = 'h-[360px] sm:h-[460px]' 
             onChange={(e) => scrub(parseFloat(e.target.value))}
             disabled={status !== 'ready'}
             aria-label="Scrub the action"
-            className="w-full accent-[#0c6db4]"
+            className="w-full accent-brand-blue"
           />
         </label>
         <div className="flex gap-1">

@@ -2,10 +2,10 @@ import 'server-only'
 import { cache } from 'react'
 import { getPayload } from 'payload'
 import config from '@payload-config'
-import { NAVIGATION as NAV_FALLBACK, SETTINGS as SETTINGS_FALLBACK } from '@/seed/data'
+import { NAVIGATION as NAV_FALLBACK, SETTINGS as SETTINGS_FALLBACK, THEME as THEME_FALLBACK } from '@/seed/data'
 import { PAGES, type PageContent, type PageSlug } from '@/seed/pages'
 import { withFallback } from '@/lib/content'
-import type { Category, Navigation, NavLink, Product, SeoPage, SiteSettings } from '@/types'
+import type { Theme, Category, Navigation, NavLink, Product, SeoPage, SiteSettings } from '@/types'
 
 export interface Certification {
   name: string
@@ -168,6 +168,24 @@ export const getPage = cache(async <K extends PageSlug>(slug: K): Promise<PageCo
   const payload = await getPayloadClient()
   const d = await payload.findGlobal({ slug: `page-${slug}` as any, depth: 1 })
   return withFallback(d, PAGES[slug])
+})
+
+/** Colours and fonts; an empty or invalid value falls back to the current look. */
+export const getTheme = cache(async (): Promise<Theme> => {
+  const payload = await getPayloadClient()
+  const d: any = await payload.findGlobal({ slug: 'theme' })
+  const fb = THEME_FALLBACK
+  const c = (v: unknown, def: string) => (typeof v === 'string' && /^#[0-9a-fA-F]{6}$/.test(v) ? v : def)
+  return {
+    colors: {
+      brandBlue: c(d.colors?.brandBlue, fb.colors.brandBlue),
+      brandHover: c(d.colors?.brandHover, fb.colors.brandHover),
+      accent: c(d.colors?.accent, fb.colors.accent),
+      ink: c(d.colors?.ink, fb.colors.ink),
+      paper: c(d.colors?.paper, fb.colors.paper),
+    },
+    fonts: { body: d.fonts?.body || fb.fonts.body, heading: d.fonts?.heading || fb.fonts.heading },
+  }
 })
 
 export const getCategories = cache(async (): Promise<Category[]> => {

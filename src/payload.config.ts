@@ -15,6 +15,7 @@ import { Applications } from './collections/Applications'
 import { CompanyInfo } from './globals/CompanyInfo'
 import { SiteSettings } from './globals/SiteSettings'
 import { Navigation } from './globals/Navigation'
+import { Theme } from './globals/Theme'
 import { PageGlobals } from './globals/pages'
 
 const filename = fileURLToPath(import.meta.url)
@@ -32,7 +33,7 @@ export default buildConfig({
     },
   },
   collections: [Products, ProductCategories, Jobs, Applications, Enquiries, Media, Users],
-  globals: [CompanyInfo, SiteSettings, Navigation, ...PageGlobals],
+  globals: [CompanyInfo, SiteSettings, Navigation, Theme, ...PageGlobals],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

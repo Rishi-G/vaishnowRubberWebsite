@@ -86,6 +86,12 @@ export type PageRoute =
 /** Branding and SEO defaults from the Site Settings global; URLs are already resolved to a file path. */
 export type SeoPage = 'products' | 'company' | 'industries' | 'resources' | 'career' | 'contact'
 
+/** Colours (#rrggbb) and fonts from the Theme global; empty CMS values keep these defaults. */
+export interface Theme {
+  colors: { brandBlue: string; brandHover: string; accent: string; ink: string; paper: string }
+  fonts: { body: string; heading: string }
+}
+
 export interface SiteSettings {
   logoUrl: string
   /** '' when no light logo is uploaded; the footer then puts the main logo on a white panel */

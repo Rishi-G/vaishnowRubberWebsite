@@ -8,7 +8,7 @@
  */
 import { getPayload } from 'payload'
 import config from '@payload-config'
-import { PRODUCTS, COMPANY, SETTINGS, NAVIGATION, CATEGORIES } from './data'
+import { PRODUCTS, COMPANY, SETTINGS, NAVIGATION, CATEGORIES, THEME } from './data'
 import { PAGES } from './pages'
 
 const wrap = (arr: string[]) => arr.map((text) => ({ text }))
@@ -102,6 +102,7 @@ await payload.updateGlobal({
   },
 })
 
+await payload.updateGlobal({ slug: 'theme', data: THEME as never })
 await payload.updateGlobal({ slug: 'navigation', data: withCategoryIds(NAVIGATION) })
 
 for (const [slug, data] of Object.entries(PAGES)) {

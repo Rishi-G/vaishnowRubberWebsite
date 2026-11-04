@@ -91,13 +91,13 @@ export function HoseViewer({ product }: { product: Product }) {
             Peel layers
             <input type="range" min={0} max={1} step={0.01} value={peel} disabled={status !== 'ready'} aria-label="Peel the hose layers back"
               onChange={(e) => { const v = parseFloat(e.target.value); setPeel(v); apply({ peel: v, focusX: 2.4 * v, offZ: 11.5 - 1 * v }) }}
-              className="w-full accent-[#0c6db4]" />
+              className="w-full accent-brand-blue" />
           </label>
           <label className="flex items-center gap-2 text-xs font-semibold text-slate-600">
             Flex
             <input type="range" min={0} max={1.8} step={0.01} value={bend} disabled={status !== 'ready'} aria-label="Bend the hose"
               onChange={(e) => { const v = parseFloat(e.target.value); setBend(v); apply({ bend: v }) }}
-              className="w-full accent-[#0c6db4]" />
+              className="w-full accent-brand-blue" />
           </label>
           <button onClick={reset} className="btn btn-secondary btn-sm" aria-label="Reset view"><RotateCcw size={14} /> Reset</button>
         </div>

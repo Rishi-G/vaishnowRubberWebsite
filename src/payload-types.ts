@@ -101,6 +101,7 @@ export interface Config {
     'company-info': CompanyInfo;
     'site-settings': SiteSetting;
     navigation: Navigation;
+    theme: Theme;
     'page-home': PageHome;
     'page-products': PageProduct;
     'page-contact': PageContact;
@@ -113,6 +114,7 @@ export interface Config {
     'company-info': CompanyInfoSelect<false> | CompanyInfoSelect<true>;
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     navigation: NavigationSelect<false> | NavigationSelect<true>;
+    theme: ThemeSelect<false> | ThemeSelect<true>;
     'page-home': PageHomeSelect<false> | PageHomeSelect<true>;
     'page-products': PageProductsSelect<false> | PageProductsSelect<true>;
     'page-contact': PageContactSelect<false> | PageContactSelect<true>;
@@ -959,6 +961,43 @@ export interface Navigation {
   createdAt?: string | null;
 }
 /**
+ * Changes apply to every page within a minute. Empty fields keep the current look.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "theme".
+ */
+export interface Theme {
+  id: number;
+  colors?: {
+    /**
+     * Buttons, links, highlights. Format: #rrggbb. Empty = the current colour.
+     */
+    brandBlue?: string | null;
+    /**
+     * Slightly darker than the main colour. Format: #rrggbb. Empty = the current colour.
+     */
+    brandHover?: string | null;
+    /**
+     * Orange details, line-art highlights, hover accents. Format: #rrggbb. Empty = the current colour.
+     */
+    accent?: string | null;
+    /**
+     * Hero bands, footer and dark sections. Format: #rrggbb. Empty = the current colour.
+     */
+    ink?: string | null;
+    /**
+     * Light grey behind content sections. Format: #rrggbb. Empty = the current colour.
+     */
+    paper?: string | null;
+  };
+  fonts?: {
+    body?: ('Plus Jakarta Sans' | 'Inter' | 'DM Sans' | 'Manrope') | null;
+    heading?: ('Space Grotesk' | 'Sora' | 'Outfit' | 'Plus Jakarta Sans') | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * Empty fields keep the current text of the page.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1531,6 +1570,30 @@ export interface NavigationSelect<T extends boolean = true> {
         id?: T;
       };
   footerCatalogueLabel?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "theme_select".
+ */
+export interface ThemeSelect<T extends boolean = true> {
+  colors?:
+    | T
+    | {
+        brandBlue?: T;
+        brandHover?: T;
+        accent?: T;
+        ink?: T;
+        paper?: T;
+      };
+  fonts?:
+    | T
+    | {
+        body?: T;
+        heading?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

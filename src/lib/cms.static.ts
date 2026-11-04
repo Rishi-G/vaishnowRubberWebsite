@@ -4,8 +4,8 @@
  * so the exported site reads from src/seed/data.ts instead of Payload/SQLite.
  */
 import { cache } from 'react'
-import type { Category, Navigation, Product, SiteSettings } from '@/types'
-import { PRODUCTS, COMPANY, SETTINGS, NAVIGATION, CATEGORIES } from '@/seed/data'
+import type { Category, Navigation, Theme, Product, SiteSettings } from '@/types'
+import { PRODUCTS, COMPANY, SETTINGS, NAVIGATION, CATEGORIES, THEME } from '@/seed/data'
 import { PAGES, type PageContent, type PageSlug } from '@/seed/pages'
 
 export interface Certification {
@@ -48,3 +48,5 @@ export const getNavigation = cache(async (): Promise<Navigation> => NAVIGATION)
 export const getPage = cache(async <K extends PageSlug>(slug: K): Promise<PageContent<K>> => PAGES[slug])
 
 export const getCategories = cache(async (): Promise<Category[]> => CATEGORIES)
+
+export const getTheme = cache(async (): Promise<Theme> => THEME)

@@ -186,7 +186,7 @@ export function PressureFinder({ c }: { c: Home['finder'] }) {
               <span className="text-xs font-semibold text-slate-700">Working pressure needed</span>
               <span className="font-mono text-2xl font-bold text-slate-950">{need} <span className="text-sm text-slate-500">bar</span></span>
             </span>
-            <input type="range" min={0} max={top} step={5} value={need} onChange={(e) => setNeed(Number(e.target.value))} className="mt-2 w-full accent-[#0c6db4]" aria-label="Working pressure needed in bar" />
+            <input type="range" min={0} max={top} step={5} value={need} onChange={(e) => setNeed(Number(e.target.value))} className="mt-2 w-full accent-brand-blue" aria-label="Working pressure needed in bar" />
             <span className="mt-1 flex justify-between font-mono text-[10px] text-slate-400"><span>0</span><span>{top} bar</span></span>
           </label>
           <div className="mt-4 flex flex-wrap gap-2" role="group" aria-label="Hose family">

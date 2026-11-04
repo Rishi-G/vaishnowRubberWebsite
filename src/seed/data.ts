@@ -6,7 +6,7 @@
  * Rules: nothing here is invented. Where the source is silent the field is left
  * empty rather than filled. Railway components have no data sheets yet.
  */
-import type { Product, ProductCategory, ProductSpecItem } from '@/types'
+import type { Product, ProductCategory, ProductSpecItem, Theme } from '@/types'
 
 /* ───────────── helpers ───────────── */
 
@@ -710,6 +710,13 @@ export const COMPANY = {
 }
 
 /* ───────────── site settings (branding + SEO defaults) ───────────── */
+
+/* ───────────── theme (colours and fonts) ───────────── */
+
+export const THEME: Theme = {
+  colors: { brandBlue: '#0c6db4', brandHover: '#0a5b96', accent: '#f69c2f', ink: '#0a1a2b', paper: '#f4f6f9' },
+  fonts: { body: 'Plus Jakarta Sans', heading: 'Space Grotesk' },
+}
 
 export const SETTINGS = {
   logoUrl: '/assets/logo.png',
