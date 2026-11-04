@@ -6,35 +6,13 @@ import { ArrowRight } from 'lucide-react'
 import type { PageRoute } from '@/types'
 import { useSiteData } from '@/lib/site-context'
 import { ArtRail, Photo, SheetHero } from '@/components/site/graphics'
+import type { PageContent } from '@/seed/pages'
 
 interface Props {
+  content: PageContent<'industries'>
   onNavigate?: (route: PageRoute) => void
   onOpenEnquiry: (productId?: string) => void
 }
-
-const SECTORS = [
-  {
-    title: 'Railways',
-    lead: 'Our core market: Indian Railways, its production units and railway OEMs.',
-    body: 'Elastomeric pads, air brake hose couplings (BP & FP), inter-car gangway mountings, UIC elastomer flange connections, bonded items for FIAT bogies, PU side bearers, elastic rings and spheriblocs — plus hydraulic hoses and assemblies.',
-    category: 'railway',
-    photo: { src: '/assets/photos/vestibule.jpg', alt: 'Black rubber inter-car vestibule frame laid out at the works', caption: 'Inter-car gangway vestibule frame.' },
-  },
-  {
-    title: 'Earthmoving and heavy equipment',
-    lead: 'High-pressure hydraulic hoses and hose assemblies for earthmovers.',
-    body: 'SAE 100 R1 and R2, SH33 extra-high-pressure, jack and loader hoses, with end fittings and adapters.',
-    category: 'hydraulic',
-    photo: { src: '/assets/photos/hose-fittings.jpg', alt: 'Hydraulic hose assemblies with crimped steel fittings and blue dust caps', caption: 'Hydraulic hose assemblies with crimped fittings.' },
-  },
-  {
-    title: 'Oil and gas distribution',
-    lead: 'LPG hoses and hose assemblies for PSU oil companies and OEMs.',
-    body: 'LPG hoses to BS EN 1762 Type-D and IS 9573 Type-I and Type-II.',
-    category: 'lpg',
-    photo: null,
-  },
-] as const
 
 /** Line drawing of a gas cylinder with its hose, for the sector that has no photo yet. */
 function LpgDrawing() {
@@ -52,25 +30,25 @@ function LpgDrawing() {
   )
 }
 
-export const IndustriesPage: React.FC<Props> = ({ onOpenEnquiry }) => {
+export const IndustriesPage: React.FC<Props> = ({ content: c }) => {
   const { products } = useSiteData()
   return (
     <div className="bg-paper">
       <SheetHero
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Industries' }]}
-        title="Where VEXTRA products work."
-        lede="The sectors we supply today, and the products we make for each."
+        title={c.hero.title}
+        lede={c.hero.lede}
         art={<ArtRail />}
       />
 
-      {SECTORS.map((s, i) => {
+      {c.sectors.map((s, i) => {
         const items = products.filter((p) => p.category === s.category).slice(0, 8)
         const flip = i % 2 === 1
         return (
           <section key={s.title} className={i % 2 === 0 ? 'bg-white' : 'bg-paper'}>
             <div className="container grid items-center gap-10 py-14 lg:grid-cols-12 lg:gap-14 lg:py-20">
               <div className={`lg:col-span-7 ${flip ? 'lg:order-2' : ''}`}>
-                {s.photo ? (
+                {s.photo.src ? (
                   <Photo src={s.photo.src} alt={s.photo.alt} caption={s.photo.caption} className="[&_img]:aspect-[16/10]" />
                 ) : (
                   <div className="aspect-[16/10] bg-ink p-6">
@@ -102,8 +80,8 @@ export const IndustriesPage: React.FC<Props> = ({ onOpenEnquiry }) => {
 
       <section className="bg-ink py-14 text-white">
         <div className="container flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-          <p className="max-w-xl text-lg leading-snug text-white/85">Working in a sector not listed here, such as defence? Tell us the requirement, and we will say whether we can supply it.</p>
-          <Link href="/contact" className="btn btn-accent btn-lg">Send an enquiry</Link>
+          <p className="max-w-xl text-lg leading-snug text-white/85">{c.cta.text}</p>
+          <Link href={c.cta.buttonHref} className="btn btn-accent btn-lg">{c.cta.buttonLabel}</Link>
         </div>
       </section>
     </div>

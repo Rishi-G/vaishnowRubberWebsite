@@ -3,24 +3,14 @@
 import React, { useMemo, useState } from 'react'
 import { Download, FileText } from 'lucide-react'
 import type { PageRoute } from '@/types'
-import { BoreDiagram, Gauge, HosePict, SheetHero, type PictKind } from '@/components/site/graphics'
+import { BoreDiagram, Gauge, HosePict, SheetHero } from '@/components/site/graphics'
+import type { PageContent } from '@/seed/pages'
 
 interface Props {
+  content: PageContent<'resources'>
   onNavigate?: (route: PageRoute) => void
   onOpenEnquiry: (productId?: string) => void
 }
-
-/** Installation guidance — the eight points from the VEXTRA catalogue "Do's and Don'ts" page. */
-const GUIDANCE: [PictKind, string, string][] = [
-  ['twist', 'Do not twist the hose', 'Pressure applied to a twisted hose can result in hose failure or loosening of connections.'],
-  ['slack', 'Allow slack for length change', 'When a hose is installed straight, leave enough slack to provide for the length changes that occur when pressure is applied.'],
-  ['radius', 'Keep bend radii as large as possible', 'To avoid hose collapse and flow restriction, refer to the hose specification tables for minimum bend radii.'],
-  ['adaptor', 'Use proper angle adaptors', 'Angle adaptors avoid a sharp twist or bend in the hose.'],
-  ['length', 'Allow adequate hose length', 'Enough length distributes movement on flexing applications and avoids abrasion.'],
-  ['elbow', 'Use elbows and adaptors to relieve strain', 'They give neater installations that are more accessible for inspection and maintenance.'],
-  ['plane', 'Bend in the plane of the motion', 'Prevent twisting and distortion by bending the hose in the same plane as the motion of the part it connects to.'],
-  ['clamp', 'Avoid rubbing and abrasion', 'Route hose away from moving parts. Clamps of the correct size can support long runs; a loose clamp lets the hose move inside it and causes abrasion.'],
-]
 
 const input = 'mt-1 w-full border-0 border-b-2 border-slate-300 bg-transparent px-0 py-2 font-display text-lg font-bold text-ink outline-none transition-colors focus:border-brand-blue'
 
@@ -97,25 +87,20 @@ function Converter() {
   )
 }
 
-export const ResourcesPage: React.FC<Props> = () => {
+export const ResourcesPage: React.FC<Props> = ({ content: c }) => {
   return (
     <div className="bg-paper">
       <SheetHero
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Resources' }]}
-        title="Catalogue, certificate and hose guidance."
-        lede="Downloads, installation guidance and two calculators taken from the VEXTRA catalogue."
+        title={c.hero.title}
+        lede={c.hero.lede}
         art={<Gauge value={0.42} readout="250" unit="bar, example reading" max="600 bar" />}
       />
 
       <section className="container py-14 lg:py-20">
-        <h2 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">Downloads</h2>
+        <h2 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">{c.downloads.heading}</h2>
         <ul className="mt-8 grid gap-6 md:grid-cols-2">
-          {[
-            ['VEXTRA hose catalogue', 'Hydraulic, industrial, LPG and automotive hose data sheets, flow chart and installation guidance.', '/documents/vextra-hose-catalogue.pdf'],
-            ['ISO 9001:2015 certificate (BSCIC)', 'Quality Management System certificate issued by BSCIC Certifications Pvt. Ltd., valid to 5 December 2027.', '/documents/iso-9001-bscic-certificate.pdf'],
-            ['ISO 9001:2015 certificate (QFS)', 'Quality Management System certificate issued by QFS Management Systems LLP, valid to 14 March 2027.', '/documents/iso-9001-qfs-certificate.pdf'],
-            ['ISO 14001:2015 certificate', 'Environmental Management System certificate issued by QFS Management Systems LLP.', '/documents/iso-14001-certificate.pdf'],
-          ].map(([t, d, href]) => (
+          {c.downloads.items.map(({ title: t, text: d, href }) => (
             <li key={t}>
               <a href={href} target="_blank" rel="noopener noreferrer" className="group flex h-full items-start gap-5 border border-slate-300 bg-white p-6 transition-colors hover:border-brand-blue hover:bg-ink hover:text-white">
                 <FileText size={34} className="mt-1 shrink-0 text-brand-blue group-hover:text-brand-accent" />
@@ -133,23 +118,23 @@ export const ResourcesPage: React.FC<Props> = () => {
       <section className="bg-slate-200/60 py-14 lg:py-20">
         <div className="container grid gap-10 lg:grid-cols-[1.35fr_1fr]">
           <div>
-            <h2 className="font-display text-3xl font-bold tracking-tight text-ink">Hose size from flow</h2>
-            <p className="mb-5 mt-2 text-slate-600">The catalogue’s flow-capacity method, with the result drawn against the standard sizes.</p>
+            <h2 className="font-display text-3xl font-bold tracking-tight text-ink">{c.calculators.flowHeading}</h2>
+            <p className="mb-5 mt-2 text-slate-600">{c.calculators.flowText}</p>
             <FlowCalc />
           </div>
           <div>
-            <h2 className="font-display text-3xl font-bold tracking-tight text-ink">Pressure units</h2>
-            <p className="mb-5 mt-2 text-slate-600">Convert between bar, psi and MPa.</p>
+            <h2 className="font-display text-3xl font-bold tracking-tight text-ink">{c.calculators.pressureHeading}</h2>
+            <p className="mb-5 mt-2 text-slate-600">{c.calculators.pressureText}</p>
             <Converter />
           </div>
         </div>
       </section>
 
       <section className="container py-14 lg:py-20">
-        <h2 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">Installation: do’s and don’ts</h2>
-        <p className="mt-2 max-w-xl text-slate-600">Eight points from the catalogue. In the drawings, red marks the mistake and blue marks the right way.</p>
+        <h2 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">{c.guidance.heading}</h2>
+        <p className="mt-2 max-w-xl text-slate-600">{c.guidance.text}</p>
         <ul className="mt-8 grid gap-x-12 md:grid-cols-2">
-          {GUIDANCE.map(([kind, t, d]) => (
+          {c.guidance.items.map(({ kind, title: t, text: d }) => (
             <li key={t} className="flex gap-5 border-t border-slate-300 py-6">
               <HosePict kind={kind} />
               <div>

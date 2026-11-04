@@ -5,6 +5,7 @@
  * These wrappers supply them from SiteProvider so server route files stay thin.
  */
 import { useSiteData } from '@/lib/site-context'
+import type { PageContent } from '@/seed/pages'
 import { HomePage } from '@/views/HomePage'
 import { ProductsPage } from '@/views/ProductsPage'
 import { ProductDetailPage } from '@/views/ProductDetailPage'
@@ -23,7 +24,7 @@ export const ProductsView = () => <ProductsPage {...useNav()} />
 export const ProductDetailView = ({ productId }: { productId: string }) => (
   <ProductDetailPage productId={productId} {...useNav()} />
 )
-export const CompanyView = () => <CompanyPage {...useNav()} />
-export const IndustriesView = () => <IndustriesPage {...useNav()} />
-export const ResourcesView = () => <ResourcesPage {...useNav()} />
-export const ContactView = () => <ContactPage {...useNav()} />
+export const CompanyView = ({ content }: { content: PageContent<'company'> }) => <CompanyPage content={content} {...useNav()} />
+export const IndustriesView = ({ content }: { content: PageContent<'industries'> }) => <IndustriesPage content={content} {...useNav()} />
+export const ResourcesView = ({ content }: { content: PageContent<'resources'> }) => <ResourcesPage content={content} {...useNav()} />
+export const ContactView = ({ content }: { content: PageContent<'contact'> }) => <ContactPage content={content} {...useNav()} />

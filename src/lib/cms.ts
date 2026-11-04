@@ -3,6 +3,8 @@ import { cache } from 'react'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { NAVIGATION as NAV_FALLBACK, SETTINGS as SETTINGS_FALLBACK } from '@/seed/data'
+import { PAGES, type PageContent, type PageSlug } from '@/seed/pages'
+import { withFallback } from '@/lib/content'
 import type { Navigation, NavLink, Product, ProductCategory, SeoPage, SiteSettings } from '@/types'
 
 export interface Certification {
@@ -158,4 +160,11 @@ export const getNavigation = cache(async (): Promise<Navigation> => {
     footerCompanyLinks: navLinks(d.footerCompanyLinks, fb.footerCompanyLinks),
     footerCatalogueLabel: d.footerCatalogueLabel || fb.footerCatalogueLabel,
   }
+})
+
+/** Text and images for one page; empty CMS fields keep the defaults in seed/pages.ts. */
+export const getPage = cache(async <K extends PageSlug>(slug: K): Promise<PageContent<K>> => {
+  const payload = await getPayloadClient()
+  const d = await payload.findGlobal({ slug: `page-${slug}` as any, depth: 1 })
+  return withFallback(d, PAGES[slug])
 })

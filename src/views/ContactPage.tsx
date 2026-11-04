@@ -6,23 +6,25 @@ import type { PageRoute } from '@/types'
 import { useSiteData } from '@/lib/site-context'
 import { submitEnquiry } from '@/lib/submitEnquiry'
 import { ArtContour, SheetHero } from '@/components/site/graphics'
+import { fill } from '@/lib/content'
+import type { PageContent } from '@/seed/pages'
 
 interface Props {
+  content: PageContent<'contact'>
   onNavigate?: (route: PageRoute) => void
   onOpenEnquiry: (productId?: string) => void
 }
 
-const SUBJECTS = ['General enquiry', 'Railway components', 'Hose or hose assembly', 'Export / technology partnership', 'Other']
-
 const field = 'mt-1 w-full border-0 border-b-2 border-slate-300 bg-transparent px-0 py-2.5 text-base text-ink outline-none transition-colors focus:border-brand-blue'
 
-export const ContactPage: React.FC<Props> = ({ onOpenEnquiry }) => {
+export const ContactPage: React.FC<Props> = ({ content: c }) => {
   const { company } = useSiteData()
+  const subjects = c.form.subjects.map((s) => s.text)
   const [name, setName] = useState('')
   const [companyName, setCompanyName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
-  const [subject, setSubject] = useState(SUBJECTS[0])
+  const [subject, setSubject] = useState(subjects[0] ?? '')
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
   const [sent, setSent] = useState(false)
@@ -43,8 +45,8 @@ export const ContactPage: React.FC<Props> = ({ onOpenEnquiry }) => {
     <div className="bg-paper">
       <SheetHero
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Contact' }]}
-        title="Talk to the Moradabad works."
-        lede="Send a requirement, specification or drawing for a quotation, or ask about export and technology partnerships."
+        title={c.hero.title}
+        lede={c.hero.lede}
         art={<ArtContour />}
       />
 
@@ -81,19 +83,19 @@ export const ContactPage: React.FC<Props> = ({ onOpenEnquiry }) => {
               </div>
             </div>
             <div className="bg-ink p-5 text-white">
-              <p className="font-display text-lg font-bold text-white">Have a product and size in mind?</p>
-              <p className="mt-1 text-sm leading-relaxed text-white/70">Put the product, size and working pressure in your message.</p>
+              <p className="font-display text-lg font-bold text-white">{c.infoBox.title}</p>
+              <p className="mt-1 text-sm leading-relaxed text-white/70">{c.infoBox.text}</p>
             </div>
           </dl>
         </aside>
 
         <section className="lg:col-span-7" aria-labelledby="msg">
-          <h2 id="msg" className="font-display text-3xl font-bold tracking-tight text-ink">Send a message</h2>
+          <h2 id="msg" className="font-display text-3xl font-bold tracking-tight text-ink">{c.form.heading}</h2>
           {sent ? (
             <div role="status" className="mt-6 border-l-4 border-emerald-600 bg-white p-8">
               <CheckCircle2 size={32} className="text-emerald-600" />
-              <h3 className="mt-3 font-display text-xl font-bold text-ink">Thank you, your message has been received.</h3>
-              <p className="mt-1 text-slate-600">Our sales team will get back to you. For anything urgent, call {company.phone}.</p>
+              <h3 className="mt-3 font-display text-xl font-bold text-ink">{c.form.successTitle}</h3>
+              <p className="mt-1 text-slate-600">{fill(c.form.successText, { phone: company.phone })}</p>
             </div>
           ) : (
             <form onSubmit={submit} className="mt-6 grid gap-x-8 gap-y-6 sm:grid-cols-2">
@@ -111,7 +113,7 @@ export const ContactPage: React.FC<Props> = ({ onOpenEnquiry }) => {
               </label>
               <label className="text-sm font-semibold text-slate-700 sm:col-span-2">Subject
                 <select value={subject} onChange={(e) => setSubject(e.target.value)} className={field}>
-                  {SUBJECTS.map((s) => <option key={s}>{s}</option>)}
+                  {subjects.map((s) => <option key={s}>{s}</option>)}
                 </select>
               </label>
               <label className="text-sm font-semibold text-slate-700 sm:col-span-2">Message *
@@ -121,7 +123,7 @@ export const ContactPage: React.FC<Props> = ({ onOpenEnquiry }) => {
               <div className="flex items-center justify-between sm:col-span-2">
                 <span className="text-xs text-slate-500">* required</span>
                 <button type="submit" disabled={loading} className="btn btn-primary btn-lg">
-                  {loading ? 'Sending…' : 'Send message'} <Send size={16} />
+                  {loading ? 'Sending…' : c.form.submitLabel} <Send size={16} />
                 </button>
               </div>
             </form>

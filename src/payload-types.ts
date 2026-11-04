@@ -95,11 +95,19 @@ export interface Config {
     'company-info': CompanyInfo;
     'site-settings': SiteSetting;
     navigation: Navigation;
+    'page-contact': PageContact;
+    'page-company': PageCompany;
+    'page-industries': PageIndustry;
+    'page-resources': PageResource;
   };
   globalsSelect: {
     'company-info': CompanyInfoSelect<false> | CompanyInfoSelect<true>;
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     navigation: NavigationSelect<false> | NavigationSelect<true>;
+    'page-contact': PageContactSelect<false> | PageContactSelect<true>;
+    'page-company': PageCompanySelect<false> | PageCompanySelect<true>;
+    'page-industries': PageIndustriesSelect<false> | PageIndustriesSelect<true>;
+    'page-resources': PageResourcesSelect<false> | PageResourcesSelect<true>;
   };
   locale: null;
   widgets: {
@@ -780,6 +788,195 @@ export interface Navigation {
   createdAt?: string | null;
 }
 /**
+ * Empty fields keep the current text of the page.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "page-contact".
+ */
+export interface PageContact {
+  id: number;
+  hero?: {
+    title?: string | null;
+    lede?: string | null;
+  };
+  infoBox?: {
+    title?: string | null;
+    text?: string | null;
+  };
+  /**
+   * In the thank-you text, {phone} is replaced by the phone number from Company Info.
+   */
+  form?: {
+    heading?: string | null;
+    subjects?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+    submitLabel?: string | null;
+    successTitle?: string | null;
+    successText?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Empty fields keep the current text of the page.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "page-company".
+ */
+export interface PageCompany {
+  id: number;
+  hero?: {
+    title?: string | null;
+    lede?: string | null;
+  };
+  facts?: {
+    incorporatedLabel?: string | null;
+    areaLabel?: string | null;
+    foundersLabel?: string | null;
+    locationLabel?: string | null;
+    location?: string | null;
+  };
+  /**
+   * Tokens filled from Company Info: {incorporated}, {founders}, {profile}, {landArea}.
+   */
+  profile?: {
+    heading?: string | null;
+    paragraph1?: string | null;
+    paragraph2?: string | null;
+    photo?: {
+      file?: (number | null) | Media;
+      /**
+       * e.g. /assets/photos/vestibule.jpg
+       */
+      src?: string | null;
+      alt?: string | null;
+      caption?: string | null;
+    };
+  };
+  strengthsHeading?: string | null;
+  plant?: {
+    heading?: string | null;
+    text?: string | null;
+    photo?: {
+      file?: (number | null) | Media;
+      /**
+       * e.g. /assets/photos/vestibule.jpg
+       */
+      src?: string | null;
+      alt?: string | null;
+      caption?: string | null;
+    };
+  };
+  certificationsHeading?: string | null;
+  partnership?: {
+    heading?: string | null;
+    text?: string | null;
+    buttonLabel?: string | null;
+    /**
+     * e.g. /contact or https://…
+     */
+    buttonHref?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Empty fields keep the current text of the page.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "page-industries".
+ */
+export interface PageIndustry {
+  id: number;
+  hero?: {
+    title?: string | null;
+    lede?: string | null;
+  };
+  /**
+   * Each sector lists up to 8 products of its category. Leave the photo empty for the line drawing.
+   */
+  sectors?:
+    | {
+        title: string;
+        category: 'railway' | 'hydraulic' | 'industrial' | 'lpg' | 'automotive';
+        lead?: string | null;
+        body?: string | null;
+        photo?: {
+          file?: (number | null) | Media;
+          /**
+           * e.g. /assets/photos/vestibule.jpg
+           */
+          src?: string | null;
+          alt?: string | null;
+          caption?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  cta?: {
+    text?: string | null;
+    buttonLabel?: string | null;
+    /**
+     * e.g. /contact or https://…
+     */
+    buttonHref?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Empty fields keep the current text of the page.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "page-resources".
+ */
+export interface PageResource {
+  id: number;
+  hero?: {
+    title?: string | null;
+    lede?: string | null;
+  };
+  downloads?: {
+    heading?: string | null;
+    items?:
+      | {
+          title: string;
+          text?: string | null;
+          file?: (number | null) | Media;
+          /**
+           * e.g. /documents/vextra-hose-catalogue.pdf
+           */
+          href?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  calculators?: {
+    flowHeading?: string | null;
+    pressureHeading?: string | null;
+    flowText?: string | null;
+    pressureText?: string | null;
+  };
+  guidance?: {
+    heading?: string | null;
+    text?: string | null;
+    items?:
+      | {
+          kind: 'twist' | 'slack' | 'radius' | 'adaptor' | 'length' | 'elbow' | 'plane' | 'clamp';
+          title: string;
+          text?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "company-info_select".
  */
@@ -949,6 +1146,194 @@ export interface NavigationSelect<T extends boolean = true> {
         id?: T;
       };
   footerCatalogueLabel?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "page-contact_select".
+ */
+export interface PageContactSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        title?: T;
+        lede?: T;
+      };
+  infoBox?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+      };
+  form?:
+    | T
+    | {
+        heading?: T;
+        subjects?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        submitLabel?: T;
+        successTitle?: T;
+        successText?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "page-company_select".
+ */
+export interface PageCompanySelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        title?: T;
+        lede?: T;
+      };
+  facts?:
+    | T
+    | {
+        incorporatedLabel?: T;
+        areaLabel?: T;
+        foundersLabel?: T;
+        locationLabel?: T;
+        location?: T;
+      };
+  profile?:
+    | T
+    | {
+        heading?: T;
+        paragraph1?: T;
+        paragraph2?: T;
+        photo?:
+          | T
+          | {
+              file?: T;
+              src?: T;
+              alt?: T;
+              caption?: T;
+            };
+      };
+  strengthsHeading?: T;
+  plant?:
+    | T
+    | {
+        heading?: T;
+        text?: T;
+        photo?:
+          | T
+          | {
+              file?: T;
+              src?: T;
+              alt?: T;
+              caption?: T;
+            };
+      };
+  certificationsHeading?: T;
+  partnership?:
+    | T
+    | {
+        heading?: T;
+        text?: T;
+        buttonLabel?: T;
+        buttonHref?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "page-industries_select".
+ */
+export interface PageIndustriesSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        title?: T;
+        lede?: T;
+      };
+  sectors?:
+    | T
+    | {
+        title?: T;
+        category?: T;
+        lead?: T;
+        body?: T;
+        photo?:
+          | T
+          | {
+              file?: T;
+              src?: T;
+              alt?: T;
+              caption?: T;
+            };
+        id?: T;
+      };
+  cta?:
+    | T
+    | {
+        text?: T;
+        buttonLabel?: T;
+        buttonHref?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "page-resources_select".
+ */
+export interface PageResourcesSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        title?: T;
+        lede?: T;
+      };
+  downloads?:
+    | T
+    | {
+        heading?: T;
+        items?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              file?: T;
+              href?: T;
+              id?: T;
+            };
+      };
+  calculators?:
+    | T
+    | {
+        flowHeading?: T;
+        pressureHeading?: T;
+        flowText?: T;
+        pressureText?: T;
+      };
+  guidance?:
+    | T
+    | {
+        heading?: T;
+        text?: T;
+        items?:
+          | T
+          | {
+              kind?: T;
+              title?: T;
+              text?: T;
+              id?: T;
+            };
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

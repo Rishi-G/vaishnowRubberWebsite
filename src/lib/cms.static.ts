@@ -6,6 +6,7 @@
 import { cache } from 'react'
 import type { Navigation, Product, SiteSettings } from '@/types'
 import { PRODUCTS, COMPANY, SETTINGS, NAVIGATION } from '@/seed/data'
+import { PAGES, type PageContent, type PageSlug } from '@/seed/pages'
 
 export interface Certification {
   name: string
@@ -43,3 +44,5 @@ export const getCompany = cache(async (): Promise<CompanyFacts> => COMPANY)
 export const getSettings = cache(async (): Promise<SiteSettings> => SETTINGS)
 
 export const getNavigation = cache(async (): Promise<Navigation> => NAVIGATION)
+
+export const getPage = cache(async <K extends PageSlug>(slug: K): Promise<PageContent<K>> => PAGES[slug])

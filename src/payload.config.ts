@@ -12,6 +12,7 @@ import { Enquiries } from './collections/Enquiries'
 import { CompanyInfo } from './globals/CompanyInfo'
 import { SiteSettings } from './globals/SiteSettings'
 import { Navigation } from './globals/Navigation'
+import { PageGlobals } from './globals/pages'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -28,7 +29,7 @@ export default buildConfig({
     },
   },
   collections: [Products, Enquiries, Media, Users],
-  globals: [CompanyInfo, SiteSettings, Navigation],
+  globals: [CompanyInfo, SiteSettings, Navigation, ...PageGlobals],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

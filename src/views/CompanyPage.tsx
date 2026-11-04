@@ -7,21 +7,25 @@ import type { PageRoute } from '@/types'
 import { useSiteData } from '@/lib/site-context'
 import { CertBadge, certKind } from '@/components/site/CertBadge'
 import { ArtHose, Photo, SheetHero } from '@/components/site/graphics'
+import { fill } from '@/lib/content'
+import type { PageContent } from '@/seed/pages'
 
 interface Props {
+  content: PageContent<'company'>
   onNavigate?: (route: PageRoute) => void
   onOpenEnquiry: (productId?: string) => void
 }
 
-export const CompanyPage: React.FC<Props> = ({ onOpenEnquiry }) => {
+export const CompanyPage: React.FC<Props> = ({ content: c }) => {
   const { company } = useSiteData()
+  const vars = { incorporated: company.incorporated, founders: company.founders.join(' and '), profile: company.profile, landArea: company.landArea.toLowerCase() }
 
   return (
     <div className="bg-paper">
       <SheetHero
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Company' }]}
-        title="Vaishno Rubber Industries Pvt. Ltd."
-        lede="Maker of VEXTRA hoses and railway rubber components, at a works in Moradabad, Uttar Pradesh."
+        title={c.hero.title}
+        lede={c.hero.lede}
         art={<ArtHose />}
       />
 
@@ -29,10 +33,10 @@ export const CompanyPage: React.FC<Props> = ({ onOpenEnquiry }) => {
       <section className="border-b border-slate-200 bg-white">
         <dl className="container grid divide-y divide-slate-200 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
           {[
-            ['Incorporated', company.incorporated],
-            ['Works area', company.landArea],
-            ['Founded by', company.founders.join(' and ')],
-            ['Located at', 'Moradabad, Uttar Pradesh'],
+            [c.facts.incorporatedLabel, company.incorporated],
+            [c.facts.areaLabel, company.landArea],
+            [c.facts.foundersLabel, company.founders.join(' and ')],
+            [c.facts.locationLabel, c.facts.location],
           ].map(([k, v]) => (
             <div key={k} className="px-0 py-7 sm:px-6 sm:first:pl-0">
               <dt className="text-sm text-slate-500">{k}</dt>
@@ -45,21 +49,21 @@ export const CompanyPage: React.FC<Props> = ({ onOpenEnquiry }) => {
       {/* profile beside a photo from the works */}
       <section className="container grid items-center gap-12 py-16 lg:grid-cols-12 lg:py-24">
         <div className="lg:col-span-6">
-          <h2 className="font-display text-3xl font-bold leading-tight tracking-tight text-ink sm:text-4xl">A works built around rubber, steel and testing.</h2>
+          <h2 className="font-display text-3xl font-bold leading-tight tracking-tight text-ink sm:text-4xl">{c.profile.heading}</h2>
           <p className="mt-5 max-w-xl text-base leading-[1.75] text-slate-700">
-            Vaishno Rubber Industries Pvt. Ltd. was incorporated on {company.incorporated} by {company.founders.join(' and ')}. {company.profile}
+            {fill(c.profile.paragraph1, vars)}
           </p>
           <p className="mt-4 max-w-xl text-base leading-[1.75] text-slate-700">
-            The production unit in Moradabad (U.P.) is spread over {company.landArea.toLowerCase()}. The company also runs a laboratory (R&amp;D) that tests the quality of each batch of rubber it makes.
+            {fill(c.profile.paragraph2, vars)}
           </p>
         </div>
-        <Photo src="/assets/photos/hose-range.jpg" alt="VEXTRA hose assemblies laid out on a pallet at the works" caption="VEXTRA hose assemblies, photographed at the works." className="lg:col-span-6" />
+        {c.profile.photo.src && <Photo src={c.profile.photo.src} alt={c.profile.photo.alt} caption={c.profile.photo.caption} className="lg:col-span-6" />}
       </section>
 
       {/* strengths as statements */}
       <section className="bg-white py-16 lg:py-24">
         <div className="container">
-          <h2 className="max-w-2xl font-display text-3xl font-bold leading-tight tracking-tight text-ink sm:text-4xl">Why buyers choose VEXTRA</h2>
+          <h2 className="max-w-2xl font-display text-3xl font-bold leading-tight tracking-tight text-ink sm:text-4xl">{c.strengthsHeading}</h2>
           <ul className="mt-10 grid gap-x-12 gap-y-10 md:grid-cols-2">
             {company.strengths.map((s) => (
               <li key={s.title} className="border-l-4 border-brand-accent pl-5">
@@ -75,9 +79,9 @@ export const CompanyPage: React.FC<Props> = ({ onOpenEnquiry }) => {
       <section className="bg-ink py-16 text-white lg:py-24">
         <div className="container grid items-start gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <h2 className="font-display text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl">Manufacturing and testing</h2>
-            <p className="mt-4 max-w-md text-white/70">Equipment and facilities as listed by the company.</p>
-            <Photo src="/assets/photos/vestibule-label.jpg" alt="Moulded VEXTRA label with month, year and batch number on a rubber vestibule" caption="Each moulding carries the maker’s mark, month and year, and a batch number." className="mt-8 [&_figcaption]:text-white/60" />
+            <h2 className="font-display text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl">{c.plant.heading}</h2>
+            <p className="mt-4 max-w-md text-white/70">{c.plant.text}</p>
+            {c.plant.photo.src && <Photo src={c.plant.photo.src} alt={c.plant.photo.alt} caption={c.plant.photo.caption} className="mt-8 [&_figcaption]:text-white/60" />}
           </div>
           <ul className="grid gap-x-10 gap-y-1 sm:grid-cols-2 lg:col-span-7">
             {company.capabilities.map((c) => (
@@ -92,7 +96,7 @@ export const CompanyPage: React.FC<Props> = ({ onOpenEnquiry }) => {
 
       {/* certification */}
       <section className="container py-16 lg:py-24">
-        <h2 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">Certification</h2>
+        <h2 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">{c.certificationsHeading}</h2>
         <ul className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {company.certifications.map((c) => {
             const kind = certKind(c.name)
@@ -124,10 +128,10 @@ export const CompanyPage: React.FC<Props> = ({ onOpenEnquiry }) => {
       <section className="bg-brand-blue py-14 text-white">
         <div className="container flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-2xl">
-            <h2 className="font-display text-2xl font-bold text-white sm:text-3xl">Export and technology partnerships</h2>
-            <p className="mt-2 text-white/85">We are looking for technology-transfer partners in Europe, China and the USA for selected products, and welcome export enquiries.</p>
+            <h2 className="font-display text-2xl font-bold text-white sm:text-3xl">{c.partnership.heading}</h2>
+            <p className="mt-2 text-white/85">{c.partnership.text}</p>
           </div>
-          <Link href="/contact" className="btn btn-accent btn-lg">Start a conversation</Link>
+          <Link href={c.partnership.buttonHref} className="btn btn-accent btn-lg">{c.partnership.buttonLabel}</Link>
         </div>
       </section>
     </div>
