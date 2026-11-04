@@ -5,6 +5,7 @@ import '@/styles/globals.css'
 import { getCompany, getProducts } from '@/lib/cms'
 import { SiteProvider } from '@/lib/site-context'
 import { SiteShell } from '@/components/site/SiteShell'
+import { Preloader } from '@/components/site/Preloader'
 
 const jakarta = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-jakarta', display: 'swap' })
 const grotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-grotesk', display: 'swap' })
@@ -31,6 +32,7 @@ export default async function FrontendLayout({ children }: { children: React.Rea
   return (
     <html lang="en" data-theme="light" className={`${jakarta.variable} ${grotesk.variable} ${jetbrains.variable}`}>
       <body className="bg-white text-slate-900 font-sans antialiased selection:bg-brand-blue selection:text-white">
+        <Preloader />
         <SiteProvider products={products} company={company}>
           <SiteShell>{children}</SiteShell>
         </SiteProvider>
