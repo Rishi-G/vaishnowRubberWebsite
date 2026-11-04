@@ -44,6 +44,7 @@ next-env.d.ts
 .claude
 
 /media
+/applications
 
 # Playwright
 node_modules/

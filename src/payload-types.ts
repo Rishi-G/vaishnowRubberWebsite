@@ -69,6 +69,8 @@ export interface Config {
   collections: {
     products: Product;
     'product-categories': ProductCategory;
+    jobs: Job;
+    applications: Application;
     enquiries: Enquiry;
     media: Media;
     users: User;
@@ -81,6 +83,8 @@ export interface Config {
   collectionsSelect: {
     products: ProductsSelect<false> | ProductsSelect<true>;
     'product-categories': ProductCategoriesSelect<false> | ProductCategoriesSelect<true>;
+    jobs: JobsSelect<false> | JobsSelect<true>;
+    applications: ApplicationsSelect<false> | ApplicationsSelect<true>;
     enquiries: EnquiriesSelect<false> | EnquiriesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -103,6 +107,7 @@ export interface Config {
     'page-company': PageCompany;
     'page-industries': PageIndustry;
     'page-resources': PageResource;
+    'page-career': PageCareer;
   };
   globalsSelect: {
     'company-info': CompanyInfoSelect<false> | CompanyInfoSelect<true>;
@@ -114,6 +119,7 @@ export interface Config {
     'page-company': PageCompanySelect<false> | PageCompanySelect<true>;
     'page-industries': PageIndustriesSelect<false> | PageIndustriesSelect<true>;
     'page-resources': PageResourcesSelect<false> | PageResourcesSelect<true>;
+    'page-career': PageCareerSelect<false> | PageCareerSelect<true>;
   };
   locale: null;
   widgets: {
@@ -280,6 +286,64 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jobs".
+ */
+export interface Job {
+  id: number;
+  title: string;
+  /**
+   * e.g. Moradabad, Uttar Pradesh
+   */
+  location?: string | null;
+  type?: ('full-time' | 'part-time' | 'contract' | 'internship') | null;
+  /**
+   * e.g. Production, Quality, Sales
+   */
+  department?: string | null;
+  /**
+   * One or two lines shown on the card.
+   */
+  summary?: string | null;
+  /**
+   * Responsibilities and requirements. A blank line starts a new paragraph.
+   */
+  description?: string | null;
+  /**
+   * Untick to hide this opening.
+   */
+  open?: boolean | null;
+  /**
+   * Lower numbers show first.
+   */
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "applications".
+ */
+export interface Application {
+  id: number;
+  fullName: string;
+  email: string;
+  phone: string;
+  coverNote?: string | null;
+  status?: ('new' | 'shortlisted' | 'interviewed' | 'hired' | 'rejected') | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "enquiries".
  */
 export interface Enquiry {
@@ -362,6 +426,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'product-categories';
         value: number | ProductCategory;
+      } | null)
+    | ({
+        relationTo: 'jobs';
+        value: number | Job;
+      } | null)
+    | ({
+        relationTo: 'applications';
+        value: number | Application;
       } | null)
     | ({
         relationTo: 'enquiries';
@@ -496,6 +568,44 @@ export interface ProductCategoriesSelect<T extends boolean = true> {
   enquiryLabel?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jobs_select".
+ */
+export interface JobsSelect<T extends boolean = true> {
+  title?: T;
+  location?: T;
+  type?: T;
+  department?: T;
+  summary?: T;
+  description?: T;
+  open?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "applications_select".
+ */
+export interface ApplicationsSelect<T extends boolean = true> {
+  fullName?: T;
+  email?: T;
+  phone?: T;
+  coverNote?: T;
+  status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -757,6 +867,10 @@ export interface SiteSetting {
       description?: string | null;
     };
     resources?: {
+      title?: string | null;
+      description?: string | null;
+    };
+    career?: {
       title?: string | null;
       description?: string | null;
     };
@@ -1172,6 +1286,74 @@ export interface PageResource {
   createdAt?: string | null;
 }
 /**
+ * Empty fields keep the current text of the page.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "page-career".
+ */
+export interface PageCareer {
+  id: number;
+  hero?: {
+    title?: string | null;
+    lede?: string | null;
+  };
+  /**
+   * {landArea} in a value is replaced by the works area from Company Info.
+   */
+  stats?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  why?: {
+    heading?: string | null;
+    text?: string | null;
+    items?:
+      | {
+          title: string;
+          text?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  roles?: {
+    heading?: string | null;
+    text?: string | null;
+    items?:
+      | {
+          title: string;
+          text?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  process?: {
+    heading?: string | null;
+    items?:
+      | {
+          title: string;
+          text?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * In the thank-you text, {phone} is replaced by the phone number from Company Info. Applications are read under Careers → Applications.
+   */
+  form?: {
+    heading?: string | null;
+    text?: string | null;
+    resumeHint?: string | null;
+    submitLabel?: string | null;
+    successTitle?: string | null;
+    successText?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "company-info_select".
  */
@@ -1277,6 +1459,12 @@ export interface SiteSettingsSelect<T extends boolean = true> {
               description?: T;
             };
         resources?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+            };
+        career?:
           | T
           | {
               title?: T;
@@ -1677,6 +1865,76 @@ export interface PageResourcesSelect<T extends boolean = true> {
               text?: T;
               id?: T;
             };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "page-career_select".
+ */
+export interface PageCareerSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        title?: T;
+        lede?: T;
+      };
+  stats?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  why?:
+    | T
+    | {
+        heading?: T;
+        text?: T;
+        items?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              id?: T;
+            };
+      };
+  roles?:
+    | T
+    | {
+        heading?: T;
+        text?: T;
+        items?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              id?: T;
+            };
+      };
+  process?:
+    | T
+    | {
+        heading?: T;
+        items?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              id?: T;
+            };
+      };
+  form?:
+    | T
+    | {
+        heading?: T;
+        text?: T;
+        resumeHint?: T;
+        submitLabel?: T;
+        successTitle?: T;
+        successText?: T;
       };
   updatedAt?: T;
   createdAt?: T;

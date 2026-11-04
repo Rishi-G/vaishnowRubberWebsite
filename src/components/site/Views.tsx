@@ -12,6 +12,7 @@ import { ProductDetailPage } from '@/views/ProductDetailPage'
 import { CompanyPage } from '@/views/CompanyPage'
 import { IndustriesPage } from '@/views/IndustriesPage'
 import { ResourcesPage } from '@/views/ResourcesPage'
+import { CareerPage } from '@/views/CareerPage'
 import { ContactPage } from '@/views/ContactPage'
 
 function useNav() {
@@ -27,4 +28,5 @@ export const ProductDetailView = ({ productId }: { productId: string }) => (
 export const CompanyView = ({ content }: { content: PageContent<'company'> }) => <CompanyPage content={content} {...useNav()} />
 export const IndustriesView = ({ content }: { content: PageContent<'industries'> }) => <IndustriesPage content={content} {...useNav()} />
 export const ResourcesView = ({ content }: { content: PageContent<'resources'> }) => <ResourcesPage content={content} {...useNav()} />
+export const CareerView = ({ content }: { content: PageContent<'career'> }) => <CareerPage content={content} {...useNav()} />
 export const ContactView = ({ content }: { content: PageContent<'contact'> }) => <ContactPage content={content} {...useNav()} />

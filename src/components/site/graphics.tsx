@@ -166,6 +166,36 @@ export function ArtContour() {
   )
 }
 
+/** Career hero: a rising stair of steps with a braided-hose line climbing it, drawn like a plan view. */
+export function ArtCareer() {
+  const steps = [
+    { x: 40, h: 70, label: 'Learn' },
+    { x: 140, h: 130, label: 'Build' },
+    { x: 240, h: 190, label: 'Lead' },
+  ]
+  const base = 300
+  return (
+    <svg viewBox="0 0 470 370" className="w-full" fill="none" strokeLinecap="round" strokeLinejoin="round">
+      {[60, 120, 180, 240, 300].map((y, i) => (
+        <path key={y} d={`M20 ${y} H450`} stroke="#ffffff" strokeOpacity="0.07" strokeDasharray="2 6" pathLength={1} style={stagger(i)} />
+      ))}
+      {steps.map((st, i) => (
+        <g key={st.label}>
+          <rect x={st.x} y={base - st.h} width="90" height={st.h} stroke="#8c939c" strokeOpacity={0.5 + i * 0.15} fill="#ffffff" fillOpacity={0.03 + i * 0.03} pathLength={1} style={stagger(i + 2)} />
+          <path d={`M${st.x} ${base - st.h} l12 -12 h90 v${st.h} l-12 12`} stroke="#8c939c" strokeOpacity="0.35" pathLength={1} style={stagger(i + 3)} />
+          <text x={st.x + 45} y={base + 24} fill="#cbd5e1" fontSize="13" fontWeight="600" textAnchor="middle">{st.label}</text>
+          <text x={st.x + 45} y={base - st.h / 2 + 5} fill="#ffffff" fillOpacity="0.5" fontSize="22" fontWeight="800" textAnchor="middle">0{i + 1}</text>
+        </g>
+      ))}
+      <path d={`M25 ${base - 80} C80 ${base - 80} 90 ${base - 150} 150 ${base - 150} S 250 ${base - 215} 330 ${base - 215} S 400 ${base - 250} 435 ${base - 255}`} stroke="#f69c2f" strokeWidth="9" strokeOpacity="0.22" pathLength={1} style={stagger(6)} />
+      <path d={`M25 ${base - 80} C80 ${base - 80} 90 ${base - 150} 150 ${base - 150} S 250 ${base - 215} 330 ${base - 215} S 400 ${base - 250} 435 ${base - 255}`} stroke="#f69c2f" strokeWidth="2" strokeDasharray="6 5" pathLength={1} style={stagger(7)} />
+      <circle cx="435" cy={base - 255} r="14" fill="#f69c2f" fillOpacity="0.25" stroke="#f69c2f" pathLength={1} style={stagger(8)} />
+      <circle cx="435" cy={base - 255} r="5" fill="#f69c2f" />
+      <text x="430" y={base - 282} fill="#ffffff" fontSize="14" fontWeight="700" textAnchor="end">Grow with VEXTRA</text>
+    </svg>
+  )
+}
+
 /* ───────────────────────── resources: bore size drawn to scale ───────────────────────── */
 
 const STANDARD_ID_IN = [0.25, 0.3125, 0.375, 0.5, 0.625, 0.75, 1, 1.25, 1.5, 2]

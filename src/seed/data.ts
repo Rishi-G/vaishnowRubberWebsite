@@ -741,6 +741,10 @@ export const SETTINGS = {
       title: 'Technical Resources',
       description: 'Hose selection guidance, pressure conversion and the downloadable VEXTRA product catalogue.',
     },
+    career: {
+      title: 'Careers',
+      description: 'Build a career at Vaishno Rubber Industries (VEXTRA), Moradabad. Send your details and resume to join our production, quality, sales and admin teams.',
+    },
     contact: {
       title: 'Contact Us',
       description: 'Contact Vaishno Rubber Industries — technical sales desk, factory address in Moradabad and enquiry form.',
@@ -756,6 +760,7 @@ export const NAVIGATION = {
     { label: 'Company', href: '/company' },
     { label: 'Industries', href: '/industries' },
     { label: 'Resources', href: '/resources' },
+    { label: 'Career', href: '/career' },
     { label: 'Contact', href: '/contact' },
   ],
   megaColumns: [

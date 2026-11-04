@@ -68,6 +68,7 @@ export const SiteSettings: GlobalConfig = {
                   ['company', 'Company page'],
                   ['industries', 'Industries page'],
                   ['resources', 'Resources page'],
+                  ['career', 'Career page'],
                   ['contact', 'Contact page'],
                 ] as const
               ).map(([name, label]) => ({

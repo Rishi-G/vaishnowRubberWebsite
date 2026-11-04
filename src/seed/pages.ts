@@ -219,6 +219,56 @@ export const PAGES = {
       ],
     },
   },
+  career: {
+    hero: {
+      title: 'Build your career with VEXTRA.',
+      lede: 'Join the team that makes hydraulic, industrial and railway rubber products at our Moradabad works. Send your details and resume below.',
+    },
+    stats: [
+      { value: '2014', label: 'Company incorporated' },
+      { value: '{landArea}', label: 'Works area, Moradabad' },
+      { value: '5', label: 'Product families' },
+    ],
+    why: {
+      heading: 'Why work with us',
+      text: 'We are a manufacturer, so the work is hands-on and the result is a product you can hold.',
+      items: [
+        { title: 'Learn the craft', text: 'Work next to experienced people on braiding, extrusion, vulcanising and testing of real products.' },
+        { title: 'Work that matters', text: 'Our hoses and components go into railways, mining, refineries and heavy industry.' },
+        { title: 'Quality first', text: 'Every product is made to national and international standards and tested before it leaves the works.' },
+        { title: 'Room to grow', text: 'A growing company with room to take on more responsibility as you build your skills.' },
+      ],
+    },
+    roles: {
+      heading: 'Where we hire',
+      text: 'We look for people in these areas. If your skills fit, apply even when no role is advertised.',
+      items: [
+        { title: 'Production', text: 'Machine operators and helpers for braiding, extrusion, moulding and assembly.' },
+        { title: 'Quality & testing', text: 'Inspection, pressure testing and documentation.' },
+        { title: 'Maintenance & tooling', text: 'Keeping machines and moulds running safely.' },
+        { title: 'Design & development', text: 'Product development, drawings and technical support.' },
+        { title: 'Sales & dispatch', text: 'Customer enquiries, quotations, packing and logistics.' },
+        { title: 'Accounts & admin', text: 'Accounts, purchase, stores and office support.' },
+      ],
+    },
+    process: {
+      heading: 'How hiring works',
+      items: [
+        { title: 'Apply', text: 'Fill in the form and attach your resume.' },
+        { title: 'Review', text: 'We read every application and shortlist by skills.' },
+        { title: 'Talk', text: 'We call shortlisted candidates for a conversation or interview.' },
+        { title: 'Join', text: 'If it is a fit, we make an offer and plan your start.' },
+      ],
+    },
+    form: {
+      heading: 'Apply now',
+      text: 'Tell us a little about yourself and attach your resume.',
+      resumeHint: 'PDF or Word, up to 5 MB',
+      submitLabel: 'Submit application',
+      successTitle: 'Application received',
+      successText: 'Thank you for applying. Our team will review your resume and contact you if there is a fit. For anything urgent, call {phone}.',
+    },
+  },
 }
 
 export type PageSlug = keyof typeof PAGES

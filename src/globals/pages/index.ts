@@ -177,4 +177,34 @@ export const ProductsPageGlobal = pageGlobal('page-products', 'Products page', '
   textarea('noMatch', 'No-match message ({q} = what was searched)', 300),
 ])
 
-export const PageGlobals = [HomePageGlobal, ProductsPageGlobal, ContactPageGlobal, CompanyPageGlobal, IndustriesPageGlobal, ResourcesPageGlobal]
+const titleText = (name: string, label: string, description?: string): Field => ({
+  name,
+  label,
+  type: 'array',
+  admin: description ? { description } : undefined,
+  fields: [{ type: 'row', fields: [{ name: 'title', type: 'text', required: true, maxLength: 80 }, textarea('text', 'Text', 300)] }],
+})
+
+export const CareerPageGlobal = pageGlobal('page-career', 'Career page', '/career', [
+  hero(),
+  {
+    name: 'stats',
+    label: 'Numbers strip',
+    type: 'array',
+    admin: { description: '{landArea} in a value is replaced by the works area from Company Info.' },
+    fields: [{ type: 'row', fields: [{ name: 'value', type: 'text', required: true, maxLength: 30 }, { name: 'label', type: 'text', required: true, maxLength: 60 }] }],
+  },
+  group('why', 'Why work with us', [text('heading', 'Heading', 100), textarea('text', 'Text', 300), titleText('items', 'Reasons')]),
+  group('roles', 'Where we hire', [text('heading', 'Heading', 100), textarea('text', 'Text', 300), titleText('items', 'Areas')]),
+  group('process', 'Hiring steps', [text('heading', 'Heading', 100), titleText('items', 'Steps')]),
+  group('form', 'Application form', [
+    text('heading', 'Heading', 80),
+    textarea('text', 'Text above the form', 300),
+    text('resumeHint', 'Resume hint', 120),
+    text('submitLabel', 'Submit button', 40),
+    text('successTitle', 'Thank-you heading'),
+    textarea('successText', 'Thank-you text', 300),
+  ], 'In the thank-you text, {phone} is replaced by the phone number from Company Info. Applications are read under Careers → Applications.'),
+])
+
+export const PageGlobals = [HomePageGlobal, ProductsPageGlobal, ContactPageGlobal, CompanyPageGlobal, IndustriesPageGlobal, ResourcesPageGlobal, CareerPageGlobal]

@@ -81,9 +81,10 @@ export type PageRoute =
   | '/industries'
   | '/resources'
   | '/contact'
+  | '/career'
 
 /** Branding and SEO defaults from the Site Settings global; URLs are already resolved to a file path. */
-export type SeoPage = 'products' | 'company' | 'industries' | 'resources' | 'contact'
+export type SeoPage = 'products' | 'company' | 'industries' | 'resources' | 'career' | 'contact'
 
 export interface SiteSettings {
   logoUrl: string

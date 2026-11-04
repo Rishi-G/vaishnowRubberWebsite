@@ -10,6 +10,8 @@ import { Media } from './collections/Media'
 import { Products } from './collections/Products'
 import { Enquiries } from './collections/Enquiries'
 import { ProductCategories } from './collections/ProductCategories'
+import { Jobs } from './collections/Jobs'
+import { Applications } from './collections/Applications'
 import { CompanyInfo } from './globals/CompanyInfo'
 import { SiteSettings } from './globals/SiteSettings'
 import { Navigation } from './globals/Navigation'
@@ -29,7 +31,7 @@ export default buildConfig({
       titleSuffix: '— Vaishno Rubber CMS',
     },
   },
-  collections: [Products, ProductCategories, Enquiries, Media, Users],
+  collections: [Products, ProductCategories, Jobs, Applications, Enquiries, Media, Users],
   globals: [CompanyInfo, SiteSettings, Navigation, ...PageGlobals],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
