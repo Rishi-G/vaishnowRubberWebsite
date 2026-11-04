@@ -565,3 +565,8 @@ dialog::backdrop {
 :root { --stage-bg: radial-gradient(ellipse at 55% 55%, #ffffff 0%, #f4f7fb 52%, #e3eaf3 100%); }
 [data-theme="dark"] { --stage-bg: radial-gradient(ellipse at 55% 55%, #5d6674 0%, #323944 48%, #171b21 100%); }
 [data-theme="dark"] .bg-white\/80 { background-color: rgb(19 27 46 / 0.8); }
+[data-theme="dark"] .hover\:bg-blue-50:hover { background-color: var(--brand-blue-subtle); }
+[data-theme="dark"] .hover\:text-slate-950:hover,
+[data-theme="dark"] .hover\:text-slate-900:hover { color: #f1f5f9; }
+/* the footer logo plate stays white in both themes (the logo artwork is dark) */
+[data-theme="dark"] .logo-plate { background-color: #fff; }

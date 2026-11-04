@@ -25,7 +25,7 @@ export const SiteFooter: React.FC<Props> = ({ onOpenEnquiry }) => {
               // eslint-disable-next-line @next/next/no-img-element
               <img src={settings.logoLightUrl} alt={`${company.brandName} — ${company.name}`} width={338} height={142} className="h-12 w-auto object-contain" />
             ) : (
-              <div className="inline-block rounded-md bg-white px-3 py-2">
+              <div className="logo-plate inline-block rounded-md bg-white px-3 py-2">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={settings.logoUrl} alt={`${company.brandName} — ${company.name}`} width={338} height={142} className="h-12 w-auto object-contain" />
               </div>
