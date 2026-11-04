@@ -10,6 +10,7 @@ import { Media } from './collections/Media'
 import { Products } from './collections/Products'
 import { Enquiries } from './collections/Enquiries'
 import { CompanyInfo } from './globals/CompanyInfo'
+import { SiteSettings } from './globals/SiteSettings'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -26,7 +27,7 @@ export default buildConfig({
     },
   },
   collections: [Products, Enquiries, Media, Users],
-  globals: [CompanyInfo],
+  globals: [CompanyInfo, SiteSettings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

@@ -8,7 +8,7 @@
  */
 import { getPayload } from 'payload'
 import config from '@payload-config'
-import { PRODUCTS, COMPANY } from './data'
+import { PRODUCTS, COMPANY, SETTINGS } from './data'
 
 const wrap = (arr: string[]) => arr.map((text) => ({ text }))
 const payload = await getPayload({ config })
@@ -53,6 +53,9 @@ await payload.updateGlobal({
     landArea: COMPANY.landArea,
     location: COMPANY.location,
     phone: COMPANY.phone,
+    whatsapp: COMPANY.whatsapp,
+    businessHours: COMPANY.businessHours,
+    mapUrl: COMPANY.mapUrl,
     profile: COMPANY.profile,
     founders: COMPANY.founders.map((name) => ({ name })),
     emails: COMPANY.emails.map((email) => ({ email })),
@@ -60,6 +63,19 @@ await payload.updateGlobal({
     certifications: COMPANY.certifications,
     customers: COMPANY.customers,
     strengths: COMPANY.strengths,
+  },
+})
+
+// Text settings only: uploads stay empty so the public/assets fallbacks are used until an editor uploads.
+await payload.updateGlobal({
+  slug: 'site-settings',
+  data: {
+    preloaderEnabled: SETTINGS.preloaderEnabled,
+    preloaderLabel: SETTINGS.preloaderLabel,
+    defaultTitle: SETTINGS.defaultTitle,
+    titleTemplate: SETTINGS.titleTemplate,
+    description: SETTINGS.description,
+    pageSeo: SETTINGS.pageSeo,
   },
 })
 
@@ -72,5 +88,5 @@ if (email && password) {
   }
 }
 
-payload.logger.info(`Seed complete: ${PRODUCTS.length} products, company info.`)
+payload.logger.info(`Seed complete: ${PRODUCTS.length} products, company info, site settings.`)
 process.exit(0)

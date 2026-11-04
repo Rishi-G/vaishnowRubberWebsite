@@ -93,9 +93,11 @@ export interface Config {
   fallbackLocale: null;
   globals: {
     'company-info': CompanyInfo;
+    'site-settings': SiteSetting;
   };
   globalsSelect: {
     'company-info': CompanyInfoSelect<false> | CompanyInfoSelect<true>;
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
   };
   locale: null;
   widgets: {
@@ -554,7 +556,22 @@ export interface CompanyInfo {
   incorporated?: string | null;
   landArea?: string | null;
   location?: string | null;
+  /**
+   * Shown in the header, footer, contact page, quote form and error messages.
+   */
   phone?: string | null;
+  /**
+   * Number with country code, digits only, e.g. 919810294483. Empty = no WhatsApp link.
+   */
+  whatsapp?: string | null;
+  /**
+   * e.g. Mon–Sat, 9:30 am – 6:00 pm IST. Empty = not shown.
+   */
+  businessHours?: string | null;
+  /**
+   * Google Maps link to the works. Empty = no map link.
+   */
+  mapUrl?: string | null;
   profile?: string | null;
   founders?:
     | {
@@ -562,9 +579,22 @@ export interface CompanyInfo {
         id?: string | null;
       }[]
     | null;
+  /**
+   * The first email is the main one (header, quote form).
+   */
   emails?:
     | {
         email: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Shown in the footer.
+   */
+  socials?:
+    | {
+        platform: 'linkedin' | 'facebook' | 'instagram' | 'youtube' | 'x';
+        url: string;
         id?: string | null;
       }[]
     | null;
@@ -605,6 +635,78 @@ export interface CompanyInfo {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: number;
+  /**
+   * Header, footer and preloader. Wide PNG with a transparent background, about 338 × 142 px. Empty = /assets/logo.png
+   */
+  logo?: (number | null) | Media;
+  /**
+   * White/light version for the dark footer. Empty = the main logo on a white panel.
+   */
+  logoLight?: (number | null) | Media;
+  /**
+   * Short line shown under the footer logo, e.g. "Hoses and railway rubber components since 2014". Empty = not shown.
+   */
+  tagline?: string | null;
+  /**
+   * Browser tab icon, square PNG. Empty = the logo file.
+   */
+  favicon?: (number | null) | Media;
+  preloaderEnabled?: boolean | null;
+  preloaderLabel?: string | null;
+  /**
+   * Home page title, shown in Google results.
+   */
+  defaultTitle: string;
+  /**
+   * Other pages. %s is replaced by the page name, e.g. "%s | Vaishno Rubber Industries".
+   */
+  titleTemplate: string;
+  /**
+   * Default search-result description, about 150–160 characters.
+   */
+  description: string;
+  /**
+   * Comma-separated, e.g. hydraulic hose, SAE 100 R2, railway rubber components
+   */
+  keywords?: string | null;
+  /**
+   * Image shown when a link is shared on WhatsApp, LinkedIn etc. 1200 × 630 px. Empty = /assets/hydraulic-hose.jpg
+   */
+  shareImage?: (number | null) | Media;
+  /**
+   * Title (inserted into the title pattern) and search description for each page. The home page uses the defaults above; products use their own name and description.
+   */
+  pageSeo?: {
+    products?: {
+      title?: string | null;
+      description?: string | null;
+    };
+    company?: {
+      title?: string | null;
+      description?: string | null;
+    };
+    industries?: {
+      title?: string | null;
+      description?: string | null;
+    };
+    resources?: {
+      title?: string | null;
+      description?: string | null;
+    };
+    contact?: {
+      title?: string | null;
+      description?: string | null;
+    };
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "company-info_select".
  */
 export interface CompanyInfoSelect<T extends boolean = true> {
@@ -614,6 +716,9 @@ export interface CompanyInfoSelect<T extends boolean = true> {
   landArea?: T;
   location?: T;
   phone?: T;
+  whatsapp?: T;
+  businessHours?: T;
+  mapUrl?: T;
   profile?: T;
   founders?:
     | T
@@ -625,6 +730,13 @@ export interface CompanyInfoSelect<T extends boolean = true> {
     | T
     | {
         email?: T;
+        id?: T;
+      };
+  socials?:
+    | T
+    | {
+        platform?: T;
+        url?: T;
         id?: T;
       };
   capabilities?:
@@ -655,6 +767,60 @@ export interface CompanyInfoSelect<T extends boolean = true> {
         title?: T;
         detail?: T;
         id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  logo?: T;
+  logoLight?: T;
+  tagline?: T;
+  favicon?: T;
+  preloaderEnabled?: T;
+  preloaderLabel?: T;
+  defaultTitle?: T;
+  titleTemplate?: T;
+  description?: T;
+  keywords?: T;
+  shareImage?: T;
+  pageSeo?:
+    | T
+    | {
+        products?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+            };
+        company?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+            };
+        industries?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+            };
+        resources?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+            };
+        contact?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;

@@ -71,3 +71,22 @@ export type PageRoute =
   | '/industries'
   | '/resources'
   | '/contact'
+
+/** Branding and SEO defaults from the Site Settings global; URLs are already resolved to a file path. */
+export type SeoPage = 'products' | 'company' | 'industries' | 'resources' | 'contact'
+
+export interface SiteSettings {
+  logoUrl: string
+  /** '' when no light logo is uploaded; the footer then puts the main logo on a white panel */
+  logoLightUrl: string
+  tagline: string
+  keywords: string[]
+  faviconUrl: string
+  shareImageUrl: string
+  preloaderEnabled: boolean
+  preloaderLabel: string
+  defaultTitle: string
+  titleTemplate: string
+  description: string
+  pageSeo: Record<SeoPage, { title: string; description: string }>
+}

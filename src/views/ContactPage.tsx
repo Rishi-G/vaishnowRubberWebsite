@@ -33,7 +33,7 @@ export const ContactPage: React.FC<Props> = ({ onOpenEnquiry }) => {
     setLoading(true)
     setError('')
     // success is only shown once the server confirms the enquiry was stored
-    const result = await submitEnquiry({ type: 'contact', fullName: name, companyName, email, phone, subject, notes: message })
+    const result = await submitEnquiry({ type: 'contact', fullName: name, companyName, email, phone, subject, notes: message }, { phone: company.phone, email: company.emails[0] ?? '' })
     setLoading(false)
     if (result.ok) setSent(true)
     else setError(result.message)
@@ -57,6 +57,8 @@ export const ContactPage: React.FC<Props> = ({ onOpenEnquiry }) => {
               <div>
                 <dt className="text-sm font-semibold text-slate-500">Works</dt>
                 <dd className="mt-1 text-[15px] leading-relaxed text-ink">{company.name}<br />{company.location}</dd>
+                {company.mapUrl && <dd><a href={company.mapUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-sm font-semibold text-brand-blue hover:underline">Open in Google Maps →</a></dd>}
+                {company.businessHours && <dd className="mt-2 text-sm text-slate-600">{company.businessHours}</dd>}
               </div>
             </div>
             <div className="grid sm:grid-cols-2">
@@ -65,6 +67,7 @@ export const ContactPage: React.FC<Props> = ({ onOpenEnquiry }) => {
                 <div>
                   <dt className="text-sm font-semibold text-slate-500">Phone</dt>
                   <dd><a href={`tel:${company.phone.replace(/\s/g, '')}`} className="mt-1 block font-display text-lg font-bold text-ink hover:text-brand-blue">{company.phone}</a></dd>
+                  {company.whatsapp && <dd><a href={`https://wa.me/${company.whatsapp.replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" className="mt-1 inline-block text-sm font-semibold text-brand-blue hover:underline">WhatsApp</a></dd>}
                 </div>
               </div>
               <div className="flex gap-4 border-b-2 border-ink p-5">

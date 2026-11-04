@@ -2,7 +2,8 @@ import 'server-only'
 import { cache } from 'react'
 import { getPayload } from 'payload'
 import config from '@payload-config'
-import type { Product, ProductCategory } from '@/types'
+import { SETTINGS as SETTINGS_FALLBACK } from '@/seed/data'
+import type { Product, ProductCategory, SeoPage, SiteSettings } from '@/types'
 
 export interface Certification {
   name: string
@@ -18,6 +19,10 @@ export interface CompanyFacts {
   landArea: string
   location: string
   phone: string
+  whatsapp: string
+  businessHours: string
+  mapUrl: string
+  socials: { platform: string; url: string }[]
   profile: string
   founders: string[]
   emails: string[]
@@ -82,6 +87,10 @@ export const getCompany = cache(async (): Promise<CompanyFacts> => {
     landArea: d.landArea ?? '',
     location: d.location ?? '',
     phone: d.phone ?? '',
+    whatsapp: d.whatsapp ?? '',
+    businessHours: d.businessHours ?? '',
+    mapUrl: d.mapUrl ?? '',
+    socials: (d.socials ?? []).map((x: any) => ({ platform: x.platform, url: x.url })),
     profile: d.profile ?? '',
     founders: (d.founders ?? []).map((x: any) => x.name),
     emails: (d.emails ?? []).map((x: any) => x.email),
@@ -89,5 +98,33 @@ export const getCompany = cache(async (): Promise<CompanyFacts> => {
     certifications: (d.certifications ?? []).map((x: any) => ({ name: x.name, detail: x.detail ?? '', status: x.status ?? 'stated', documentUrl: x.documentUrl ?? '' })),
     customers: (d.customers ?? []).map((x: any) => ({ name: x.name, group: x.group })),
     strengths: (d.strengths ?? []).map((x: any) => ({ title: x.title, detail: x.detail ?? '' })),
+  }
+})
+
+const uploadUrl = (u: any): string | undefined => (u && typeof u === 'object' && u.url ? u.url : undefined)
+
+export const getSettings = cache(async (): Promise<SiteSettings> => {
+  const payload = await getPayloadClient()
+  const d: any = await payload.findGlobal({ slug: 'site-settings', depth: 1 })
+  const logoUrl = uploadUrl(d.logo) ?? SETTINGS_FALLBACK.logoUrl
+  const pageSeo = Object.fromEntries(
+    (Object.keys(SETTINGS_FALLBACK.pageSeo) as SeoPage[]).map((k) => {
+      const fb = SETTINGS_FALLBACK.pageSeo[k]
+      return [k, { title: d.pageSeo?.[k]?.title || fb.title, description: d.pageSeo?.[k]?.description || fb.description }]
+    }),
+  ) as SiteSettings['pageSeo']
+  return {
+    logoUrl,
+    logoLightUrl: uploadUrl(d.logoLight) ?? '',
+    tagline: d.tagline ?? '',
+    keywords: (d.keywords ?? '').split(',').map((k: string) => k.trim()).filter(Boolean),
+    pageSeo,
+    faviconUrl: uploadUrl(d.favicon) ?? logoUrl,
+    shareImageUrl: uploadUrl(d.shareImage) ?? SETTINGS_FALLBACK.shareImageUrl,
+    preloaderEnabled: d.preloaderEnabled ?? true,
+    preloaderLabel: d.preloaderLabel || SETTINGS_FALLBACK.preloaderLabel,
+    defaultTitle: d.defaultTitle || SETTINGS_FALLBACK.defaultTitle,
+    titleTemplate: d.titleTemplate || SETTINGS_FALLBACK.titleTemplate,
+    description: d.description || SETTINGS_FALLBACK.description,
   }
 })

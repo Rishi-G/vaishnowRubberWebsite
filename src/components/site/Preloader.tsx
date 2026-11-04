@@ -13,7 +13,7 @@ type Phase = 'show' | 'leave' | 'gone'
  * Full-screen brand preloader. It is server-rendered visible (so the animation starts on first paint),
  * then fades out once the window has loaded and the logo animation has had time to play.
  */
-export function Preloader() {
+export function Preloader({ logoUrl, label }: { logoUrl: string; label: string }) {
   const [phase, setPhase] = useState<Phase>('show')
 
   useEffect(() => {
@@ -64,7 +64,7 @@ export function Preloader() {
       className={`preloader${phase === 'leave' ? ' preloader-leave' : ''}`}
       role="status"
       aria-live="polite"
-      aria-label="Loading Vaishno Rubber Industries"
+      aria-label={`Loading ${label}`}
     >
       {/* Without JS the overlay could never dismiss itself, so hide it. */}
       <noscript>
@@ -74,15 +74,15 @@ export function Preloader() {
       <div className="preloader-stage">
         <div className="preloader-logo">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/assets/logo.png" alt="" width={338} height={142} className="preloader-logo-ghost" draggable={false} />
+          <img src={logoUrl} alt="" width={338} height={142} className="preloader-logo-ghost" draggable={false} />
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/assets/logo.png" alt="" width={338} height={142} className="preloader-logo-color" draggable={false} />
+          <img src={logoUrl} alt="" width={338} height={142} className="preloader-logo-color" draggable={false} />
           <span className="preloader-scan" aria-hidden="true" />
         </div>
         <div className="preloader-bar" aria-hidden="true">
           <span />
         </div>
-        <p className="preloader-label">Vaishno Rubber Industries</p>
+        <p className="preloader-label">{label}</p>
       </div>
     </div>
   )
