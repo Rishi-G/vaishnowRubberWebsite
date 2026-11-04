@@ -152,7 +152,7 @@ export function RailwayHero({ hero, tabs, triggerRef }: { hero: HeroContent; tab
   }
 
   return (
-    <section id="hero" aria-label="VEXTRA railway components, scroll-driven 3D presentation" className="relative">
+    <section id="hero" aria-label="VEXTRA railway components, scroll-driven 3D presentation" className="light-surface relative">
       <div
         ref={sectionRef}
         className={`relative w-full overflow-hidden ${story || status === 'loading' ? '' : 'min-h-[88svh]'}`}

@@ -107,7 +107,7 @@ export function DemoViewer({ slug, name, heightClass = 'h-[360px] sm:h-[460px]' 
   return (
     <div ref={wrapRef} className="overflow-hidden rounded-md border border-slate-200 bg-white">
       <div
-        className={`relative ${heightClass} touch-pan-y select-none`}
+        className={`light-surface relative ${heightClass} touch-pan-y select-none`}
         style={{ background: 'radial-gradient(ellipse at 50% 45%, #ffffff 0%, #f4f7fb 55%, #e1e8f1 100%)' }}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}

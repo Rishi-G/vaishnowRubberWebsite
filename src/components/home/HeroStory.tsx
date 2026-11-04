@@ -226,7 +226,7 @@ function HoseHero({ hero, family, tabs, triggerRef }: HeroProps & { family: Fami
   ]
 
   return (
-    <section id="hero" aria-label="VEXTRA hose construction, scroll-driven 3D presentation" className="relative">
+    <section id="hero" aria-label="VEXTRA hose construction, scroll-driven 3D presentation" className="light-surface relative">
       <a href="#range" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-28 focus:z-50 focus:rounded focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:shadow">
         Skip to product range
       </a>
