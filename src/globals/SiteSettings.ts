@@ -30,6 +30,8 @@ export const SiteSettings: GlobalConfig = {
           label: 'Branding',
           fields: [
             { name: 'logo', type: 'upload', relationTo: 'media', admin: { description: 'Header, footer and preloader. Wide PNG with a transparent background, about 338 × 142 px. Empty = /assets/logo.png' } },
+            { name: 'logoLight', label: 'Logo for dark backgrounds', type: 'upload', relationTo: 'media', admin: { description: 'White/light version for the dark footer. Empty = the main logo on a white panel.' } },
+            { name: 'tagline', type: 'text', maxLength: 120, admin: { description: 'Short line shown under the footer logo, e.g. "Hoses and railway rubber components since 2014". Empty = not shown.' } },
             { name: 'favicon', type: 'upload', relationTo: 'media', admin: { description: 'Browser tab icon, square PNG. Empty = the logo file.' } },
             {
               type: 'row',
@@ -53,7 +55,31 @@ export const SiteSettings: GlobalConfig = {
               admin: { description: 'Other pages. %s is replaced by the page name, e.g. "%s | Vaishno Rubber Industries".' },
             },
             { name: 'description', type: 'textarea', required: true, maxLength: 320, admin: { description: 'Default search-result description, about 150–160 characters.' } },
+            { name: 'keywords', type: 'text', maxLength: 300, admin: { description: 'Comma-separated, e.g. hydraulic hose, SAE 100 R2, railway rubber components' } },
             { name: 'shareImage', type: 'upload', relationTo: 'media', admin: { description: 'Image shown when a link is shared on WhatsApp, LinkedIn etc. 1200 × 630 px. Empty = /assets/hydraulic-hose.jpg' } },
+            {
+              name: 'pageSeo',
+              label: 'Per-page SEO',
+              type: 'group',
+              admin: { description: 'Title (inserted into the title pattern) and search description for each page. The home page uses the defaults above; products use their own name and description.' },
+              fields: (
+                [
+                  ['products', 'Products page'],
+                  ['company', 'Company page'],
+                  ['industries', 'Industries page'],
+                  ['resources', 'Resources page'],
+                  ['contact', 'Contact page'],
+                ] as const
+              ).map(([name, label]) => ({
+                name,
+                label,
+                type: 'group' as const,
+                fields: [
+                  { name: 'title', type: 'text' as const, maxLength: 80 },
+                  { name: 'description', type: 'textarea' as const, maxLength: 320 },
+                ],
+              })),
+            },
           ],
         },
       ],

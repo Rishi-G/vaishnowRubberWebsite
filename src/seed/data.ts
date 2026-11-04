@@ -703,6 +703,9 @@ export const COMPANY = {
 
 export const SETTINGS = {
   logoUrl: '/assets/logo.png',
+  logoLightUrl: '',
+  tagline: '',
+  keywords: [] as string[],
   faviconUrl: '/assets/logo.png',
   shareImageUrl: '/assets/hydraulic-hose.jpg',
   preloaderEnabled: true,
@@ -711,4 +714,26 @@ export const SETTINGS = {
   titleTemplate: '%s | Vaishno Rubber Industries (VEXTRA®)',
   description:
     'Vaishno Rubber Industries Pvt. Ltd. (VEXTRA) — manufacturer of SAE 100 R1, R2, SH33 hydraulic hoses, industrial, rock drill, steam and automotive hoses conforming to DIN, EN, SAE, IS standards.',
+  pageSeo: {
+    products: {
+      title: 'Hose Product Catalogue',
+      description: 'Browse VEXTRA hydraulic, industrial and automotive hoses by family and working pressure, with full technical data sheets.',
+    },
+    company: {
+      title: 'Company & Moradabad Plant',
+      description: 'About Vaishno Rubber Industries: leadership, the 5-acre Moradabad manufacturing plant, machinery and quality systems.',
+    },
+    industries: {
+      title: 'Industries Served',
+      description: 'Hose solutions for earthmoving, mining, refineries, railways, automotive and agriculture.',
+    },
+    resources: {
+      title: 'Technical Resources',
+      description: 'Hose selection guidance, pressure conversion and the downloadable VEXTRA product catalogue.',
+    },
+    contact: {
+      title: 'Contact Us',
+      description: 'Contact Vaishno Rubber Industries — technical sales desk, factory address in Moradabad and enquiry form.',
+    },
+  },
 }

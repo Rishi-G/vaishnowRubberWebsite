@@ -644,6 +644,14 @@ export interface SiteSetting {
    */
   logo?: (number | null) | Media;
   /**
+   * White/light version for the dark footer. Empty = the main logo on a white panel.
+   */
+  logoLight?: (number | null) | Media;
+  /**
+   * Short line shown under the footer logo, e.g. "Hoses and railway rubber components since 2014". Empty = not shown.
+   */
+  tagline?: string | null;
+  /**
    * Browser tab icon, square PNG. Empty = the logo file.
    */
   favicon?: (number | null) | Media;
@@ -662,9 +670,38 @@ export interface SiteSetting {
    */
   description: string;
   /**
+   * Comma-separated, e.g. hydraulic hose, SAE 100 R2, railway rubber components
+   */
+  keywords?: string | null;
+  /**
    * Image shown when a link is shared on WhatsApp, LinkedIn etc. 1200 × 630 px. Empty = /assets/hydraulic-hose.jpg
    */
   shareImage?: (number | null) | Media;
+  /**
+   * Title (inserted into the title pattern) and search description for each page. The home page uses the defaults above; products use their own name and description.
+   */
+  pageSeo?: {
+    products?: {
+      title?: string | null;
+      description?: string | null;
+    };
+    company?: {
+      title?: string | null;
+      description?: string | null;
+    };
+    industries?: {
+      title?: string | null;
+      description?: string | null;
+    };
+    resources?: {
+      title?: string | null;
+      description?: string | null;
+    };
+    contact?: {
+      title?: string | null;
+      description?: string | null;
+    };
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -741,13 +778,50 @@ export interface CompanyInfoSelect<T extends boolean = true> {
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
   logo?: T;
+  logoLight?: T;
+  tagline?: T;
   favicon?: T;
   preloaderEnabled?: T;
   preloaderLabel?: T;
   defaultTitle?: T;
   titleTemplate?: T;
   description?: T;
+  keywords?: T;
   shareImage?: T;
+  pageSeo?:
+    | T
+    | {
+        products?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+            };
+        company?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+            };
+        industries?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+            };
+        resources?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+            };
+        contact?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+            };
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

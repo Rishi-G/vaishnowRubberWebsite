@@ -17,6 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL(process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'),
     title: { default: s.defaultTitle, template: s.titleTemplate },
     description: s.description,
+    ...(s.keywords.length > 0 && { keywords: s.keywords }),
     icons: { icon: s.faviconUrl },
     openGraph: { type: 'website', siteName: company.name, images: [s.shareImageUrl] },
   }

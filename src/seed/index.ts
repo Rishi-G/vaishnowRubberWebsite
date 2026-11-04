@@ -75,6 +75,7 @@ await payload.updateGlobal({
     defaultTitle: SETTINGS.defaultTitle,
     titleTemplate: SETTINGS.titleTemplate,
     description: SETTINGS.description,
+    pageSeo: SETTINGS.pageSeo,
   },
 })
 

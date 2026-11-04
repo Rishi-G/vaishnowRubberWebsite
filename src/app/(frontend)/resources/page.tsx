@@ -1,11 +1,8 @@
 import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 import { ResourcesView } from '@/components/site/Views'
 
-export const metadata: Metadata = {
-  title: 'Technical Resources',
-  description: 'Hose selection guidance, pressure conversion and the downloadable VEXTRA product catalogue.',
-  alternates: { canonical: '/resources' },
-}
+export const generateMetadata = (): Promise<Metadata> => pageMetadata('resources', '/resources')
 
 export default function Page() {
   return <ResourcesView />
