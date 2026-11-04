@@ -22,6 +22,12 @@ export interface EnquiryPayload {
   notes?: string
 }
 
+/** The company's own phone and main email (from Company Info), used in fallbacks so a lead is never lost. */
+export interface EnquiryContact {
+  phone: string
+  email: string
+}
+
 export type EnquiryResult = { ok: true; reference: string } | { ok: false; message: string }
 
 /** Shape of Payload's error response: { errors: [{ message, data?: { errors: [{ path, message }] } }] } */
@@ -36,25 +42,25 @@ interface PayloadErrorBody {
  *  - Field-level: surface `body.errors[0].data.errors[*]` ("email: invalid email")
  *    — most helpful, but leaks internal field names.
  *  - Status-based: 400 → "check your details", 429 → "too many attempts",
- *    5xx → "our server is down, call +91 98102 94483".
+ *    5xx → "our server is down, call <contact.phone>".
  *  - Always include the phone fallback so a lead is never lost.
  */
-function friendlyError(status: number, _body: PayloadErrorBody | null): string {
-  return `We couldn't send your enquiry (error ${status}). Please try again or call +91 98102 94483.`
+function friendlyError(status: number, _body: PayloadErrorBody | null, contact: EnquiryContact): string {
+  return `We couldn't send your enquiry (error ${status}). Please try again or call ${contact.phone}.`
 }
 
 /** Static GitHub Pages build has no API — hand the enquiry to the visitor's mail app instead. */
-function mailtoEnquiry(data: EnquiryPayload): EnquiryResult {
+function mailtoEnquiry(data: EnquiryPayload, contact: EnquiryContact): EnquiryResult {
   const lines = Object.entries(data)
     .filter(([, v]) => v !== undefined && v !== '')
     .map(([k, v]) => `${k}: ${v}`)
   const subject = data.type === 'rfq' ? `RFQ from ${data.fullName}` : data.subject || `Enquiry from ${data.fullName}`
-  window.location.href = `mailto:info@vaishnorubber.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`
+  window.location.href = `mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`
   return { ok: true, reference: '' }
 }
 
-export async function submitEnquiry(data: EnquiryPayload): Promise<EnquiryResult> {
-  if (process.env.NEXT_PUBLIC_STATIC_EXPORT === 'true') return mailtoEnquiry(data)
+export async function submitEnquiry(data: EnquiryPayload, contact: EnquiryContact): Promise<EnquiryResult> {
+  if (process.env.NEXT_PUBLIC_STATIC_EXPORT === 'true') return mailtoEnquiry(data, contact)
   try {
     const res = await fetch('/api/enquiries', {
       method: 'POST',
@@ -62,9 +68,9 @@ export async function submitEnquiry(data: EnquiryPayload): Promise<EnquiryResult
       body: JSON.stringify(data),
     })
     const body = await res.json().catch(() => null)
-    if (!res.ok) return { ok: false, message: friendlyError(res.status, body) }
+    if (!res.ok) return { ok: false, message: friendlyError(res.status, body, contact) }
     return { ok: true, reference: body?.doc?.reference ?? '' }
   } catch {
-    return { ok: false, message: 'Network error — check your connection, or call +91 98102 94483.' }
+    return { ok: false, message: `Network error — check your connection, or call ${contact.phone}.` }
   }
 }

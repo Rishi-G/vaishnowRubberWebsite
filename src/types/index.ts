@@ -71,3 +71,15 @@ export type PageRoute =
   | '/industries'
   | '/resources'
   | '/contact'
+
+/** Branding and SEO defaults from the Site Settings global; URLs are already resolved to a file path. */
+export interface SiteSettings {
+  logoUrl: string
+  faviconUrl: string
+  shareImageUrl: string
+  preloaderEnabled: boolean
+  preloaderLabel: string
+  defaultTitle: string
+  titleTemplate: string
+  description: string
+}

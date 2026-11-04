@@ -32,7 +32,7 @@ const COLUMNS: { title: string; dot: string; cats: ProductCategory[]; max: numbe
 const short = (p: Product) => p.name.split(' — ')[0]
 
 export const SiteHeader: React.FC<Props> = ({ currentRoute, onOpenEnquiry }) => {
-  const { products, company } = useSiteData()
+  const { products, company, settings } = useSiteData()
   // the menu is open while hovered OR pinned by a click/tap, so a click after hover never shuts it
   const [hover, setHover] = useState(false)
   const [pinned, setPinned] = useState(false)
@@ -104,8 +104,8 @@ export const SiteHeader: React.FC<Props> = ({ currentRoute, onOpenEnquiry }) => 
       <div className="border-b border-slate-800 bg-slate-950 py-2 text-xs text-slate-300">
         <div className="container flex flex-wrap items-center justify-between gap-2">
           <span className="flex items-center gap-1.5 font-medium">
-            <strong className="tracking-wide text-white">VAISHNO RUBBER INDUSTRIES PVT. LTD.</strong>
-            <span className="hidden text-slate-400 md:inline">| Brand: VEXTRA®</span>
+            <strong className="uppercase tracking-wide text-white">{company.name}</strong>
+            <span className="hidden text-slate-400 md:inline">| Brand: {company.brandName}®</span>
           </span>
           <span className="flex items-center gap-4 font-mono">
             <a href={phoneHref} className="flex items-center gap-1.5 text-slate-200 hover:text-brand-accent">
@@ -122,9 +122,9 @@ export const SiteHeader: React.FC<Props> = ({ currentRoute, onOpenEnquiry }) => 
 
       {/* main bar */}
       <div className="container flex h-[72px] items-center justify-between">
-        <Link href="/" className="flex items-center" aria-label="VEXTRA — Vaishno Rubber Industries, home">
+        <Link href="/" className="flex items-center" aria-label={`${company.brandName} — ${company.name}, home`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/assets/logo.png" alt="VEXTRA — Vaishno Rubber Industries" width={338} height={142} className="h-12 w-auto object-contain sm:h-14" />
+          <img src={settings.logoUrl} alt={`${company.brandName} — ${company.name}`} width={338} height={142} className="h-12 w-auto object-contain sm:h-14" />
         </Link>
 
         <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">

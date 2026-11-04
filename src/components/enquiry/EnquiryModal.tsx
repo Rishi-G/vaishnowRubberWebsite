@@ -19,7 +19,8 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
   onClose,
   initialProductId
 }) => {
-  const { products: PRODUCTS } = useSiteData();
+  const { products: PRODUCTS, company } = useSiteData();
+  const contact = { phone: company.phone, email: company.emails[0] ?? '' };
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   // Form State
@@ -113,7 +114,7 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
       fullName, email, companyName, phone, location, notes,
       category, productSlug: productId, idSize, workingPressure, temperature,
       lengthMeters, fittingType, application,
-    });
+    }, contact);
 
     setSubmitting(false);
     if (result.ok) {
@@ -214,7 +215,7 @@ Location: ${location}
 
             <div className="mt-8 pt-4 border-t border-slate-200 text-xs text-slate-500">
               For urgent requirements, contact direct desk: <br />
-              <a href="tel:+919810294483" className="font-bold text-blue-600 hover:underline">+91 98102 94483</a> &bull; <a href="mailto:info@vaishnorubber.com" className="font-bold text-blue-600 hover:underline">info@vaishnorubber.com</a>
+              <a href={`tel:${contact.phone.replace(/\s/g, '')}`} className="font-bold text-blue-600 hover:underline">{contact.phone}</a>{contact.email && <> &bull; <a href={`mailto:${contact.email}`} className="font-bold text-blue-600 hover:underline">{contact.email}</a></>}
             </div>
           </div>
         ) : (

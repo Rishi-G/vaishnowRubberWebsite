@@ -625,6 +625,10 @@ export const COMPANY = {
   location:
     'NH-24 (Delhi-Haridwar Bypass Road), Village Kokerpur, P.O. Aghwanpur, Moradabad - 244001 (U.P.), India',
   phone: '+91 98102 94483',
+  whatsapp: '',
+  businessHours: '',
+  mapUrl: '',
+  socials: [] as { platform: string; url: string }[],
   emails: ['info@vaishnorubber.com', 'satvir21@gmail.com'],
   profile:
     'The company makes wire and textile braided hoses and hose assemblies (LPG, industrial and hydraulic hoses) conforming to DIN, EN, SAE, IS and BS specifications, alongside railway rubber and rubber-metal components. Long-length hoses are produced on flexible nylon mandrels for capacity and consistent quality.',
@@ -693,4 +697,18 @@ export const COMPANY = {
     { title: 'Integrated production & assembly', detail: 'Compounding, moulding, hose production and assembly in one works.' },
     { title: 'Consistent supply', detail: 'Consistent production and on-time delivery.' },
   ],
+}
+
+/* ───────────── site settings (branding + SEO defaults) ───────────── */
+
+export const SETTINGS = {
+  logoUrl: '/assets/logo.png',
+  faviconUrl: '/assets/logo.png',
+  shareImageUrl: '/assets/hydraulic-hose.jpg',
+  preloaderEnabled: true,
+  preloaderLabel: 'Vaishno Rubber Industries',
+  defaultTitle: 'Vaishno Rubber Industries | VEXTRA® High-Pressure Hydraulic & Industrial Hoses',
+  titleTemplate: '%s | Vaishno Rubber Industries (VEXTRA®)',
+  description:
+    'Vaishno Rubber Industries Pvt. Ltd. (VEXTRA) — manufacturer of SAE 100 R1, R2, SH33 hydraulic hoses, industrial, rock drill, steam and automotive hoses conforming to DIN, EN, SAE, IS standards.',
 }

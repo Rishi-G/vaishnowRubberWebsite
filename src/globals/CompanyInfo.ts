@@ -26,10 +26,32 @@ export const CompanyInfo: GlobalConfig = {
     { name: 'incorporated', type: 'text', admin: { description: 'e.g. 14 November 2014' } },
     { name: 'landArea', type: 'text' },
     { name: 'location', type: 'textarea' },
-    { name: 'phone', type: 'text' },
+    { name: 'phone', type: 'text', admin: { description: 'Shown in the header, footer, contact page, quote form and error messages.' } },
+    { name: 'whatsapp', type: 'text', admin: { description: 'Number with country code, digits only, e.g. 919810294483. Empty = no WhatsApp link.' } },
+    { name: 'businessHours', type: 'text', admin: { description: 'e.g. Mon–Sat, 9:30 am – 6:00 pm IST. Empty = not shown.' } },
+    { name: 'mapUrl', type: 'text', admin: { description: 'Google Maps link to the works. Empty = no map link.' } },
     { name: 'profile', type: 'textarea' },
     { name: 'founders', type: 'array', fields: [{ name: 'name', type: 'text', required: true }] },
-    { name: 'emails', type: 'array', fields: [{ name: 'email', type: 'email', required: true }] },
+    { name: 'emails', type: 'array', admin: { description: 'The first email is the main one (header, quote form).' }, fields: [{ name: 'email', type: 'email', required: true }] },
+    {
+      name: 'socials',
+      type: 'array',
+      admin: { description: 'Shown in the footer.' },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'platform',
+              type: 'select',
+              required: true,
+              options: ['LinkedIn', 'Facebook', 'Instagram', 'YouTube', 'X'].map((v) => ({ label: v, value: v.toLowerCase() })),
+            },
+            { name: 'url', type: 'text', required: true },
+          ],
+        },
+      ],
+    },
     textRows('capabilities'),
     {
       name: 'certifications',
