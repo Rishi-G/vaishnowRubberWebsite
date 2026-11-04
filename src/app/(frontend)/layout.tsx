@@ -2,7 +2,7 @@ import React from 'react'
 import type { Metadata } from 'next'
 import { Plus_Jakarta_Sans, Space_Grotesk, JetBrains_Mono } from 'next/font/google'
 import '@/styles/globals.css'
-import { getCompany, getProducts, getSettings } from '@/lib/cms'
+import { getCompany, getNavigation, getProducts, getSettings } from '@/lib/cms'
 import { SiteProvider } from '@/lib/site-context'
 import { SiteShell } from '@/components/site/SiteShell'
 import { Preloader } from '@/components/site/Preloader'
@@ -27,13 +27,13 @@ export async function generateMetadata(): Promise<Metadata> {
 export const revalidate = 60
 
 export default async function FrontendLayout({ children }: { children: React.ReactNode }) {
-  const [products, company, settings] = await Promise.all([getProducts(), getCompany(), getSettings()])
+  const [products, company, settings, navigation] = await Promise.all([getProducts(), getCompany(), getSettings(), getNavigation()])
 
   return (
     <html lang="en" data-theme="light" className={`${jakarta.variable} ${grotesk.variable} ${jetbrains.variable}`}>
       <body className="bg-white text-slate-900 font-sans antialiased selection:bg-brand-blue selection:text-white">
         {settings.preloaderEnabled && <Preloader logoUrl={settings.logoUrl} label={settings.preloaderLabel} />}
-        <SiteProvider products={products} company={company} settings={settings}>
+        <SiteProvider products={products} company={company} settings={settings} navigation={navigation}>
           <SiteShell>{children}</SiteShell>
         </SiteProvider>
       </body>

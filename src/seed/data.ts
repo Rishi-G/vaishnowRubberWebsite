@@ -737,3 +737,46 @@ export const SETTINGS = {
     },
   },
 }
+
+/* ───────────── navigation (header, products menu, footer) ───────────── */
+
+export const NAVIGATION = {
+  productsLabel: 'Products',
+  headerLinks: [
+    { label: 'Company', href: '/company' },
+    { label: 'Industries', href: '/industries' },
+    { label: 'Resources', href: '/resources' },
+    { label: 'Contact', href: '/contact' },
+  ],
+  megaColumns: [
+    { title: 'Railway components', categories: ['railway'], maxItems: 8 },
+    { title: 'Hydraulic hoses', categories: ['hydraulic'], maxItems: 6 },
+    { title: 'Industrial & LPG hoses', categories: ['industrial', 'lpg'], maxItems: 6 },
+    { title: 'Automotive hoses', categories: ['automotive'], maxItems: 6 },
+  ] as { title: string; categories: ProductCategory[]; maxItems: number }[],
+  catalogueCard: {
+    badge: 'Catalogue',
+    title: 'VEXTRA hose catalogue',
+    text: 'Dimensions, pressure ratings and installation guidance for the hose range.',
+    browseLabel: 'Browse all products →',
+    downloadLabel: 'Download PDF',
+  },
+  catalogueUrl: '/documents/vextra-hose-catalogue.pdf',
+  footerProductsHeading: 'Products',
+  footerCompanyHeading: 'Company',
+  footerContactHeading: 'Works',
+  footerProductLinks: [
+    { label: 'Railway components', href: '/products?category=railway' },
+    { label: 'Hydraulic hoses', href: '/products?category=hydraulic' },
+    { label: 'Industrial hoses', href: '/products?category=industrial' },
+    { label: 'LPG hoses', href: '/products?category=lpg' },
+    { label: 'Automotive hoses', href: '/products?category=automotive' },
+  ],
+  footerCompanyLinks: [
+    { label: 'Company', href: '/company' },
+    { label: 'Industries', href: '/industries' },
+    { label: 'Technical resources', href: '/resources' },
+    { label: 'Contact', href: '/contact' },
+  ],
+  footerCatalogueLabel: 'Hose catalogue (PDF)',
+}

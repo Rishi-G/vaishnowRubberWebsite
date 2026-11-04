@@ -94,10 +94,12 @@ export interface Config {
   globals: {
     'company-info': CompanyInfo;
     'site-settings': SiteSetting;
+    navigation: Navigation;
   };
   globalsSelect: {
     'company-info': CompanyInfoSelect<false> | CompanyInfoSelect<true>;
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    navigation: NavigationSelect<false> | NavigationSelect<true>;
   };
   locale: null;
   widgets: {
@@ -707,6 +709,78 @@ export interface SiteSetting {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navigation".
+ */
+export interface Navigation {
+  id: number;
+  productsLabel?: string | null;
+  /**
+   * Shown after Home and Products, on desktop and in the phone menu.
+   */
+  headerLinks?:
+    | {
+        label: string;
+        /**
+         * e.g. /company or /products?category=lpg
+         */
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Up to 4 columns; each lists the products of the chosen categories. Also used for the phone menu.
+   */
+  megaColumns?:
+    | {
+        title: string;
+        categories: ('railway' | 'hydraulic' | 'industrial' | 'lpg' | 'automotive')[];
+        maxItems?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  catalogueCard?: {
+    badge?: string | null;
+    title?: string | null;
+    text?: string | null;
+    browseLabel?: string | null;
+    downloadLabel?: string | null;
+  };
+  /**
+   * Used by the products menu and the footer, e.g. /documents/vextra-hose-catalogue.pdf
+   */
+  catalogueUrl?: string | null;
+  footerProductsHeading?: string | null;
+  footerCompanyHeading?: string | null;
+  footerContactHeading?: string | null;
+  /**
+   * An "All products →" link is always added at the end.
+   */
+  footerProductLinks?:
+    | {
+        label: string;
+        /**
+         * e.g. /company or /products?category=lpg
+         */
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  footerCompanyLinks?:
+    | {
+        label: string;
+        /**
+         * e.g. /company or /products?category=lpg
+         */
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  footerCatalogueLabel?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "company-info_select".
  */
 export interface CompanyInfoSelect<T extends boolean = true> {
@@ -822,6 +896,59 @@ export interface SiteSettingsSelect<T extends boolean = true> {
               description?: T;
             };
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navigation_select".
+ */
+export interface NavigationSelect<T extends boolean = true> {
+  productsLabel?: T;
+  headerLinks?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        id?: T;
+      };
+  megaColumns?:
+    | T
+    | {
+        title?: T;
+        categories?: T;
+        maxItems?: T;
+        id?: T;
+      };
+  catalogueCard?:
+    | T
+    | {
+        badge?: T;
+        title?: T;
+        text?: T;
+        browseLabel?: T;
+        downloadLabel?: T;
+      };
+  catalogueUrl?: T;
+  footerProductsHeading?: T;
+  footerCompanyHeading?: T;
+  footerContactHeading?: T;
+  footerProductLinks?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        id?: T;
+      };
+  footerCompanyLinks?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        id?: T;
+      };
+  footerCatalogueLabel?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

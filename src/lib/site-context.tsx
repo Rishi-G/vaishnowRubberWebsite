@@ -2,13 +2,14 @@
 
 import React, { createContext, useCallback, useContext, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import type { PageRoute, Product, SiteSettings } from '@/types'
+import type { Navigation, PageRoute, Product, SiteSettings } from '@/types'
 import type { CompanyFacts } from './cms'
 
 interface SiteContextValue {
   products: Product[]
   company: CompanyFacts
   settings: SiteSettings
+  navigation: Navigation
   navigate: (route: PageRoute) => void
   openEnquiry: (productId?: string) => void
   closeEnquiry: () => void
@@ -26,11 +27,13 @@ export function SiteProvider({
   products,
   company,
   settings,
+  navigation,
   children,
 }: {
   products: Product[]
   company: CompanyFacts
   settings: SiteSettings
+  navigation: Navigation
   children: React.ReactNode
 }) {
   const router = useRouter()
@@ -49,7 +52,7 @@ export function SiteProvider({
 
   return (
     <SiteContext.Provider
-      value={{ products, company, settings, navigate, openEnquiry, closeEnquiry, enquiryOpen, enquiryProductId }}
+      value={{ products, company, settings, navigation, navigate, openEnquiry, closeEnquiry, enquiryOpen, enquiryProductId }}
     >
       {children}
     </SiteContext.Provider>

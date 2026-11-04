@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronDown, Download, Mail, Menu, Phone, X } from 'lucide-react'
-import type { PageRoute, Product, ProductCategory } from '@/types'
+import type { PageRoute, Product } from '@/types'
 import { useSiteData } from '@/lib/site-context'
 
 interface Props {
@@ -13,26 +13,13 @@ interface Props {
   onOpenEnquiry: (productId?: string) => void
 }
 
-const CATALOGUE_URL = '/documents/vextra-hose-catalogue.pdf'
-
-const NAV: { href: PageRoute; label: string }[] = [
-  { href: '/company', label: 'Company' },
-  { href: '/industries', label: 'Industries' },
-  { href: '/resources', label: 'Resources' },
-  { href: '/contact', label: 'Contact' },
-]
-
-const COLUMNS: { title: string; dot: string; cats: ProductCategory[]; max: number }[] = [
-  { title: 'Railway components', dot: 'bg-brand-blue', cats: ['railway'], max: 8 },
-  { title: 'Hydraulic hoses', dot: 'bg-brand-accent', cats: ['hydraulic'], max: 6 },
-  { title: 'Industrial & LPG hoses', dot: 'bg-emerald-600', cats: ['industrial', 'lpg'], max: 6 },
-  { title: 'Automotive hoses', dot: 'bg-slate-500', cats: ['automotive'], max: 6 },
-]
+/** Column dot colours by position; column titles and categories come from the Navigation global. */
+const DOTS = ['bg-brand-blue', 'bg-brand-accent', 'bg-emerald-600', 'bg-slate-500']
 
 const short = (p: Product) => p.name.split(' — ')[0]
 
 export const SiteHeader: React.FC<Props> = ({ currentRoute, onOpenEnquiry }) => {
-  const { products, company, settings } = useSiteData()
+  const { products, company, settings, navigation } = useSiteData()
   // the menu is open while hovered OR pinned by a click/tap, so a click after hover never shuts it
   const [hover, setHover] = useState(false)
   const [pinned, setPinned] = useState(false)
@@ -42,13 +29,18 @@ export const SiteHeader: React.FC<Props> = ({ currentRoute, onOpenEnquiry }) => 
     setPinned(false)
   }
   const [drawer, setDrawer] = useState(false)
-  const [open, setOpen] = useState<string | null>('Railway components')
+  const [open, setOpen] = useState<string | null>(navigation.megaColumns[0]?.title ?? null)
   const headerRef = useRef<HTMLElement>(null)
   const closeTimer = useRef<number | undefined>(undefined)
 
   const columns = useMemo(
-    () => COLUMNS.map((c) => ({ ...c, items: products.filter((p) => c.cats.includes(p.category)) })),
-    [products],
+    () =>
+      navigation.megaColumns.map((c, i) => ({
+        ...c,
+        dot: DOTS[i % DOTS.length],
+        items: products.filter((p) => c.categories.includes(p.category)),
+      })),
+    [products, navigation.megaColumns],
   )
 
   // close on route change, Escape and outside click
@@ -140,12 +132,12 @@ export const SiteHeader: React.FC<Props> = ({ currentRoute, onOpenEnquiry }) => 
               onClick={() => setPinned((v) => !v)}
               className={`flex items-center gap-1.5 rounded-md px-4 py-2 text-sm font-semibold transition-colors ${currentRoute.startsWith('/products') || mega ? 'bg-blue-50/80 text-brand-blue' : 'text-slate-700 hover:bg-slate-50 hover:text-brand-blue'}`}
             >
-              Products
+              {navigation.productsLabel}
               <ChevronDown size={15} className={`transition-transform ${mega ? 'rotate-180' : ''}`} />
             </button>
           </div>
 
-          {NAV.map((n) => (
+          {navigation.headerLinks.map((n) => (
             <Link key={n.href} href={n.href} className={`rounded-md px-4 py-2 text-sm font-semibold transition-colors ${active(n.href)}`}>
               {n.label}
             </Link>
@@ -180,7 +172,7 @@ export const SiteHeader: React.FC<Props> = ({ currentRoute, onOpenEnquiry }) => 
                     {c.title}
                   </h3>
                   <ul className="space-y-0.5 text-[13px]">
-                    {c.items.slice(0, c.max).map((p) => (
+                    {c.items.slice(0, c.maxItems).map((p) => (
                       <li key={p.id}>
                         <Link href={`/products/${p.id}`} className="block rounded px-1.5 py-1 font-medium text-slate-700 hover:bg-blue-50 hover:text-brand-blue">
                           {short(p)}
@@ -188,7 +180,7 @@ export const SiteHeader: React.FC<Props> = ({ currentRoute, onOpenEnquiry }) => 
                       </li>
                     ))}
                     <li>
-                      <Link href={`/products?category=${c.cats[0]}`} onClick={closeMega} className="block px-1.5 py-1 font-bold text-brand-blue">
+                      <Link href={`/products?category=${c.categories[0]}`} onClick={closeMega} className="block px-1.5 py-1 font-bold text-brand-blue">
                         All {c.title.toLowerCase()} →
                       </Link>
                     </li>
@@ -197,16 +189,16 @@ export const SiteHeader: React.FC<Props> = ({ currentRoute, onOpenEnquiry }) => 
               ))}
               <div className="flex flex-col justify-between rounded-md border border-slate-200 bg-slate-50 p-5">
                 <div>
-                  <span className="inline-block rounded bg-blue-100 px-2 py-0.5 font-mono text-[10px] font-bold uppercase text-brand-blue">Catalogue</span>
-                  <h4 className="mt-2 text-sm font-bold text-slate-900">VEXTRA hose catalogue</h4>
-                  <p className="mt-1 text-xs text-slate-600">Dimensions, pressure ratings and installation guidance for the hose range.</p>
+                  <span className="inline-block rounded bg-blue-100 px-2 py-0.5 font-mono text-[10px] font-bold uppercase text-brand-blue">{navigation.catalogueCard.badge}</span>
+                  <h4 className="mt-2 text-sm font-bold text-slate-900">{navigation.catalogueCard.title}</h4>
+                  <p className="mt-1 text-xs text-slate-600">{navigation.catalogueCard.text}</p>
                 </div>
                 <div className="mt-4 space-y-2 border-t border-slate-200 pt-3">
                   <Link href="/products" className="block rounded border border-slate-300 bg-white px-3 py-2 text-center text-xs font-semibold text-slate-800 hover:border-brand-blue">
-                    Browse all products →
+                    {navigation.catalogueCard.browseLabel}
                   </Link>
-                  <a href={CATALOGUE_URL} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 rounded bg-brand-blue px-3 py-2 text-xs font-semibold text-white hover:bg-brand-hover">
-                    <Download size={13} /> Download PDF
+                  <a href={navigation.catalogueUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 rounded bg-brand-blue px-3 py-2 text-xs font-semibold text-white hover:bg-brand-hover">
+                    <Download size={13} /> {navigation.catalogueCard.downloadLabel}
                   </a>
                 </div>
               </div>
@@ -229,7 +221,7 @@ export const SiteHeader: React.FC<Props> = ({ currentRoute, onOpenEnquiry }) => 
             className="fixed inset-0 z-[60] flex flex-col overflow-y-auto bg-white lg:hidden"
           >
             <div className="flex h-16 shrink-0 items-center justify-between border-b border-slate-200 px-5">
-              <span className="font-display text-xl font-extrabold">VEXTRA</span>
+              <span className="font-display text-xl font-extrabold">{company.brandName}</span>
               <button onClick={() => setDrawer(false)} className="rounded-md p-2 text-slate-700 hover:bg-slate-100" aria-label="Close menu">
                 <X size={24} />
               </button>
@@ -253,7 +245,7 @@ export const SiteHeader: React.FC<Props> = ({ currentRoute, onOpenEnquiry }) => 
                   )}
                 </div>
               ))}
-              {NAV.map((n) => (
+              {navigation.headerLinks.map((n) => (
                 <Link key={n.href} href={n.href} className="block border-b border-slate-100 py-3 text-lg font-bold text-slate-900">{n.label}</Link>
               ))}
             </nav>

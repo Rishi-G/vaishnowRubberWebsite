@@ -2,8 +2,8 @@ import 'server-only'
 import { cache } from 'react'
 import { getPayload } from 'payload'
 import config from '@payload-config'
-import { SETTINGS as SETTINGS_FALLBACK } from '@/seed/data'
-import type { Product, ProductCategory, SeoPage, SiteSettings } from '@/types'
+import { NAVIGATION as NAV_FALLBACK, SETTINGS as SETTINGS_FALLBACK } from '@/seed/data'
+import type { Navigation, NavLink, Product, ProductCategory, SeoPage, SiteSettings } from '@/types'
 
 export interface Certification {
   name: string
@@ -126,5 +126,36 @@ export const getSettings = cache(async (): Promise<SiteSettings> => {
     defaultTitle: d.defaultTitle || SETTINGS_FALLBACK.defaultTitle,
     titleTemplate: d.titleTemplate || SETTINGS_FALLBACK.titleTemplate,
     description: d.description || SETTINGS_FALLBACK.description,
+  }
+})
+
+const navLinks = (arr: any[] | null | undefined, fallback: NavLink[]): NavLink[] =>
+  arr?.length ? arr.map((l) => ({ label: l.label, href: l.href })) : fallback
+
+export const getNavigation = cache(async (): Promise<Navigation> => {
+  const payload = await getPayloadClient()
+  const d: any = await payload.findGlobal({ slug: 'navigation' })
+  const fb = NAV_FALLBACK
+  const card = d.catalogueCard ?? {}
+  return {
+    productsLabel: d.productsLabel || fb.productsLabel,
+    headerLinks: navLinks(d.headerLinks, fb.headerLinks),
+    megaColumns: d.megaColumns?.length
+      ? d.megaColumns.map((c: any) => ({ title: c.title, categories: c.categories ?? [], maxItems: c.maxItems ?? 6 }))
+      : fb.megaColumns,
+    catalogueCard: {
+      badge: card.badge || fb.catalogueCard.badge,
+      title: card.title || fb.catalogueCard.title,
+      text: card.text || fb.catalogueCard.text,
+      browseLabel: card.browseLabel || fb.catalogueCard.browseLabel,
+      downloadLabel: card.downloadLabel || fb.catalogueCard.downloadLabel,
+    },
+    catalogueUrl: d.catalogueUrl || fb.catalogueUrl,
+    footerProductsHeading: d.footerProductsHeading || fb.footerProductsHeading,
+    footerCompanyHeading: d.footerCompanyHeading || fb.footerCompanyHeading,
+    footerContactHeading: d.footerContactHeading || fb.footerContactHeading,
+    footerProductLinks: navLinks(d.footerProductLinks, fb.footerProductLinks),
+    footerCompanyLinks: navLinks(d.footerCompanyLinks, fb.footerCompanyLinks),
+    footerCatalogueLabel: d.footerCatalogueLabel || fb.footerCatalogueLabel,
   }
 })
