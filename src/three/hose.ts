@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { patchBend, bendPoint, type BendShared, type Uniform1, bendDepthMaterial } from './bend'
-import { makeMarkingTexture, makeRubberNormal } from './textures'
+import { makeMachinedTextures, makeMarkingTexture, makeRubberNormal } from './textures'
 import type { FittingStyle, HoseSpec, LayerSpec } from './spec'
 
 /** Everything is modelled on a straight X axis; bend + peel happen in the vertex shader. */
@@ -419,6 +419,31 @@ export function buildHose(spec: HoseSpec, q: Quality, aniso: number): HoseModel 
   })
 
   // end fittings
+  // Bare metal turned on a lathe gets fine turning marks; painted parts get a metallic paint finish.
+  // Without these, smooth even-coloured parts read as clay rather than metal.
+  const machined = makeMachinedTextures()
+  track(machined.normal)
+  track(machined.roughness)
+  machined.normal.repeat.set(1, 9)
+  machined.roughness.repeat.set(1, 9)
+  const fittingMaterial = (geo: THREE.BufferGeometry, color: number, rough: number, metal: number): THREE.MeshStandardMaterial => {
+    if (metal === 1 && geo.type === 'LatheGeometry')
+      return track(
+        new THREE.MeshStandardMaterial({
+          color,
+          roughness: rough * 0.75,
+          metalness: 1,
+          normalMap: machined.normal,
+          normalScale: new THREE.Vector2(0.09, 0.09),
+          roughnessMap: machined.roughness,
+        }),
+      )
+    if (metal > 0 && metal < 1)
+      // painted steel (the red swivel nuts, the cast nipple): a metallic paint finish, so highlights
+      // take the paint colour. A white lacquer highlight washed the flat hex faces out to pink.
+      return track(new THREE.MeshStandardMaterial({ color, roughness: 0.36, metalness: 0.6 }))
+    return std(color, metal === 1 ? rough * 0.8 : rough, metal)
+  }
   const fittingSlide: Uniform1 = { value: 0 }
   const fixedSlide: Uniform1 = { value: 0 }
   const fittingMats: THREE.MeshStandardMaterial[] = []
@@ -428,7 +453,7 @@ export function buildHose(spec: HoseSpec, q: Quality, aniso: number): HoseModel 
     parts.forEach(({ geo, color, rough, metal }) => {
       if (side === -1) geo.rotateY(Math.PI)
       geo.translate(side * END, 0, 0)
-      const mat = std(color, rough, metal)
+      const mat = fittingMaterial(geo, color, rough, metal)
       patchBend(mat, shared, { uSlide: side === 1 ? fittingSlide : fixedSlide })
       fittingMats.push(mat)
       fittingMeshes.push(addMesh(geo, mat))
@@ -487,7 +512,23 @@ export function buildHose(spec: HoseSpec, q: Quality, aniso: number): HoseModel 
       paint()
     },
     setIsolate(id) {
-      handles.forEach((h) => h.meshes.forEach((mesh) => (mesh.visible = !id || h.spec.id === id)))
+      handles.forEach((h) => {
+        const alone = h.spec.id === id
+        h.meshes.forEach((mesh) => (mesh.visible = !id || alone))
+        // In the assembly each wall is drawn one-sided (its other face is always hidden). On its own
+        // you can look into the layer, so draw both faces or the far wall is see-through.
+        h.materials.forEach((mt) => {
+          if (alone && mt.userData.assembledSide === undefined) {
+            mt.userData.assembledSide = mt.side
+            mt.side = THREE.DoubleSide
+            mt.needsUpdate = true
+          } else if (!alone && mt.userData.assembledSide !== undefined) {
+            mt.side = mt.userData.assembledSide
+            mt.userData.assembledSide = undefined
+            mt.needsUpdate = true
+          }
+        })
+      })
       fittingMeshes.forEach((mesh) => (mesh.visible = !id || id === 'fitting'))
     },
     pointAt(x, y = 0, z = 0, out = new THREE.Vector3()) {

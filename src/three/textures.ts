@@ -92,3 +92,50 @@ export function makeShadowTexture(): THREE.CanvasTexture {
   ctx.fillRect(0, 0, 512, 512)
   return new THREE.CanvasTexture(c)
 }
+
+/**
+ * Turning marks for machined metal: fine grooves that run around the part, as a lathe leaves them.
+ * Rows of the texture vary and columns do not, so on lathe geometry (v runs along the profile) the
+ * grooves circle the axis. Returns the normal map and a matching roughness map (green channel).
+ */
+export function makeMachinedTextures(size = 256): { normal: THREE.CanvasTexture; roughness: THREE.CanvasTexture } {
+  // 1D height profile: fine grooves plus a slower waviness
+  const h = new Float32Array(size)
+  let slow = 0
+  for (let y = 0; y < size; y++) {
+    slow = slow * 0.92 + (Math.random() - 0.5) * 0.3
+    h[y] = (Math.random() - 0.5) * 0.9 + slow
+  }
+  const canvasOf = (pixel: (y: number) => [number, number, number]) => {
+    const c = document.createElement('canvas')
+    c.width = 4
+    c.height = size
+    const ctx = c.getContext('2d')!
+    const img = ctx.createImageData(4, size)
+    for (let y = 0; y < size; y++) {
+      const [r, g, b] = pixel(y)
+      for (let x = 0; x < 4; x++) {
+        const i = (y * 4 + x) * 4
+        img.data[i] = r
+        img.data[i + 1] = g
+        img.data[i + 2] = b
+        img.data[i + 3] = 255
+      }
+    }
+    ctx.putImageData(img, 0, 0)
+    const tex = new THREE.CanvasTexture(c)
+    tex.wrapS = tex.wrapT = THREE.RepeatWrapping
+    return tex
+  }
+  const normal = canvasOf((y) => {
+    const dy = (h[(y + 1) % size] - h[(y + size - 1) % size]) * 1.6
+    const len = Math.hypot(dy, 1)
+    return [128, ((-dy / len) * 0.5 + 0.5) * 255, ((1 / len) * 0.5 + 0.5) * 255]
+  })
+  // roughness multiplier 0.75…1: the groove bottoms are a touch duller than the crests
+  const roughness = canvasOf((y) => {
+    const v = (0.875 + Math.max(-0.125, Math.min(0.125, h[y] * 0.12))) * 255
+    return [v, v, v]
+  })
+  return { normal, roughness }
+}

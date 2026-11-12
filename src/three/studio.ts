@@ -16,6 +16,43 @@ export interface StudioOptions {
 }
 
 /**
+ * Reflection environment for realistic mode: a dim room with a few very bright softboxes, like a
+ * product-photo set. Metal only looks like metal when it has something high-contrast to reflect —
+ * bright strips next to dark walls give the crisp highlights and dark bands of polished steel.
+ * (The default RoomEnvironment is evenly lit, which is why metal looked like grey clay.)
+ */
+function makeStudioEnvironment(renderer: THREE.WebGLRenderer): THREE.WebGLRenderTarget {
+  const scene = new THREE.Scene()
+  const made: { dispose(): void }[] = []
+  // values above 1 are kept: the environment is rendered to a float target
+  const panel = (w: number, h: number, power: number, pos: [number, number, number], look: [number, number, number] = [0, 0, 0]) => {
+    const geo = new THREE.PlaneGeometry(w, h)
+    const mat = new THREE.MeshBasicMaterial({ color: new THREE.Color().setScalar(power), side: THREE.DoubleSide, toneMapped: false })
+    const mesh = new THREE.Mesh(geo, mat)
+    mesh.position.set(...pos)
+    mesh.lookAt(...look)
+    scene.add(mesh)
+    made.push(geo, mat)
+  }
+  const roomGeo = new THREE.BoxGeometry(24, 14, 24)
+  const roomMat = new THREE.MeshBasicMaterial({ color: new THREE.Color().setScalar(0.1), side: THREE.BackSide })
+  scene.add(new THREE.Mesh(roomGeo, roomMat))
+  made.push(roomGeo, roomMat)
+  panel(24, 24, 0.55, [0, -6.9, 0]) // pale floor, like the page the part sits on
+  panel(9, 5, 9, [0, 6.5, 1]) // overhead softbox: the broad top highlight
+  panel(1.6, 9, 9, [-10, 1, 3]) // left strip: a long vertical highlight on cylinders
+  panel(1.1, 9, 8, [10, 1.5, -2]) // right strip, narrower
+  panel(10, 4, 2.2, [0, 1.5, 11]) // soft fill behind the camera so facing surfaces are not black
+  panel(7, 0.9, 9, [0, 4, -11]) // thin rim light from behind
+
+  const pmrem = new THREE.PMREMGenerator(renderer)
+  const target = pmrem.fromScene(scene, 0.015)
+  pmrem.dispose()
+  made.forEach((d) => d.dispose())
+  return target
+}
+
+/**
  * Shared presentation rig: one renderer, neutral studio reflections, key + rim
  * light, soft contact shadow. Renders ON DEMAND — only when `invalidate()` was
  * called and the canvas is on screen — so an idle page costs no GPU time.
@@ -45,6 +82,8 @@ export abstract class Studio {
   private key: THREE.DirectionalLight
   private realistic = false
   private envTarget: THREE.WebGLRenderTarget
+  /** high-contrast reflections for realistic mode, built the first time it is switched on */
+  private envStudio: THREE.WebGLRenderTarget | null = null
   private dirty = true
   private visible = true
   private raf = 0
@@ -117,7 +156,11 @@ export abstract class Studio {
     this.renderer.setSize(w, h, false)
     this.camera.aspect = w / h
     this.camera.updateProjectionMatrix()
-    this.invalidate()
+    // resizing clears the canvas; draw now instead of on the next frame so it never shows blank
+    // (entering full screen, rotating a phone)
+    this.dirty = true
+    cancelAnimationFrame(this.raf)
+    this.frame()
   }
 
   /** true on desktop-class devices; the viewers use it to decide whether realistic lighting starts on */
@@ -141,7 +184,9 @@ export abstract class Studio {
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
     this.key.castShadow = on
     this.key.intensity = on ? 3.1 : 2.4
-    this.scene.environmentIntensity = on ? 1.15 : 0.95
+    if (on && !this.envStudio) this.envStudio = makeStudioEnvironment(this.renderer)
+    this.scene.environment = on && this.envStudio ? this.envStudio.texture : this.envTarget.texture
+    this.scene.environmentIntensity = on ? 1 : 0.95
     this.syncShadowFlags()
     // materials must recompile to pick up (or drop) the shadow code
     this.scene.traverse((obj) => {
@@ -192,6 +237,7 @@ export abstract class Studio {
     ;(this.shadow.material as THREE.MeshBasicMaterial).map?.dispose()
     ;(this.shadow.material as THREE.Material).dispose()
     this.envTarget.dispose()
+    this.envStudio?.dispose()
     this.renderer.dispose()
   }
 }
