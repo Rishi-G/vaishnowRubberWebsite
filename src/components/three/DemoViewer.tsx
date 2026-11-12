@@ -1,8 +1,10 @@
 'use client'
 
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Pause, Play, RotateCcw, ZoomIn, ZoomOut } from 'lucide-react'
+import { Box, Maximize2, Minimize2, Sun, Pause, Play, RotateCcw, ZoomIn, ZoomOut } from 'lucide-react'
 import { useDemoStage } from './useStage'
+import { useViewerGestures } from './useViewerGestures'
+import { useFullscreen } from './useFullscreen'
 
 interface Props {
   slug: string
@@ -26,7 +28,10 @@ export function DemoViewer({ slug, name, heightClass = 'h-[360px] sm:h-[460px]' 
   const [action, setAction] = useState(0)
   const [caption, setCaption] = useState<{ title: string; caption: string } | null>(null)
   const [onScreen, setOnScreen] = useState(true)
-  const drag = useRef<{ x: number; y: number } | null>(null)
+  const [wire, setWire] = useState(false)
+  const [real, setReal] = useState(false)
+  const stageRef = useRef<HTMLDivElement>(null)
+  const { full, toggle: toggleFull } = useFullscreen(wrapRef)
 
   // autoplay is off for reduced-motion users; they can still scrub
   useEffect(() => {
@@ -36,6 +41,9 @@ export function DemoViewer({ slug, name, heightClass = 'h-[360px] sm:h-[460px]' 
   useEffect(() => {
     if (!stage) return
     setCaption(stage.model.action)
+    // realistic lighting starts on where the GPU can afford it
+    stage.setRealistic(stage.highQuality)
+    setReal(stage.highQuality)
     stage.state.action = 0
     setAction(0)
     stage.invalidate()
@@ -80,40 +88,38 @@ export function DemoViewer({ slug, name, heightClass = 'h-[360px] sm:h-[460px]' 
     [stage],
   )
 
-  const onPointerDown = (e: React.PointerEvent) => {
-    drag.current = { x: e.clientX, y: e.clientY }
-    ;(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId)
-  }
-  const onPointerMove = (e: React.PointerEvent) => {
-    if (!drag.current || !stage) return
-    stage.state.rotY += (e.clientX - drag.current.x) * 0.008
-    stage.state.rotX = Math.max(-0.9, Math.min(0.9, stage.state.rotX + (e.clientY - drag.current.y) * 0.006))
-    drag.current = { x: e.clientX, y: e.clientY }
-    stage.invalidate()
-  }
   const zoom = (f: number) => {
     if (!stage) return
     stage.state.zoom = Math.max(0.55, Math.min(1.6, stage.state.zoom * f))
     stage.invalidate()
   }
+  const wireframe = (on: boolean) => {
+    setWire(on)
+    stage?.setWireframe(on)
+  }
   const reset = () => {
     if (!stage) return
     Object.assign(stage.state, REST)
+    wireframe(false)
     stage.invalidate()
   }
+
+  // drag rotates; scroll (after a click) or pinch zooms. In this stage a smaller zoom number is closer.
+  useViewerGestures(stageRef, {
+    rotate(dx, dy) {
+      if (!stage) return
+      stage.state.rotY += dx * 0.008
+      stage.state.rotX = Math.max(-0.9, Math.min(0.9, stage.state.rotX + dy * 0.006))
+      stage.invalidate()
+    },
+    zoom: (f) => zoom(1 / f),
+  })
 
   const failed = status === 'unsupported' || status === 'lost'
 
   return (
-    <div ref={wrapRef} className="overflow-hidden rounded-md border border-slate-200 bg-white">
-      <div
-        className={`relative ${heightClass} touch-pan-y select-none`}
-        style={{ background: 'var(--stage-bg)' }}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={() => (drag.current = null)}
-        onPointerCancel={() => (drag.current = null)}
-      >
+    <div ref={wrapRef} className={full ? 'fixed inset-0 z-[100] flex flex-col overflow-hidden bg-white' : 'overflow-hidden rounded-md border border-slate-200 bg-white'}>
+      <div ref={stageRef} className={`relative ${full ? 'min-h-0 flex-1' : heightClass} touch-pan-y select-none`} style={{ background: 'var(--stage-bg)' }}>
         <div className="pointer-events-none absolute inset-0 bg-blueprint-grid opacity-50" />
         <canvas
           ref={canvasRef}
@@ -134,7 +140,7 @@ export function DemoViewer({ slug, name, heightClass = 'h-[360px] sm:h-[460px]' 
             <p className="mt-1 text-xs leading-relaxed text-slate-600">{caption.caption}</p>
           </div>
         )}
-        <p className="pointer-events-none absolute bottom-2 right-3 font-mono text-[10px] text-slate-400">Illustrative model — not to scale. Drawings on request.</p>
+        <p className="pointer-events-none absolute bottom-2 right-3 font-mono text-[10px] text-slate-400">Illustrative model — not to scale. Drag to rotate · click, then scroll to zoom.</p>
       </div>
 
       <div className="flex flex-wrap items-center gap-3 border-t border-slate-200 bg-slate-50 px-3 py-2.5">
@@ -159,7 +165,12 @@ export function DemoViewer({ slug, name, heightClass = 'h-[360px] sm:h-[460px]' 
         <div className="flex gap-1">
           <button onClick={() => zoom(0.85)} className="btn btn-secondary btn-sm" aria-label="Zoom in"><ZoomIn size={14} /></button>
           <button onClick={() => zoom(1.18)} className="btn btn-secondary btn-sm" aria-label="Zoom out"><ZoomOut size={14} /></button>
+          <button onClick={() => wireframe(!wire)} disabled={status !== 'ready'} className={`btn btn-sm ${wire ? 'btn-primary' : 'btn-secondary'}`} aria-pressed={wire} aria-label="Wireframe view" title="Wireframe"><Box size={14} /></button>
+          <button onClick={() => { setReal(!real); stage?.setRealistic(!real) }} disabled={status !== 'ready'} className={`btn btn-sm ${real ? 'btn-primary' : 'btn-secondary'}`} aria-pressed={real} aria-label="Realistic lighting" title={real ? 'Realistic lighting: on' : 'Realistic lighting: off'}><Sun size={14} /></button>
           <button onClick={reset} className="btn btn-secondary btn-sm" aria-label="Reset view"><RotateCcw size={14} /></button>
+          <button onClick={toggleFull} className="btn btn-secondary btn-sm" aria-pressed={full} aria-label={full ? 'Exit full screen' : 'Full screen'} title={full ? 'Exit full screen' : 'Full screen'}>
+            {full ? <Minimize2 size={14} /> : <Maximize2 size={14} />}
+          </button>
         </div>
       </div>
     </div>

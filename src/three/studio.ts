@@ -42,6 +42,8 @@ export abstract class Studio {
   protected disposed = false
 
   private shadow: THREE.Mesh
+  private key: THREE.DirectionalLight
+  private realistic = false
   private envTarget: THREE.WebGLRenderTarget
   private dirty = true
   private visible = true
@@ -71,12 +73,24 @@ export abstract class Studio {
     const rim = new THREE.DirectionalLight(0xcfe4ff, 1.8)
     rim.position.set(-6, 2.5, -4)
     this.scene.add(key, rim)
+    this.key = key
+    // used only in realistic mode: the key light casts real shadows onto the model itself
+    key.castShadow = false
+    key.shadow.mapSize.setScalar(this.quality === 'high' ? 2048 : 1024)
+    const sc = key.shadow.camera
+    sc.left = sc.bottom = -9
+    sc.right = sc.top = 9
+    sc.near = 0.5
+    sc.far = 30
+    key.shadow.bias = -0.0004
+    key.shadow.normalBias = 0.03
 
     const [sw, sd] = opts.shadowSize ?? [13, 3.2]
     const shadowMat = new THREE.MeshBasicMaterial({ map: makeShadowTexture(), transparent: true, depthWrite: false, toneMapped: false })
     this.shadow = new THREE.Mesh(new THREE.PlaneGeometry(sw, sd), shadowMat)
     this.shadow.rotation.x = -Math.PI / 2
     this.shadow.position.y = opts.shadowY ?? -2.35
+    this.shadow.userData.rig = true
     this.scene.add(this.shadow)
 
     const parent = canvas.parentElement ?? canvas
@@ -106,6 +120,47 @@ export abstract class Studio {
     this.invalidate()
   }
 
+  /** true on desktop-class devices; the viewers use it to decide whether realistic lighting starts on */
+  get highQuality() {
+    return this.quality === 'high'
+  }
+
+  get isRealistic() {
+    return this.realistic
+  }
+
+  /**
+   * Realistic lighting: the key light casts shadow-mapped shadows, so parts shade each other (a
+   * fitting darkens the hose beside it, braid wires shade the layer below), with a stronger key and
+   * brighter reflections. The soft painted floor shadow is kept in both modes: a real floor shadow
+   * of a thin hose is a hard bar that looks worse.
+   */
+  setRealistic(on: boolean) {
+    this.realistic = on
+    this.renderer.shadowMap.enabled = on
+    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
+    this.key.castShadow = on
+    this.key.intensity = on ? 3.1 : 2.4
+    this.scene.environmentIntensity = on ? 1.15 : 0.95
+    this.syncShadowFlags()
+    // materials must recompile to pick up (or drop) the shadow code
+    this.scene.traverse((obj) => {
+      const mesh = obj as THREE.Mesh
+      if (!mesh.isMesh) return
+      for (const mat of Array.isArray(mesh.material) ? mesh.material : [mesh.material]) mat.needsUpdate = true
+    })
+    this.invalidate()
+  }
+
+  /** content meshes cast and receive shadows only in realistic mode; models added later are picked up each frame */
+  private syncShadowFlags() {
+    this.scene.traverse((obj) => {
+      const mesh = obj as THREE.Mesh
+      if (!mesh.isMesh || mesh.userData.rig) return
+      mesh.castShadow = mesh.receiveShadow = this.realistic
+    })
+  }
+
   invalidate() {
     this.dirty = true
     if (!this.raf && this.visible && !this.disposed) this.raf = requestAnimationFrame(this.frame)
@@ -116,6 +171,7 @@ export abstract class Studio {
     if (!this.dirty || !this.visible || this.disposed) return
     this.dirty = false
     this.apply()
+    if (this.realistic) this.syncShadowFlags()
     this.renderer.render(this.scene, this.camera)
     this.onFrame?.(this)
   }

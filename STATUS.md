@@ -60,6 +60,7 @@ Project folder: `~/Desktop/Rishi/Practics/vaishnowRubberWebsite` (moved from `ru
 - [x] Career page with an application form (Careers → Applications, private resumes)
 - [x] Dark/light theme toggle in the header (moon/sun icon), remembered per browser. Dark mode re-maps the fixed Tailwind colour classes in `src/styles/globals.css`; the hero and product viewers use a dark-grey backdrop (`--stage-bg`); header and footer logos sit on a white plate
 - [x] Header: navigation aligned right, icon on the Contact link
+- [x] Product 3D viewers (12 Nov 2026): view-angle presets, zoom (buttons, scroll after a click, pinch), Shift+drag pan, wireframe, click a part to see it alone (hoses), realistic-lighting toggle (shadow-mapped self-shadowing, on by default on desktop), and full screen with all controls. Shared code: `src/components/three/useViewerGestures.ts`, `useFullscreen.ts`
 - [ ] The earlier Jobs collection is hidden but still in the code; remove it with its table in a planned migration
 - [ ] Dark mode: the loading screen (preloader) is still white; new pages that use other Tailwind colour classes may need a line in the dark block of `globals.css`
 - [ ] Pages is a copy: after editing in the admin, run `npm run snapshot`, commit and push to update it

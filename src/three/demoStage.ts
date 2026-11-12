@@ -33,6 +33,7 @@ export class DemoStage extends Studio {
   model!: DemoModel
   private pool = new Map<string, DemoModel>()
   private faded = new WeakSet<DemoModel>()
+  private wire = false
 
   constructor(canvas: HTMLCanvasElement, slug: string, opts: StudioOptions = {}) {
     super(canvas, { ...opts, shadowY: -1.7, shadowSize: [12, 5] })
@@ -47,6 +48,35 @@ export class DemoStage extends Studio {
     this.model = buildRailwayModel(slug)
     this.scene.add(this.model.group)
     this.state.action = 0
+    if (this.wire) this.setWireframe(true)
+    this.invalidate()
+  }
+
+  /** draws the single model as a wire mesh; flat blue lines that read on light and dark backdrops */
+  setWireframe(on: boolean) {
+    this.wire = on
+    this.model.group.traverse((obj) => {
+      const mesh = obj as THREE.Mesh
+      if (!mesh.isMesh) return
+      for (const mat of Array.isArray(mesh.material) ? mesh.material : [mesh.material]) {
+        const mm = mat as THREE.MeshStandardMaterial
+        mm.wireframe = on
+        if (!mm.emissive) continue
+        // flat blue lines: base colour black so only the glow shows; the solid look is restored after
+        if (on && !mm.userData.solid) {
+          mm.userData.solid = [mm.color.getHex(), mm.emissive.getHex(), mm.emissiveIntensity]
+          mm.color.setHex(0x000000)
+          mm.emissive.setHex(0x1b7fd1)
+          mm.emissiveIntensity = 1
+        } else if (!on && mm.userData.solid) {
+          const [color, glow, intensity] = mm.userData.solid as [number, number, number]
+          mm.color.setHex(color)
+          mm.emissive.setHex(glow)
+          mm.emissiveIntensity = intensity
+          mm.userData.solid = undefined
+        }
+      }
+    })
     this.invalidate()
   }
 

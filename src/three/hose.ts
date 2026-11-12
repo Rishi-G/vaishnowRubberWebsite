@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { patchBend, bendPoint, type BendShared, type Uniform1 } from './bend'
+import { patchBend, bendPoint, type BendShared, type Uniform1, bendDepthMaterial } from './bend'
 import { makeMarkingTexture, makeRubberNormal } from './textures'
 import type { FittingStyle, HoseSpec, LayerSpec } from './spec'
 
@@ -30,6 +30,7 @@ export interface LayerHandle {
   step: number
   uEnd: Uniform1
   materials: THREE.MeshStandardMaterial[]
+  meshes: THREE.Mesh[]
 }
 
 export interface HoseModel {
@@ -38,6 +39,10 @@ export interface HoseModel {
   setPeel(p: number): void
   setBend(k: number): void
   setHighlight(id: string | null): void
+  /** draw every part as a wire mesh */
+  setWireframe(on: boolean): void
+  /** show one layer (or 'fitting') on its own; null shows everything */
+  setIsolate(id: string | null): void
   pointAt(x: number, y?: number, z?: number, out?: THREE.Vector3): THREE.Vector3
   layerEndX(i: number): number
   dispose(): void
@@ -313,9 +318,11 @@ export function buildHose(spec: HoseSpec, q: Quality, aniso: number): HoseModel 
   const shared: BendShared = { uBend: { value: BASE_BEND } }
   const disposables: { dispose(): void }[] = []
   const track = <T extends { dispose(): void }>(o: T) => (disposables.push(o), o)
-  const add = (geo: THREE.BufferGeometry, mat: THREE.Material) => {
+  const addMesh = (geo: THREE.BufferGeometry, mat: THREE.Material) => {
     const m = new THREE.Mesh(track(geo), mat)
     m.frustumCulled = false // vertices are moved in the shader
+    const depth = bendDepthMaterial(mat)
+    if (depth) m.customDepthMaterial = track(depth)
     root.add(m)
     return m
   }
@@ -342,6 +349,12 @@ export function buildHose(spec: HoseSpec, q: Quality, aniso: number): HoseModel 
   const capsByLayer: Record<number, Uniform1> = {}
   let r = rOut
   spec.layers.forEach((layer, i) => {
+    const meshes: THREE.Mesh[] = []
+    const add = (geo: THREE.BufferGeometry, mat: THREE.Material) => {
+      const mesh = addMesh(geo, mat)
+      meshes.push(mesh)
+      return mesh
+    }
     const t = (layer.weight / totalW) * wall
     const rOuter = r, rInner = r - t
     r = rInner
@@ -402,13 +415,14 @@ export function buildHose(spec: HoseSpec, q: Quality, aniso: number): HoseModel 
       capsByLayer[i] = capSlide
     }
 
-    handles.push({ spec: layer, rOuter, rInner, rMid, step: PEEL_STEP * (m - i), uEnd, materials: mats })
+    handles.push({ spec: layer, rOuter, rInner, rMid, step: PEEL_STEP * (m - i), uEnd, materials: mats, meshes })
   })
 
   // end fittings
   const fittingSlide: Uniform1 = { value: 0 }
   const fixedSlide: Uniform1 = { value: 0 }
   const fittingMats: THREE.MeshStandardMaterial[] = []
+  const fittingMeshes: THREE.Mesh[] = []
   ;([1, -1] as const).forEach((side) => {
     const parts = buildFitting(spec.fittings[side === 1 ? 0 : 1], rIn)
     parts.forEach(({ geo, color, rough, metal }) => {
@@ -417,13 +431,36 @@ export function buildHose(spec: HoseSpec, q: Quality, aniso: number): HoseModel 
       const mat = std(color, rough, metal)
       patchBend(mat, shared, { uSlide: side === 1 ? fittingSlide : fixedSlide })
       fittingMats.push(mat)
-      add(geo, mat)
+      fittingMeshes.push(addMesh(geo, mat))
     })
   })
 
   const slideMax = PEEL_STEP * m + 1.1
 
   const ends = (): number => (Math.cos(((END + 1.4) * shared.uBend.value)) - 1) / (shared.uBend.value || 1e-6)
+
+  // Wireframe draws every part as flat blue lines (base colour black, so only the glow shows and
+  // the lines read on light and dark backdrops); the highlighted part turns orange. On the solid
+  // model the highlighted part gets a soft blue glow.
+  let highlighted: string | null = null
+  let wire = false
+  const solidColor = new Map<THREE.MeshStandardMaterial, number>()
+  const paint = () => {
+    const glow = (mats: THREE.MeshStandardMaterial[], hot: boolean) =>
+      mats.forEach((mt) => {
+        if (wire && !solidColor.has(mt)) {
+          solidColor.set(mt, mt.color.getHex())
+          mt.color.setHex(0x000000)
+        } else if (!wire && solidColor.has(mt)) {
+          mt.color.setHex(solidColor.get(mt)!)
+          solidColor.delete(mt)
+        }
+        mt.emissive.setHex(wire ? (hot ? 0xf69c2f : 0x1b7fd1) : 0x0c6db4)
+        mt.emissiveIntensity = wire ? 1 : hot ? 0.55 : 0
+      })
+    handles.forEach((h) => glow(h.materials, h.spec.id === highlighted))
+    glow(fittingMats, highlighted === 'fitting')
+  }
 
   const model: HoseModel = {
     group,
@@ -440,13 +477,18 @@ export function buildHose(spec: HoseSpec, q: Quality, aniso: number): HoseModel 
       root.position.y = Math.abs(k) > 1e-3 ? -ends() / 2 : 0
     },
     setHighlight(id) {
-      const on = (mats: THREE.MeshStandardMaterial[], v: boolean) =>
-        mats.forEach((mt) => {
-          mt.emissive.setHex(0x0c6db4)
-          mt.emissiveIntensity = v ? 0.55 : 0
-        })
-      handles.forEach((h) => on(h.materials, h.spec.id === id))
-      on(fittingMats, id === 'fitting')
+      highlighted = id
+      paint()
+    },
+    setWireframe(on) {
+      wire = on
+      handles.forEach((h) => h.materials.forEach((mt) => (mt.wireframe = on)))
+      fittingMats.forEach((mt) => (mt.wireframe = on))
+      paint()
+    },
+    setIsolate(id) {
+      handles.forEach((h) => h.meshes.forEach((mesh) => (mesh.visible = !id || h.spec.id === id)))
+      fittingMeshes.forEach((mesh) => (mesh.visible = !id || id === 'fitting'))
     },
     pointAt(x, y = 0, z = 0, out = new THREE.Vector3()) {
       bendPoint(x, y, z, shared.uBend.value, out)

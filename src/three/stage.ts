@@ -24,10 +24,12 @@ export interface StageState {
   bend: number
   /** 0…1 — how much to pull back on narrow (portrait) screens */
   fit: number
+  /** 1 = the framed shot; 2 = camera twice as close (product viewer only) */
+  zoom: number
 }
 
 export const REST_STATE: StageState = {
-  focusX: 0, lookY: 0, offX: -1.4, offY: 1.1, offZ: 12.5, rotY: -0.32, rotX: 0.06, peel: 0, bend: 1, fit: 1,
+  focusX: 0, lookY: 0, offX: -1.4, offY: 1.1, offZ: 12.5, rotY: -0.32, rotX: 0.06, peel: 0, bend: 1, fit: 1, zoom: 1,
 }
 
 export class HoseStage extends Studio {
@@ -51,7 +53,7 @@ export class HoseStage extends Studio {
     const target = this.model.pointAt(s.focusX).applyMatrix4(this.model.group.matrixWorld)
     target.y += s.lookY
     // pull back when the viewport is narrower than the 16:9 the shots are framed for
-    const k = 1 + Math.max(0, 1.75 / this.camera.aspect - 1) * s.fit * 0.8
+    const k = (1 + Math.max(0, 1.75 / this.camera.aspect - 1) * s.fit * 0.8) / s.zoom
     this.camera.position.set(target.x + s.offX * k, target.y + s.offY * k, target.z + s.offZ * k)
     this.camera.lookAt(target)
     this.camera.updateMatrixWorld(true)

@@ -51,6 +51,20 @@ export function patchBend(mat: THREE.Material, shared: BendShared, own: BendOwn 
       .replace('#include <clipping_planes_fragment>', '#include <clipping_planes_fragment>\nif (vLocalX > uEnd) discard;')
   }
   mat.customProgramCacheKey = () => 'vaishno-bend-v1'
+  mat.userData.bend = { shared, own: { uEnd, uSlide } }
+}
+
+/**
+ * Depth-only twin of a bent material, for the shadow pass. Without it shadows would be cast by
+ * the straight, un-peeled geometry instead of the hose as drawn.
+ */
+export function bendDepthMaterial(source: THREE.Material): THREE.MeshDepthMaterial | null {
+  const bend = source.userData.bend as { shared: BendShared; own: BendOwn } | undefined
+  if (!bend) return null
+  const depth = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking, side: source.side })
+  patchBend(depth, bend.shared, bend.own)
+  depth.customProgramCacheKey = () => 'vaishno-bend-depth-v1'
+  return depth
 }
 
 /** CPU mirror of the vertex shader, used for camera targets and label projection. */
