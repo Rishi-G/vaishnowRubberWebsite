@@ -71,7 +71,7 @@ function toProduct(doc: any): Product {
 
 export const getProducts = cache(async (): Promise<Product[]> => {
   const payload = await getPayloadClient()
-  const res = await payload.find({ collection: 'products', limit: 200, sort: 'order', depth: 1 })
+  const res = await payload.find({ collection: 'products', limit: 200, sort: 'order', depth: 1, where: { active: { not_equals: false } } })
   return res.docs.map(toProduct)
 })
 

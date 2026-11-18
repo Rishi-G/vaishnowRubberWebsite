@@ -15,7 +15,7 @@ export const Products: CollectionConfig = {
   slug: 'products',
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['name', 'category', 'kind', 'standard', 'maxPressureBar', 'order'],
+    defaultColumns: ['name', 'category', 'kind', 'active', 'standard', 'order', 'actions'],
     group: 'Catalogue',
   },
   defaultSort: 'order',
@@ -35,6 +35,21 @@ export const Products: CollectionConfig = {
     ],
   },
   fields: [
+    {
+      name: 'active',
+      type: 'checkbox',
+      label: 'Active (shown on the website)',
+      defaultValue: true,
+      admin: {
+        position: 'sidebar',
+        description: 'Switch off to hide this product from the website and menus without deleting it.',
+      },
+    },
+    {
+      name: 'actions',
+      type: 'ui',
+      admin: { components: { Cell: '/components/admin/ProductRowActions#default' }, disableBulkEdit: true },
+    },
     { name: 'name', type: 'text', required: true },
     {
       name: 'slug',

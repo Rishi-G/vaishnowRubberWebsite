@@ -157,6 +157,10 @@ export interface UserAuthOperations {
  */
 export interface Product {
   id: number;
+  /**
+   * Switch off to hide this product from the website and menus without deleting it.
+   */
+  active?: boolean | null;
   name: string;
   /**
    * URL segment, e.g. sae-100-r1 → /products/sae-100-r1
@@ -496,6 +500,7 @@ export interface PayloadMigration {
  * via the `definition` "products_select".
  */
 export interface ProductsSelect<T extends boolean = true> {
+  active?: T;
   name?: T;
   slug?: T;
   kind?: T;
