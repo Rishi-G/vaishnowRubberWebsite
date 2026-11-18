@@ -10,7 +10,7 @@ const MAX_BYTES = 60 * 1024 * 1024
 export const Storage: CollectionConfig = {
   slug: 'storage',
   labels: { singular: 'Storage file', plural: 'Storage' },
-  admin: { useAsTitle: 'title', group: 'Catalogue', description: '3D model files (.zip, .glb, .gltf, .obj) used by product pages.' },
+  admin: { useAsTitle: 'filename', group: 'Catalogue', description: '3D model files (.zip, .glb, .gltf, .obj) used by product pages.' },
   access: { read: () => true },
   upload: { staticDir: 'storage' },
   hooks: {

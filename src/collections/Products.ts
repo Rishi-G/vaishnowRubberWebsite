@@ -118,17 +118,13 @@ export const Products: CollectionConfig = {
           admin: { description: 'Hoses and the existing railway parts have a built-in 3D model. To use your own, pick a file below.' },
         },
         {
-          name: 'modelStatus',
-          type: 'ui',
-          admin: { components: { Field: '/components/admin/ModelStatus#default' }, condition: () => true },
-        },
-        {
           name: 'modelFile',
           label: '3D model file (zip / .glb / .obj)',
           type: 'relationship',
           relationTo: 'storage',
           admin: {
             condition: (d) => d?.show3d !== false,
+            components: { Field: '/components/admin/ModelFileField#default' },
             description: 'Pick a file from Storage, or press + to upload a .zip containing the model (.glb, .gltf or .obj) or a single .glb. Leave empty to use the built-in model.',
           },
         },
