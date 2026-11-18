@@ -614,6 +614,22 @@ export const PRODUCTS: Product[] = [
   }),
 ]
 
+/**
+ * Hose photographs from the client's shoot (public/assets/products), by fitting style: swivel nuts on
+ * the hydraulic hoses, clamp fittings on the industrial ones, red nuts / elbows on the automotive ones.
+ * They are shared round-robin across a category until each product has its own photograph.
+ */
+const HOSE_PHOTOS: Partial<Record<ProductCategory, string[]>> = {
+  hydraulic: ['922', '926', '939', '927', '924', '948', '925', '928', '929'],
+  industrial: ['915', '917', '920', '921'],
+  automotive: ['931', '941', '935', '946'],
+}
+for (const [cat, ids] of Object.entries(HOSE_PHOTOS) as [ProductCategory, string[]][]) {
+  PRODUCTS.filter((p) => p.category === cat).forEach((p, i) => {
+    p.image = `/assets/products/hose-${ids[i % ids.length]}.jpg`
+  })
+}
+
 /** Client photographs (public/assets/products): shown as the product's image slideshow next to its 3D model. */
 const photos = (id: string, base: string, n: number, alt: string, patch: Partial<Product> = {}) => {
   const p = PRODUCTS.find((x) => x.id === id)
