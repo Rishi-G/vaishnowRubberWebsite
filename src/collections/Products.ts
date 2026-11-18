@@ -99,6 +99,56 @@ export const Products: CollectionConfig = {
     { name: 'image', type: 'text', admin: { description: 'Authentic product image path, e.g. /assets/sae-100-r1.jpg. Leave empty if none.' } },
     { name: 'imageUpload', type: 'upload', relationTo: 'media' },
     {
+      name: 'viewerMode',
+      label: '3D / picture on the product page',
+      type: 'select',
+      defaultValue: 'auto',
+      options: [
+        { label: 'Built-in 3D model (hoses are generated automatically)', value: 'auto' },
+        { label: '3 photos — drag to switch Front / Side / Top', value: 'views' },
+        { label: '3 photos → 3D shape built automatically', value: 'carve' },
+        { label: 'Upload a 3D file (.glb)', value: 'glb' },
+      ],
+      admin: { description: 'Leave on “Built-in” for hoses. For a new railway component pick one of the other three.' },
+    },
+    {
+      name: 'viewFront',
+      label: 'Front photo',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        condition: (d) => d?.viewerMode === 'views' || d?.viewerMode === 'carve',
+        description: 'Straight-on photo of the product, plain light background.',
+      },
+    },
+    {
+      name: 'viewSide',
+      label: 'Side photo',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        condition: (d) => d?.viewerMode === 'views' || d?.viewerMode === 'carve',
+        description: 'Right-hand side view, with the product’s front on the LEFT of the photo.',
+      },
+    },
+    {
+      name: 'viewTop',
+      label: 'Top photo',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        condition: (d) => d?.viewerMode === 'views' || d?.viewerMode === 'carve',
+        description: 'View from above, with the product’s front at the BOTTOM of the photo. Optional for the automatic 3D shape.',
+      },
+    },
+    {
+      name: 'model3d',
+      label: '3D file (.glb)',
+      type: 'upload',
+      relationTo: 'media',
+      admin: { condition: (d) => d?.viewerMode === 'glb', description: 'A .glb / glTF binary exported from CAD, Blender or an image-to-3D tool.' },
+    },
+    {
       name: 'coverColor',
       type: 'number',
       admin: { description: '3D model cover colour as a decimal RGB integer (e.g. orange LPG hose = 14250014). Empty = black.' },

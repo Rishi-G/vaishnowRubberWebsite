@@ -186,6 +186,26 @@ export interface Product {
   image?: string | null;
   imageUpload?: (number | null) | Media;
   /**
+   * Leave on “Built-in” for hoses. For a new railway component pick one of the other three.
+   */
+  viewerMode?: ('auto' | 'views' | 'carve' | 'glb') | null;
+  /**
+   * Straight-on photo of the product, plain light background.
+   */
+  viewFront?: (number | null) | Media;
+  /**
+   * Right-hand side view, with the product’s front on the LEFT of the photo.
+   */
+  viewSide?: (number | null) | Media;
+  /**
+   * View from above, with the product’s front at the BOTTOM of the photo. Optional for the automatic 3D shape.
+   */
+  viewTop?: (number | null) | Media;
+  /**
+   * A .glb / glTF binary exported from CAD, Blender or an image-to-3D tool.
+   */
+  model3d?: (number | null) | Media;
+  /**
    * 3D model cover colour as a decimal RGB integer (e.g. orange LPG hose = 14250014). Empty = black.
    */
   coverColor?: number | null;
@@ -516,6 +536,11 @@ export interface ProductsSelect<T extends boolean = true> {
   temperatureRange?: T;
   image?: T;
   imageUpload?: T;
+  viewerMode?: T;
+  viewFront?: T;
+  viewSide?: T;
+  viewTop?: T;
+  model3d?: T;
   coverColor?: T;
   construction?:
     | T

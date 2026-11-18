@@ -8,6 +8,7 @@ import { useSiteData } from '@/lib/site-context'
 import { PageHead } from '@/components/site/PageHead'
 import { HoseViewer } from '@/components/three/HoseViewer'
 import { DemoViewer } from '@/components/three/DemoViewer'
+import { CustomViewer } from '@/components/three/CustomViewer'
 
 interface Props {
   productId: string
@@ -58,7 +59,7 @@ export const ProductDetailPage: React.FC<Props> = ({ productId, onOpenEnquiry })
         </div>
 
         <div className="mt-8">
-          {hose ? <HoseViewer product={product} /> : <DemoViewer slug={product.id} name={product.name} heightClass="h-[360px] sm:h-[500px]" />}
+          {product.viewerMode && product.viewerMode !== 'auto' ? <CustomViewer product={product} /> : hose ? <HoseViewer product={product} /> : <DemoViewer slug={product.id} name={product.name} heightClass="h-[360px] sm:h-[500px]" />}
         </div>
 
         <div className="mt-12 grid gap-10 lg:grid-cols-12">

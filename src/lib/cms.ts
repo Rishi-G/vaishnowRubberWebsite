@@ -40,9 +40,16 @@ export const getPayloadClient = cache(() => getPayload({ config }))
 const texts = (arr: any[] | null | undefined): string[] => (arr ?? []).map((i) => i.text)
 
 /** Payload document → frontend Product */
+/** Uploaded file → same-origin path (Payload may prefix the server URL, which breaks on other hosts). */
+const mediaUrl = (m: any): string | undefined => {
+  const u = m && typeof m === 'object' ? m.url : undefined
+  if (typeof u !== 'string' || !u) return undefined
+  return /^https?:\/\//.test(u) ? new URL(u).pathname + new URL(u).search : u
+}
+
 function toProduct(doc: any): Product {
   const cat = doc.category && typeof doc.category === 'object' ? doc.category : null
-  const upload = doc.imageUpload && typeof doc.imageUpload === 'object' ? doc.imageUpload.url : null
+  const upload = mediaUrl(doc.imageUpload) ?? null
   const c = doc.construction
   return {
     id: doc.slug,
@@ -63,6 +70,9 @@ function toProduct(doc: any): Product {
     sizeRange: doc.sizeRange ?? undefined,
     image: upload || doc.image || undefined,
     isHero: Boolean(doc.isHero),
+    viewerMode: doc.viewerMode ?? 'auto',
+    views: { front: mediaUrl(doc.viewFront), side: mediaUrl(doc.viewSide), top: mediaUrl(doc.viewTop) },
+    modelUrl: mediaUrl(doc.model3d),
     coverColor: doc.coverColor ?? undefined,
     dataNote: doc.dataNote ?? undefined,
     specs: (doc.specs ?? []).map(({ id: _id, bendRadiusMm, ...row }: any) => ({ ...row, bendRadiusMm: bendRadiusMm ?? undefined })),
