@@ -620,7 +620,7 @@ export const PRODUCTS: Product[] = [
  * They are shared round-robin across a category until each product has its own photograph.
  */
 const HOSE_PHOTOS: Partial<Record<ProductCategory, string[]>> = {
-  hydraulic: ['922', '926', '939', '927', '924', '948', '925', '928', '929'],
+  hydraulic: ['927', '924', '926', '925', '922', '939', '948', '928', '929'],
   industrial: ['915', '917', '920', '921'],
   automotive: ['931', '941', '935', '946'],
 }
