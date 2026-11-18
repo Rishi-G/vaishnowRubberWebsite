@@ -125,7 +125,7 @@ export const ProductDetailPage: React.FC<Props> = ({ productId, onOpenEnquiry })
         {product.gallery && product.gallery.length > 0 && (
           <section className="mt-12" aria-label="Pictures">
             {(['product', 'application'] as const).map((kind) => {
-              const items = product.gallery!.filter((g) => g.kind === kind)
+              const items = product.gallery!.filter((g) => g.kind === kind && !(kind === 'product' && product.viewerMode === 'gallery'))
               return items.length === 0 ? null : (
                 <div key={kind} className="mt-6 first:mt-0">
                   <h2 className="text-xl font-extrabold text-slate-950">{kind === 'product' ? 'Product pictures' : 'Application pictures'}</h2>

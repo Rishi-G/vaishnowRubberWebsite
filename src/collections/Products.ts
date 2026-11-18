@@ -105,6 +105,7 @@ export const Products: CollectionConfig = {
       defaultValue: 'auto',
       options: [
         { label: 'Built-in 3D model (hoses are generated automatically)', value: 'auto' },
+        { label: 'Photo gallery (pictures from the gallery below)', value: 'gallery' },
         { label: '3 photos — drag to switch Front / Side / Top', value: 'views' },
         { label: '3 photos → 3D shape built automatically', value: 'carve' },
         { label: 'Upload a 3D file (.glb)', value: 'glb' },
@@ -154,7 +155,8 @@ export const Products: CollectionConfig = {
       type: 'array',
       admin: { description: 'Shown under the viewer on the product page.' },
       fields: [
-        { name: 'image', type: 'upload', relationTo: 'media', required: true },
+        { name: 'image', type: 'upload', relationTo: 'media' },
+        { name: 'imagePath', type: 'text', admin: { description: 'Or a path already on the site, e.g. /assets/products/pad.jpg (used when no file is uploaded).' } },
         {
           name: 'kind',
           type: 'select',

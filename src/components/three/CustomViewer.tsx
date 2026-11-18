@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
-import { Box, Maximize2, Minimize2, Pause, Play, RotateCcw, ZoomIn, ZoomOut } from 'lucide-react'
+import { Box, ChevronLeft, ChevronRight, Maximize2, Minimize2, Pause, Play, RotateCcw, ZoomIn, ZoomOut } from 'lucide-react'
 import type { Product } from '@/types'
 import { useViewerGestures } from './useViewerGestures'
 import { useFullscreen } from './useFullscreen'
@@ -24,12 +24,12 @@ type Status = 'loading' | 'ready' | 'error'
  *  - carve: a 3D shape built in the browser from the three photos
  */
 export function CustomViewer({ product }: { product: Product }) {
-  const mode = product.viewerMode === 'glb' ? 'glb' : product.viewerMode === 'carve' ? 'carve' : 'views'
+  const mode = product.viewerMode === 'glb' ? 'glb' : product.viewerMode === 'carve' ? 'carve' : product.viewerMode === 'gallery' ? 'gallery' : 'views'
   const wrapRef = useRef<HTMLDivElement>(null)
   const stageRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const { full, toggle: toggleFull } = useFullscreen(wrapRef)
-  const [status, setStatus] = useState<Status>(mode === 'views' ? 'ready' : 'loading')
+  const [status, setStatus] = useState<Status>(mode === 'views' || mode === 'gallery' ? 'ready' : 'loading')
   const [message, setMessage] = useState('')
   const [stage, setStage] = useState<CustomStage | null>(null)
   const [spin, setSpin] = useState(false)
@@ -41,10 +41,13 @@ export function CustomViewer({ product }: { product: Product }) {
   const v = product.views ?? {}
   const photos = [v.front, v.side, v.top]
   const hasPhotos = photos.some(Boolean)
+  const shots = (product.gallery ?? []).filter((g) => g.kind === 'product')
+  const [shot, setShot] = useState(0)
+  const flat = mode === 'views' || mode === 'gallery'
 
   // 3D modes: build the stage, then load the model into it
   useEffect(() => {
-    if (mode === 'views') return
+    if (flat) return
     const canvas = canvasRef.current
     if (!canvas) return
     let cancelled = false
@@ -85,6 +88,7 @@ export function CustomViewer({ product }: { product: Product }) {
 
   useViewerGestures(stageRef, {
     rotate(dx, dy) {
+      if (mode === 'gallery') return
       if (mode === 'views') return setT((p) => clamp(p - dx * 0.008, 0, 2))
       if (!stage) return
       stage.state.rotY += dx * 0.008
@@ -99,7 +103,7 @@ export function CustomViewer({ product }: { product: Product }) {
       stage.invalidate()
     },
     zoom(f) {
-      if (mode === 'views') return setPhotoZoom((z) => clamp(z * f, 1, 3.5))
+      if (flat) return setPhotoZoom((z) => clamp(z * f, 1, 3.5))
       if (!stage) return
       stage.state.zoom = clamp(stage.state.zoom * f, 0.5, 4)
       stage.invalidate()
@@ -107,7 +111,7 @@ export function CustomViewer({ product }: { product: Product }) {
   })
 
   const zoomBy = (f: number) => {
-    if (mode === 'views') setPhotoZoom((z) => clamp(z * f, 1, 3.5))
+    if (flat) setPhotoZoom((z) => clamp(z * f, 1, 3.5))
     else if (stage) {
       stage.state.zoom = clamp(stage.state.zoom * f, 0.5, 4)
       stage.invalidate()
@@ -115,6 +119,7 @@ export function CustomViewer({ product }: { product: Product }) {
   }
   const reset = () => {
     setT(0)
+    setShot(0)
     setPhotoZoom(1)
     if (stage) {
       Object.assign(stage.state, { rotY: -0.5, rotX: 0.25, zoom: 1, panX: 0, panY: 0 })
@@ -131,7 +136,9 @@ export function CustomViewer({ product }: { product: Product }) {
   }
 
   const hint =
-    mode === 'views'
+    mode === 'gallery'
+      ? 'Pick a photo below · click, then scroll to zoom.'
+      : mode === 'views'
       ? 'Drag to turn between views · scroll after clicking to zoom.'
       : 'Drag to rotate · Shift+drag to move · click, then scroll to zoom.'
 
@@ -140,7 +147,33 @@ export function CustomViewer({ product }: { product: Product }) {
       <div ref={stageRef} className={`relative touch-pan-y select-none ${full ? 'min-h-0 flex-1' : 'h-[360px] sm:h-[500px]'}`} style={{ background: 'var(--stage-bg)' }}>
         <div className="pointer-events-none absolute inset-0 bg-blueprint-grid opacity-50" />
 
-        {mode === 'views' ? (
+        {mode === 'gallery' ? (
+          shots.length > 0 ? (
+            <>
+              <div className="absolute inset-0 overflow-hidden" style={{ transform: `scale(${photoZoom})`, transition: 'transform 0.15s' }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={shots[shot]?.url} alt={shots[shot]?.caption ?? `${product.name} — photo ${shot + 1}`} draggable={false} className="absolute inset-0 h-full w-full object-contain p-6 pb-20" />
+              </div>
+              <div data-viewer-ui className="absolute inset-x-0 bottom-8 flex justify-center gap-2 px-3">
+                {shots.map((g, i) => (
+                  <button key={g.url} onClick={() => setShot(i)} aria-label={`Photo ${i + 1}`} aria-pressed={i === shot}
+                    className={`h-12 w-16 overflow-hidden rounded-sm border-2 bg-white ${i === shot ? 'border-brand-blue' : 'border-transparent opacity-70 hover:opacity-100'}`}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={g.url} alt="" className="h-full w-full object-cover" />
+                  </button>
+                ))}
+              </div>
+              {shots.length > 1 && (
+                <div data-viewer-ui>
+                  <button onClick={() => setShot((shot + shots.length - 1) % shots.length)} aria-label="Previous photo" className={`${tool} absolute left-3 top-1/2 -translate-y-1/2`}><ChevronLeft size={16} /></button>
+                  <button onClick={() => setShot((shot + 1) % shots.length)} aria-label="Next photo" className={`${tool} absolute right-14 top-1/2 -translate-y-1/2`}><ChevronRight size={16} /></button>
+                </div>
+              )}
+            </>
+          ) : (
+            <div className="absolute inset-0 grid place-items-center text-sm text-slate-500">No photos added for this product yet.</div>
+          )
+        ) : mode === 'views' ? (
           hasPhotos ? (
             <div className="absolute inset-0 cursor-grab overflow-hidden active:cursor-grabbing" style={{ transform: `scale(${photoZoom})`, transition: 'transform 0.15s' }}>
               {photos.map((src, i) =>
@@ -186,7 +219,7 @@ export function CustomViewer({ product }: { product: Product }) {
             <div data-viewer-ui className="absolute right-3 top-3 flex flex-col gap-1.5">
               <button onClick={() => zoomBy(1.25)} className={tool} aria-label="Zoom in"><ZoomIn size={15} /></button>
               <button onClick={() => zoomBy(1 / 1.25)} className={tool} aria-label="Zoom out"><ZoomOut size={15} /></button>
-              {mode !== 'views' && (
+              {!flat && (
                 <>
                   <button onClick={toggleWire} aria-pressed={wire} aria-label="Wireframe view" title="Wireframe"
                     className={wire ? 'grid h-8 w-8 place-items-center rounded-sm border border-brand-blue bg-brand-blue text-white' : tool}><Box size={15} /></button>

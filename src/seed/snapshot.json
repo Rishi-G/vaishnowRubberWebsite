@@ -15,7 +15,30 @@
         "Railway OEMs"
       ],
       "recommendedFluids": [],
+      "image": "/assets/products/em-pad-1.jpg",
       "isHero": false,
+      "viewerMode": "gallery",
+      "views": {},
+      "gallery": [
+        {
+          "url": "/assets/products/em-pad-1.jpg",
+          "kind": "product",
+          "caption": "Elastomeric pad (Design-B)"
+        },
+        {
+          "url": "/assets/products/em-pad-2.jpg",
+          "kind": "product"
+        },
+        {
+          "url": "/assets/products/em-pad-3.jpg",
+          "kind": "product"
+        },
+        {
+          "url": "/assets/products/em-pad-4.jpg",
+          "kind": "product"
+        }
+      ],
+      "variants": [],
       "specs": []
     },
     {
@@ -34,6 +57,10 @@
       ],
       "recommendedFluids": [],
       "isHero": false,
+      "viewerMode": "auto",
+      "views": {},
+      "gallery": [],
+      "variants": [],
       "specs": []
     },
     {
@@ -50,24 +77,34 @@
         "Indian Railways"
       ],
       "recommendedFluids": [],
+      "image": "/assets/products/vestibule-1.jpg",
       "isHero": false,
-      "specs": []
-    },
-    {
-      "id": "uic-elastomer-flange-connections",
-      "name": "UIC Type Elastomer Flange Connections",
-      "kind": "component",
-      "category": "railway",
-      "categoryLabel": "Railway Components",
-      "standard": "Specification & drawings on request",
-      "tagline": "Inter-communication between passenger coaches",
-      "description": "UIC type elastomer flange connections for inter-communication between passenger coaches. Manufactured at the Moradabad works, which has in-house compound mixing, automated rubber injection moulding and shear-fatigue testing.",
-      "features": [],
-      "applications": [
-        "Passenger coaches"
+      "viewerMode": "gallery",
+      "views": {},
+      "gallery": [
+        {
+          "url": "/assets/products/vestibule-1.jpg",
+          "kind": "product",
+          "caption": "Rubber vestibule for passenger coaches"
+        },
+        {
+          "url": "/assets/products/vestibule-2.jpg",
+          "kind": "product"
+        },
+        {
+          "url": "/assets/products/vestibule-3.jpg",
+          "kind": "product"
+        },
+        {
+          "url": "/assets/products/vestibule-4.jpg",
+          "kind": "product"
+        },
+        {
+          "url": "/assets/products/vestibule-5.jpg",
+          "kind": "product"
+        }
       ],
-      "recommendedFluids": [],
-      "isHero": false,
+      "variants": [],
       "specs": []
     },
     {
@@ -85,6 +122,10 @@
       ],
       "recommendedFluids": [],
       "isHero": false,
+      "viewerMode": "auto",
+      "views": {},
+      "gallery": [],
+      "variants": [],
       "specs": []
     },
     {
@@ -102,6 +143,10 @@
       ],
       "recommendedFluids": [],
       "isHero": false,
+      "viewerMode": "auto",
+      "views": {},
+      "gallery": [],
+      "variants": [],
       "specs": []
     },
     {
@@ -119,6 +164,10 @@
       ],
       "recommendedFluids": [],
       "isHero": false,
+      "viewerMode": "auto",
+      "views": {},
+      "gallery": [],
+      "variants": [],
       "specs": []
     },
     {
@@ -136,6 +185,10 @@
       ],
       "recommendedFluids": [],
       "isHero": false,
+      "viewerMode": "auto",
+      "views": {},
+      "gallery": [],
+      "variants": [],
       "specs": []
     },
     {
@@ -165,6 +218,10 @@
       "sizeRange": "1/4\" to 2\" (DN6–DN51)",
       "image": "/assets/sae-100-r1.jpg",
       "isHero": false,
+      "viewerMode": "auto",
+      "views": {},
+      "gallery": [],
+      "variants": [],
       "specs": [
         {
           "code": "01-4",
@@ -325,6 +382,10 @@
       "sizeRange": "1/4\" to 2\" (DN6–DN51)",
       "image": "/assets/hydraulic-hose.jpg",
       "isHero": true,
+      "viewerMode": "auto",
+      "views": {},
+      "gallery": [],
+      "variants": [],
       "specs": [
         {
           "code": "02-4",
@@ -483,6 +544,10 @@
       "sizeRange": "1/2\" to 1 1/4\" (DN12–DN31)",
       "image": "/assets/hydraulic-hose.jpg",
       "isHero": false,
+      "viewerMode": "auto",
+      "views": {},
+      "gallery": [],
+      "variants": [],
       "specs": [
         {
           "code": "VR 33-8",
@@ -580,6 +645,10 @@
       "sizeRange": "1/4\" to 3/8\" (DN6–DN10)",
       "image": "/assets/hydraulic-hose.jpg",
       "isHero": false,
+      "viewerMode": "auto",
+      "views": {},
+      "gallery": [],
+      "variants": [],
       "specs": [
         {
           "code": "Jack-4",
@@ -638,6 +707,10 @@
       "sizeRange": "1/2\" to 1\" (DN12–DN25)",
       "image": "/assets/hydraulic-hose.jpg",
       "isHero": false,
+      "viewerMode": "auto",
+      "views": {},
+      "gallery": [],
+      "variants": [],
       "specs": [
         {
           "code": "Loader-8",
@@ -709,6 +782,10 @@
       "sizeRange": "1/4\" to 1\" (DN6–DN25)",
       "image": "/assets/hydraulic-hose.jpg",
       "isHero": false,
+      "viewerMode": "auto",
+      "views": {},
+      "gallery": [],
+      "variants": [],
       "specs": [
         {
           "code": "03-4",
@@ -828,6 +905,10 @@
       "sizeRange": "1/4\" to 1\" (DN6–DN25)",
       "image": "/assets/hydraulic-hose.jpg",
       "isHero": false,
+      "viewerMode": "auto",
+      "views": {},
+      "gallery": [],
+      "variants": [],
       "specs": [
         {
           "code": "06-4",
@@ -951,6 +1032,10 @@
       "sizeRange": "3/16\" to 1 13/16\" (DN5–DN46)",
       "image": "/assets/hydraulic-hose.jpg",
       "isHero": false,
+      "viewerMode": "auto",
+      "views": {},
+      "gallery": [],
+      "variants": [],
       "specs": [
         {
           "code": "05-4",
@@ -1113,6 +1198,10 @@
       "sizeRange": "3/16\" to 1 13/16\" (DN5–DN46)",
       "image": "/assets/hydraulic-hose.jpg",
       "isHero": false,
+      "viewerMode": "auto",
+      "views": {},
+      "gallery": [],
+      "variants": [],
       "specs": [
         {
           "code": "5R-4",
@@ -1275,6 +1364,10 @@
       "sizeRange": "3/8\" to 2\" (DN10–DN51)",
       "image": "/assets/industrial-hoses.jpg",
       "isHero": false,
+      "viewerMode": "auto",
+      "views": {},
+      "gallery": [],
+      "variants": [],
       "specs": [
         {
           "code": "51 - 6",
@@ -1411,6 +1504,10 @@
       "sizeRange": "3/8\" to 2\" (DN10–DN51)",
       "image": "/assets/industrial-hoses.jpg",
       "isHero": false,
+      "viewerMode": "auto",
+      "views": {},
+      "gallery": [],
+      "variants": [],
       "specs": [
         {
           "code": "52 - 6",
@@ -1547,6 +1644,10 @@
       "sizeRange": "1/2\" to 2\" (DN12–DN51)",
       "image": "/assets/industrial-hoses.jpg",
       "isHero": false,
+      "viewerMode": "auto",
+      "views": {},
+      "gallery": [],
+      "variants": [],
       "specs": [
         {
           "code": "RDH - 8 (1W)",
@@ -1670,6 +1771,10 @@
       "sizeRange": "1/2\" to 2\" (DN12–DN51)",
       "image": "/assets/industrial-hoses.jpg",
       "isHero": false,
+      "viewerMode": "auto",
+      "views": {},
+      "gallery": [],
+      "variants": [],
       "specs": [
         {
           "code": "RDH - 8 (1Y)",
@@ -1746,195 +1851,6 @@
       ]
     },
     {
-      "id": "lpg-hose-en-1762-type-d",
-      "name": "LPG Hose — BS EN 1762 Type-D",
-      "kind": "hose",
-      "category": "lpg",
-      "categoryLabel": "LPG Hoses",
-      "standard": "BS EN 1762 Type-D",
-      "tagline": "Single wire braided LPG hose",
-      "description": "Single wire braided LPG hose. Tube: Synthetic rubber, resistant to LPG. Reinforcement: one high tensile steel wire braided. Cover: oil, weather & abrasion resistant synthetic rubber.",
-      "features": [],
-      "construction": {
-        "tube": "Synthetic rubber, resistant to LPG",
-        "reinforcement": "One high tensile steel wire braided",
-        "cover": "Oil, weather & abrasion resistant synthetic rubber"
-      },
-      "temperatureRange": "-40°C to +70°C",
-      "applications": [],
-      "recommendedFluids": [
-        "LPG"
-      ],
-      "maxPressureBar": 25,
-      "maxPressurePsi": 363,
-      "sizeRange": "1/2\" to 1\" (DN12–DN25)",
-      "image": "/assets/industrial-hoses.jpg",
-      "isHero": false,
-      "specs": [
-        {
-          "code": "1762D - 8",
-          "dashSize": "8",
-          "dn": 12,
-          "idInch": "1/2\"",
-          "idMm": 12.7,
-          "odMm": 22.7,
-          "workingPressureBar": 25,
-          "workingPressurePsi": 363,
-          "burstPressureBar": 100,
-          "burstPressurePsi": 1450,
-          "bendRadiusMm": 100
-        },
-        {
-          "code": "1762D - 10",
-          "dashSize": "10",
-          "dn": 16,
-          "idInch": "5/8\"",
-          "idMm": 15.9,
-          "odMm": 25.4,
-          "workingPressureBar": 25,
-          "workingPressurePsi": 363,
-          "burstPressureBar": 100,
-          "burstPressurePsi": 1450,
-          "bendRadiusMm": 125
-        },
-        {
-          "code": "1762D - 12",
-          "dashSize": "12",
-          "dn": 19,
-          "idInch": "3/4\"",
-          "idMm": 19,
-          "odMm": 30.5,
-          "workingPressureBar": 25,
-          "workingPressurePsi": 363,
-          "burstPressureBar": 100,
-          "burstPressurePsi": 1450,
-          "bendRadiusMm": 160
-        },
-        {
-          "code": "1762D - 16",
-          "dashSize": "16",
-          "dn": 25,
-          "idInch": "1\"",
-          "idMm": 25.4,
-          "odMm": 37.5,
-          "workingPressureBar": 25,
-          "workingPressurePsi": 363,
-          "burstPressureBar": 100,
-          "burstPressurePsi": 1450,
-          "bendRadiusMm": 200
-        }
-      ]
-    },
-    {
-      "id": "lpg-hose-is-9573-type-ii",
-      "name": "LPG Hose — IS 9573 Type-II",
-      "kind": "hose",
-      "category": "lpg",
-      "categoryLabel": "LPG Hoses",
-      "standard": "IS 9573 Type-II",
-      "tagline": "Single wire braided LPG hose with orange cover",
-      "description": "Single wire braided LPG hose with orange cover. Tube: Synthetic rubber, resistant to LPG. Reinforcement: one high tensile steel wire braided. Cover: oil & weather resistant synthetic rubber, orange colour.",
-      "features": [],
-      "construction": {
-        "tube": "Synthetic rubber, resistant to LPG",
-        "reinforcement": "One high tensile steel wire braided",
-        "cover": "Oil & weather resistant synthetic rubber, orange colour"
-      },
-      "temperatureRange": "-40°C to +70°C",
-      "applications": [],
-      "recommendedFluids": [
-        "LPG"
-      ],
-      "maxPressureBar": 10,
-      "maxPressurePsi": 145,
-      "sizeRange": "5/16\" to 1/2\" (DN8–DN12)",
-      "image": "/assets/industrial-hoses.jpg",
-      "isHero": false,
-      "coverColor": 14251034,
-      "specs": [
-        {
-          "code": "95734 - 5",
-          "dashSize": "5",
-          "dn": 8,
-          "idInch": "5/16\"",
-          "idMm": 7.9,
-          "odMm": 15,
-          "workingPressureBar": 10,
-          "workingPressurePsi": 145,
-          "burstPressureBar": 50,
-          "burstPressurePsi": 725,
-          "bendRadiusMm": 95
-        },
-        {
-          "code": "95734 - 6",
-          "dashSize": "6",
-          "dn": 10,
-          "idInch": "3/8\"",
-          "idMm": 9.5,
-          "odMm": 18,
-          "workingPressureBar": 10,
-          "workingPressurePsi": 145,
-          "burstPressureBar": 50,
-          "burstPressurePsi": 725,
-          "bendRadiusMm": 120
-        },
-        {
-          "code": "95734 - 8",
-          "dashSize": "8",
-          "dn": 12,
-          "idInch": "1/2\"",
-          "idMm": 12.7,
-          "odMm": 20.2,
-          "workingPressureBar": 10,
-          "workingPressurePsi": 145,
-          "burstPressureBar": 50,
-          "burstPressurePsi": 725,
-          "bendRadiusMm": 150
-        }
-      ]
-    },
-    {
-      "id": "lpg-hose-is-9573-type-i",
-      "name": "LPG Hose — IS 9573 Type-I (ARAI Approved)",
-      "kind": "hose",
-      "category": "lpg",
-      "categoryLabel": "LPG Hoses",
-      "standard": "IS 9573 Type-I — ARAI Approved",
-      "tagline": "Single wire braided LPG hose",
-      "description": "Single wire braided LPG hose. Tube: Synthetic rubber, resistant to LPG. Reinforcement: one high tensile steel wire braided. Cover: oil, weather & abrasion resistant synthetic rubber.",
-      "features": [],
-      "construction": {
-        "tube": "Synthetic rubber, resistant to LPG",
-        "reinforcement": "One high tensile steel wire braided",
-        "cover": "Oil, weather & abrasion resistant synthetic rubber"
-      },
-      "temperatureRange": "-40°C to +70°C",
-      "applications": [],
-      "recommendedFluids": [
-        "LPG"
-      ],
-      "maxPressureBar": 25,
-      "maxPressurePsi": 363,
-      "sizeRange": "1/4\" to 1/4\" (DN6–DN6)",
-      "image": "/assets/industrial-hoses.jpg",
-      "isHero": false,
-      "specs": [
-        {
-          "code": "9573-4",
-          "dashSize": "4",
-          "dn": 6,
-          "idInch": "1/4\"",
-          "idMm": 6.4,
-          "odMm": 13.2,
-          "workingPressureBar": 25,
-          "workingPressurePsi": 363,
-          "burstPressureBar": 125,
-          "burstPressurePsi": 1813,
-          "bendRadiusMm": 70
-        }
-      ]
-    },
-    {
       "id": "governor-hose",
       "name": "Governor Hose",
       "kind": "hose",
@@ -1959,6 +1875,10 @@
       "sizeRange": "1/4\" to 1/4\" (DN6–DN6)",
       "image": "/assets/automotive-hoses.jpg",
       "isHero": false,
+      "viewerMode": "auto",
+      "views": {},
+      "gallery": [],
+      "variants": [],
       "dataNote": "Burst pressure (414 bar / 6000 psi) is printed as-is from the catalogue and is out of proportion to the 7 bar working pressure — confirm with the client before publishing.",
       "specs": [
         {
@@ -2001,6 +1921,10 @@
       "sizeRange": "3/8\" to 1/2\" (DN10–DN12)",
       "image": "/assets/automotive-hoses.jpg",
       "isHero": false,
+      "viewerMode": "auto",
+      "views": {},
+      "gallery": [],
+      "variants": [],
       "specs": [
         {
           "code": "TT - 6 (2w)",
@@ -2055,6 +1979,10 @@
       "sizeRange": "1/4\" to 1\" (DN6–DN25)",
       "image": "/assets/automotive-hoses.jpg",
       "isHero": false,
+      "viewerMode": "auto",
+      "views": {},
+      "gallery": [],
+      "variants": [],
       "specs": [
         {
           "code": "CNG-4",
@@ -2174,6 +2102,10 @@
       "sizeRange": "5/16\" to 1 1/8\" (DN8–DN29)",
       "image": "/assets/automotive-hoses.jpg",
       "isHero": false,
+      "viewerMode": "auto",
+      "views": {},
+      "gallery": [],
+      "variants": [],
       "specs": [
         {
           "code": "AC Suction - 5",

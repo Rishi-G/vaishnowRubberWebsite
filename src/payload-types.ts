@@ -188,7 +188,7 @@ export interface Product {
   /**
    * Leave on “Built-in” for hoses. For a new railway component pick one of the other three.
    */
-  viewerMode?: ('auto' | 'views' | 'carve' | 'glb') | null;
+  viewerMode?: ('auto' | 'gallery' | 'views' | 'carve' | 'glb') | null;
   /**
    * Straight-on photo of the product, plain light background.
    */
@@ -210,7 +210,11 @@ export interface Product {
    */
   gallery?:
     | {
-        image: number | Media;
+        image?: (number | null) | Media;
+        /**
+         * Or a path already on the site, e.g. /assets/products/pad.jpg (used when no file is uploaded).
+         */
+        imagePath?: string | null;
         kind?: ('product' | 'application') | null;
         caption?: string | null;
         id?: string | null;
@@ -566,6 +570,7 @@ export interface ProductsSelect<T extends boolean = true> {
     | T
     | {
         image?: T;
+        imagePath?: T;
         kind?: T;
         caption?: T;
         id?: T;

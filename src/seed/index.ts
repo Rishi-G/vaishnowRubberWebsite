@@ -60,6 +60,9 @@ for (const [order, p] of PRODUCTS.entries()) {
     applications: wrap(p.applications),
     recommendedFluids: wrap(p.recommendedFluids),
     specs: p.specs,
+    viewerMode: p.viewerMode ?? 'auto',
+    gallery: (p.gallery ?? []).map((g) => ({ imagePath: g.url, kind: g.kind, caption: g.caption })),
+    variants: p.variants ?? [],
   }
   const existing = await payload.find({ collection: 'products', where: { slug: { equals: p.id } }, limit: 1 })
   if (existing.docs[0]) await payload.update({ collection: 'products', id: existing.docs[0].id, data })
