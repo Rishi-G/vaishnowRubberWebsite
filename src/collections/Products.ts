@@ -149,6 +149,35 @@ export const Products: CollectionConfig = {
       admin: { condition: (d) => d?.viewerMode === 'glb', description: 'A .glb / glTF binary exported from CAD, Blender or an image-to-3D tool.' },
     },
     {
+      name: 'gallery',
+      label: 'Photo gallery (product & application pictures)',
+      type: 'array',
+      admin: { description: 'Shown under the viewer on the product page.' },
+      fields: [
+        { name: 'image', type: 'upload', relationTo: 'media', required: true },
+        {
+          name: 'kind',
+          type: 'select',
+          defaultValue: 'product',
+          options: [
+            { label: 'Product picture', value: 'product' },
+            { label: 'Application picture', value: 'application' },
+          ],
+        },
+        { name: 'caption', type: 'text' },
+      ],
+    },
+    {
+      name: 'variants',
+      label: 'Design variants',
+      type: 'array',
+      admin: { description: 'e.g. Design-A → CASNUB 22HS. Shown as a table on the product page.' },
+      fields: [
+        { name: 'design', type: 'text', required: true },
+        { name: 'applicableFor', label: 'Applicable for', type: 'text', required: true },
+      ],
+    },
+    {
       name: 'coverColor',
       type: 'number',
       admin: { description: '3D model cover colour as a decimal RGB integer (e.g. orange LPG hose = 14250014). Empty = black.' },

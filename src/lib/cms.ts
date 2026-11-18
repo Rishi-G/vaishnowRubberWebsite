@@ -73,6 +73,10 @@ function toProduct(doc: any): Product {
     viewerMode: doc.viewerMode ?? 'auto',
     views: { front: mediaUrl(doc.viewFront), side: mediaUrl(doc.viewSide), top: mediaUrl(doc.viewTop) },
     modelUrl: mediaUrl(doc.model3d),
+    gallery: (doc.gallery ?? [])
+      .map((g: any) => ({ url: mediaUrl(g.image), kind: g.kind === 'application' ? 'application' : 'product', caption: g.caption || undefined }))
+      .filter((g: any) => g.url),
+    variants: (doc.variants ?? []).map((v: any) => ({ design: v.design, applicableFor: v.applicableFor })),
     coverColor: doc.coverColor ?? undefined,
     dataNote: doc.dataNote ?? undefined,
     specs: (doc.specs ?? []).map(({ id: _id, bendRadiusMm, ...row }: any) => ({ ...row, bendRadiusMm: bendRadiusMm ?? undefined })),

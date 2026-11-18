@@ -69,6 +69,21 @@ export const ProductDetailPage: React.FC<Props> = ({ productId, onOpenEnquiry })
             {product.features.length > 0 && (
               <ul className="mt-4 list-disc space-y-1 pl-5 text-sm text-slate-700">{product.features.map((f) => <li key={f}>{f}</li>)}</ul>
             )}
+            {product.variants && product.variants.length > 0 && (
+              <div className="mt-6">
+                <h3 className="text-base font-extrabold text-slate-950">Design variants</h3>
+                <div className="tech-table-container mt-2">
+                  <table className="tech-table">
+                    <thead><tr><th>Design</th><th>Applicable for</th></tr></thead>
+                    <tbody>
+                      {product.variants.map((v) => (
+                        <tr key={v.design}><td className="font-bold text-slate-900">{v.design}</td><td>{v.applicableFor}</td></tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
             {!hose && (
               <div className="mt-6 rounded-sm border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
                 <p className="font-semibold text-slate-900">Technical information</p>
@@ -106,6 +121,28 @@ export const ProductDetailPage: React.FC<Props> = ({ productId, onOpenEnquiry })
             )}
           </div>
         </div>
+
+        {product.gallery && product.gallery.length > 0 && (
+          <section className="mt-12" aria-label="Pictures">
+            {(['product', 'application'] as const).map((kind) => {
+              const items = product.gallery!.filter((g) => g.kind === kind)
+              return items.length === 0 ? null : (
+                <div key={kind} className="mt-6 first:mt-0">
+                  <h2 className="text-xl font-extrabold text-slate-950">{kind === 'product' ? 'Product pictures' : 'Application pictures'}</h2>
+                  <ul className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {items.map((g) => (
+                      <li key={g.url} className="overflow-hidden rounded-sm border border-slate-200 bg-white">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={g.url} alt={g.caption ?? `${product.name} — ${kind} picture`} loading="lazy" className="h-60 w-full object-contain bg-slate-50" />
+                        {g.caption && <p className="border-t border-slate-200 px-3 py-2 text-xs text-slate-600">{g.caption}</p>}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )
+            })}
+          </section>
+        )}
 
         {hose && product.specs.length > 0 && (
           <section className="mt-14" aria-labelledby="ds">

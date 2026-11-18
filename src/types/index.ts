@@ -56,6 +56,8 @@ export interface Product {
   viewerMode?: 'auto' | 'views' | 'carve' | 'glb'
   views?: { front?: string; side?: string; top?: string }
   modelUrl?: string
+  gallery?: { url: string; kind: 'product' | 'application'; caption?: string }[]
+  variants?: { design: string; applicableFor: string }[]
   /** printed-as-is catalogue values that look inconsistent and need the client's confirmation */
   dataNote?: string
 }

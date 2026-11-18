@@ -206,6 +206,27 @@ export interface Product {
    */
   model3d?: (number | null) | Media;
   /**
+   * Shown under the viewer on the product page.
+   */
+  gallery?:
+    | {
+        image: number | Media;
+        kind?: ('product' | 'application') | null;
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * e.g. Design-A → CASNUB 22HS. Shown as a table on the product page.
+   */
+  variants?:
+    | {
+        design: string;
+        applicableFor: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
    * 3D model cover colour as a decimal RGB integer (e.g. orange LPG hose = 14250014). Empty = black.
    */
   coverColor?: number | null;
@@ -541,6 +562,21 @@ export interface ProductsSelect<T extends boolean = true> {
   viewSide?: T;
   viewTop?: T;
   model3d?: T;
+  gallery?:
+    | T
+    | {
+        image?: T;
+        kind?: T;
+        caption?: T;
+        id?: T;
+      };
+  variants?:
+    | T
+    | {
+        design?: T;
+        applicableFor?: T;
+        id?: T;
+      };
   coverColor?: T;
   construction?:
     | T
