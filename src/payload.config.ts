@@ -12,6 +12,7 @@ import { Enquiries } from './collections/Enquiries'
 import { ProductCategories } from './collections/ProductCategories'
 import { Jobs } from './collections/Jobs'
 import { Applications } from './collections/Applications'
+import { Storage } from './collections/Storage'
 import { CompanyInfo } from './globals/CompanyInfo'
 import { SiteSettings } from './globals/SiteSettings'
 import { Navigation } from './globals/Navigation'
@@ -32,7 +33,7 @@ export default buildConfig({
       titleSuffix: '— Vaishno Rubber CMS',
     },
   },
-  collections: [Products, ProductCategories, Jobs, Applications, Enquiries, Media, Users],
+  collections: [Products, ProductCategories, Jobs, Applications, Enquiries, Media, Storage, Users],
   globals: [CompanyInfo, SiteSettings, Navigation, Theme, ...PageGlobals],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

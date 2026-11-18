@@ -73,6 +73,7 @@ export interface Config {
     applications: Application;
     enquiries: Enquiry;
     media: Media;
+    storage: Storage;
     users: User;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -87,6 +88,7 @@ export interface Config {
     applications: ApplicationsSelect<false> | ApplicationsSelect<true>;
     enquiries: EnquiriesSelect<false> | EnquiriesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    storage: StorageSelect<false> | StorageSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -185,29 +187,23 @@ export interface Product {
    */
   image?: string | null;
   imageUpload?: (number | null) | Media;
-  /**
-   * Leave on “Built-in” for hoses. For a new railway component pick one of the other three.
-   */
   viewerMode?: ('auto' | 'gallery' | 'views' | 'carve' | 'glb') | null;
-  /**
-   * Straight-on photo of the product, plain light background.
-   */
   viewFront?: (number | null) | Media;
-  /**
-   * Right-hand side view, with the product’s front on the LEFT of the photo.
-   */
   viewSide?: (number | null) | Media;
-  /**
-   * View from above, with the product’s front at the BOTTOM of the photo. Optional for the automatic 3D shape.
-   */
   viewTop?: (number | null) | Media;
-  /**
-   * A .glb / glTF binary exported from CAD, Blender or an image-to-3D tool.
-   */
   model3d?: (number | null) | Media;
   /**
-   * Shown under the viewer on the product page.
+   * Hoses and the existing railway parts have a built-in 3D model. To use your own, pick a file below.
    */
+  show3d?: boolean | null;
+  /**
+   * Pick a file from Storage, or press + to upload a .zip containing the model (.glb, .gltf or .obj) or a single .glb. Leave empty to use the built-in model.
+   */
+  modelFile?: (number | null) | Storage;
+  /**
+   * When both 3D and gallery are on, visitors can switch between them on the product page.
+   */
+  showGallery?: boolean | null;
   gallery?:
     | {
         image?: (number | null) | Media;
@@ -323,6 +319,30 @@ export interface ProductCategory {
 export interface Media {
   id: number;
   alt: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * 3D model files (.zip, .glb, .gltf, .obj) used by product pages.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "storage".
+ */
+export interface Storage {
+  id: number;
+  /**
+   * Optional label, e.g. the product name.
+   */
+  title?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -495,6 +515,10 @@ export interface PayloadLockedDocument {
         value: number | Media;
       } | null)
     | ({
+        relationTo: 'storage';
+        value: number | Storage;
+      } | null)
+    | ({
         relationTo: 'users';
         value: number | User;
       } | null);
@@ -566,6 +590,9 @@ export interface ProductsSelect<T extends boolean = true> {
   viewSide?: T;
   viewTop?: T;
   model3d?: T;
+  show3d?: T;
+  modelFile?: T;
+  showGallery?: T;
   gallery?:
     | T
     | {
@@ -712,6 +739,24 @@ export interface EnquiriesSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "storage_select".
+ */
+export interface StorageSelect<T extends boolean = true> {
+  title?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;

@@ -52,9 +52,9 @@ export interface Product {
   /** cover colour for the 3D model (catalogue shows IS 9573 Type-II in orange) */
   coverColor?: number
   isHero?: boolean
-  /** how the product page shows the product; 'auto' = built-in 3D */
-  viewerMode?: 'auto' | 'gallery' | 'views' | 'carve' | 'glb'
-  views?: { front?: string; side?: string; top?: string }
+  /** product page viewer: built-in / uploaded 3D model, and the image slideshow */
+  show3d?: boolean
+  showGallery?: boolean
   modelUrl?: string
   gallery?: { url: string; kind: 'product' | 'application'; caption?: string }[]
   variants?: { design: string; applicableFor: string }[]

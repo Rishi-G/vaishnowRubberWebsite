@@ -614,11 +614,11 @@ export const PRODUCTS: Product[] = [
   }),
 ]
 
-/** Client photographs (public/assets/products): the viewer shows these instead of a drawn 3D model. */
+/** Client photographs (public/assets/products): shown as the product's image slideshow next to its 3D model. */
 const photos = (id: string, base: string, n: number, alt: string, patch: Partial<Product> = {}) => {
   const p = PRODUCTS.find((x) => x.id === id)
   if (!p) return
-  Object.assign(p, { viewerMode: 'gallery', image: `/assets/products/${base}-1.jpg`, gallery: Array.from({ length: n }, (_, i) => ({ url: `/assets/products/${base}-${i + 1}.jpg`, kind: 'product' as const, caption: i === 0 ? alt : undefined })) }, patch)
+  Object.assign(p, { show3d: true, showGallery: true, image: `/assets/products/${base}-1.jpg`, gallery: Array.from({ length: n }, (_, i) => ({ url: `/assets/products/${base}-${i + 1}.jpg`, kind: 'product' as const, caption: i === 0 ? alt : undefined })) }, patch)
 }
 photos('elastomeric-pads-design-b', 'em-pad', 4, 'Elastomeric pad (Design-B)')
 photos('inter-car-gangway-mounting', 'vestibule', 5, 'Rubber vestibule for passenger coaches')

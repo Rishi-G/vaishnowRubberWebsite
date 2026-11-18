@@ -60,7 +60,8 @@ for (const [order, p] of PRODUCTS.entries()) {
     applications: wrap(p.applications),
     recommendedFluids: wrap(p.recommendedFluids),
     specs: p.specs,
-    viewerMode: p.viewerMode ?? 'auto',
+    show3d: p.show3d !== false,
+    showGallery: Boolean(p.showGallery),
     gallery: (p.gallery ?? []).map((g) => ({ imagePath: g.url, kind: g.kind, caption: g.caption })),
     variants: p.variants ?? [],
   }

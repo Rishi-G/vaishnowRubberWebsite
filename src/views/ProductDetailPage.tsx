@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { Download, FileText } from 'lucide-react'
 import type { PageRoute } from '@/types'
@@ -8,7 +8,8 @@ import { useSiteData } from '@/lib/site-context'
 import { PageHead } from '@/components/site/PageHead'
 import { HoseViewer } from '@/components/three/HoseViewer'
 import { DemoViewer } from '@/components/three/DemoViewer'
-import { CustomViewer } from '@/components/three/CustomViewer'
+import { ModelViewer, SlideshowViewer } from '@/components/three/CustomViewer'
+import { RAILWAY_MODEL_SLUGS } from '@/three/railwaySlugs'
 
 interface Props {
   productId: string
@@ -27,9 +28,15 @@ const Fact = ({ k, v }: { k: string; v?: string }) =>
 export const ProductDetailPage: React.FC<Props> = ({ productId, onOpenEnquiry }) => {
   const { products } = useSiteData()
   const product = products.find((p) => p.id === productId)
+  const [pick, setPick] = useState<'model' | 'gallery' | 'image'>('model')
   const related = useMemo(() => products.filter((p) => product && p.category === product.category && p.id !== product.id).slice(0, 4), [products, product])
   if (!product) return null
   const hose = product.kind === 'hose'
+  // which views this product offers: its 3D model (built-in or uploaded) and / or the image slideshow
+  const has3d = product.show3d !== false && (hose || Boolean(product.modelUrl) || RAILWAY_MODEL_SLUGS.includes(product.id))
+  const hasGallery = Boolean(product.showGallery) && (product.gallery?.length ?? 0) > 0
+  const tabs = [...(has3d ? [{ id: 'model' as const, label: '3D model' }] : []), ...(hasGallery ? [{ id: 'gallery' as const, label: 'Pictures' }] : [])]
+  const view = tabs.some((t) => t.id === pick) ? pick : (tabs[0]?.id ?? 'image')
   const c = product.construction
 
   return (
@@ -59,7 +66,24 @@ export const ProductDetailPage: React.FC<Props> = ({ productId, onOpenEnquiry })
         </div>
 
         <div className="mt-8">
-          {product.viewerMode && product.viewerMode !== 'auto' ? <CustomViewer product={product} /> : hose ? <HoseViewer product={product} /> : <DemoViewer slug={product.id} name={product.name} heightClass="h-[360px] sm:h-[500px]" />}
+          {tabs.length > 1 && (
+            <div role="tablist" aria-label="Product view" className="mb-3 inline-flex overflow-hidden rounded-sm border border-slate-300 bg-white">
+              {tabs.map((t) => (
+                <button key={t.id} role="tab" aria-selected={view === t.id} onClick={() => setPick(t.id)}
+                  className={`px-4 py-2 text-xs font-semibold transition-colors ${view === t.id ? 'bg-brand-blue text-white' : 'text-slate-700 hover:text-brand-blue'}`}>
+                  {t.label}
+                </button>
+              ))}
+            </div>
+          )}
+          {view === 'gallery' ? (
+            <SlideshowViewer product={product} />
+          ) : view === 'model' ? (
+            product.modelUrl ? <ModelViewer product={product} /> : hose ? <HoseViewer product={product} /> : <DemoViewer slug={product.id} name={product.name} heightClass="h-[360px] sm:h-[500px]" />
+          ) : product.image ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={product.image} alt={product.name} className="max-h-[420px] w-full rounded-md border border-slate-200 bg-slate-50 object-contain" />
+          ) : null}
         </div>
 
         <div className="mt-12 grid gap-10 lg:grid-cols-12">
@@ -121,28 +145,6 @@ export const ProductDetailPage: React.FC<Props> = ({ productId, onOpenEnquiry })
             )}
           </div>
         </div>
-
-        {product.gallery && product.gallery.length > 0 && (
-          <section className="mt-12" aria-label="Pictures">
-            {(['product', 'application'] as const).map((kind) => {
-              const items = product.gallery!.filter((g) => g.kind === kind && !(kind === 'product' && product.viewerMode === 'gallery'))
-              return items.length === 0 ? null : (
-                <div key={kind} className="mt-6 first:mt-0">
-                  <h2 className="text-xl font-extrabold text-slate-950">{kind === 'product' ? 'Product pictures' : 'Application pictures'}</h2>
-                  <ul className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    {items.map((g) => (
-                      <li key={g.url} className="overflow-hidden rounded-sm border border-slate-200 bg-white">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={g.url} alt={g.caption ?? `${product.name} — ${kind} picture`} loading="lazy" className="h-60 w-full object-contain bg-slate-50" />
-                        {g.caption && <p className="border-t border-slate-200 px-3 py-2 text-xs text-slate-600">{g.caption}</p>}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )
-            })}
-          </section>
-        )}
 
         {hose && product.specs.length > 0 && (
           <section className="mt-14" aria-labelledby="ds">

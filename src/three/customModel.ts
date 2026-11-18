@@ -1,5 +1,8 @@
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js'
+import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js'
+import { unzipSync } from 'fflate'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 
 /* ───────────── a small on-demand viewer for client-supplied models ───────────── */
@@ -129,171 +132,67 @@ export class CustomStage {
   }
 }
 
-export async function loadGlb(url: string): Promise<THREE.Object3D> {
-  const gltf = await new GLTFLoader().loadAsync(url)
-  return gltf.scene
+/* ───────────── loading a client-supplied model: .zip, .glb, .gltf or .obj ───────────── */
+
+const ext = (name: string) => name.toLowerCase().split('.').pop() ?? ''
+const mimeOf = (name: string) => (/\.(png)$/i.test(name) ? 'image/png' : /\.(jpe?g)$/i.test(name) ? 'image/jpeg' : /\.(webp)$/i.test(name) ? 'image/webp' : 'application/octet-stream')
+const text = (b: Uint8Array) => new TextDecoder().decode(b)
+
+/** Gives a plain grey material to any mesh that came without one (an .obj with no .mtl). */
+function ensureMaterials(root: THREE.Object3D) {
+  const fallback = new THREE.MeshStandardMaterial({ color: 0x9aa0a8, roughness: 0.55, metalness: 0.15 })
+  root.traverse((o) => {
+    const m = o as THREE.Mesh
+    if (m.isMesh && !m.material) m.material = fallback
+    if (m.isMesh && !m.geometry.attributes.normal) m.geometry.computeVertexNormals()
+  })
 }
 
-/* ───────────── 3 photos → 3D (silhouette carving) ───────────── */
+/** Loads the file at `url`. A zip is unpacked in the browser and the first model inside it is used. */
+export async function loadModel(url: string): Promise<THREE.Object3D> {
+  const res = await fetch(url)
+  if (!res.ok) throw new Error('The 3D file could not be downloaded.')
+  const buf = new Uint8Array(await res.arrayBuffer())
+  const isZip = buf[0] === 0x50 && buf[1] === 0x4b
+  const files: Record<string, Uint8Array> = isZip ? unzipSync(buf) : { [url.split('?')[0]]: buf }
 
-interface View {
-  w: number
-  h: number
-  /** 1 where the product is */
-  mask: Uint8Array
-  /** RGBA pixels of the cropped photo */
-  rgba: Uint8ClampedArray
-}
-
-const loadImage = (url: string) =>
-  new Promise<HTMLImageElement>((resolve, reject) => {
-    const img = new Image()
-    img.crossOrigin = 'anonymous'
-    img.onload = () => resolve(img)
-    img.onerror = () => reject(new Error(`Could not load ${url}`))
-    img.src = url
+  const names = Object.keys(files).filter((n) => !n.includes('__MACOSX') && !n.split('/').pop()!.startsWith('.'))
+  const pick = (e: string) => names.find((n) => ext(n) === e)
+  const urls = new Map<string, string>()
+  const blobUrl = (name: string) => {
+    const base = name.split('/').pop()!
+    if (!urls.has(base)) urls.set(base, URL.createObjectURL(new Blob([files[name] as BlobPart], { type: mimeOf(name) })))
+    return urls.get(base)!
+  }
+  // textures / .bin files referenced by name resolve to the unpacked files
+  const manager = new THREE.LoadingManager()
+  manager.setURLModifier((u) => {
+    const base = decodeURIComponent(u.split('/').pop()!.split('?')[0])
+    const hit = names.find((n) => n.split('/').pop() === base)
+    return hit ? blobUrl(hit) : u
   })
 
-/** Photo → product mask. The background is whatever is connected to the border and matches its colour. */
-async function readView(url: string): Promise<View> {
-  const img = await loadImage(url)
-  const scale = Math.min(1, 320 / Math.max(img.naturalWidth, img.naturalHeight))
-  const W = Math.max(8, Math.round(img.naturalWidth * scale))
-  const H = Math.max(8, Math.round(img.naturalHeight * scale))
-  const cv = document.createElement('canvas')
-  cv.width = W
-  cv.height = H
-  const ctx = cv.getContext('2d', { willReadFrequently: true })!
-  ctx.drawImage(img, 0, 0, W, H)
-  const px = ctx.getImageData(0, 0, W, H).data
-
-  const at = (x: number, y: number) => (y * W + x) * 4
-  const corners = [at(0, 0), at(W - 1, 0), at(0, H - 1), at(W - 1, H - 1)]
-  const bg = [0, 1, 2, 3].map((c) => corners.reduce((s, i) => s + px[i + c], 0) / 4)
-  const isBg = (i: number) => px[i + 3] < 40 || Math.hypot(px[i] - bg[0], px[i + 1] - bg[1], px[i + 2] - bg[2]) < 42
-
-  const outside = new Uint8Array(W * H)
-  const stack: number[] = []
-  const push = (x: number, y: number) => {
-    const p = y * W + x
-    if (!outside[p] && isBg(p * 4)) {
-      outside[p] = 1
-      stack.push(p)
+  try {
+    const glb = pick('glb')
+    if (glb) {
+      const b = files[glb]
+      const gltf = await new GLTFLoader(manager).parseAsync(b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength) as ArrayBuffer, '')
+      return gltf.scene
     }
-  }
-  for (let x = 0; x < W; x++) {
-    push(x, 0)
-    push(x, H - 1)
-  }
-  for (let y = 0; y < H; y++) {
-    push(0, y)
-    push(W - 1, y)
-  }
-  while (stack.length) {
-    const p = stack.pop()!
-    const x = p % W
-    const y = (p / W) | 0
-    if (x > 0) push(x - 1, y)
-    if (x < W - 1) push(x + 1, y)
-    if (y > 0) push(x, y - 1)
-    if (y < H - 1) push(x, y + 1)
-  }
-
-  let x0 = W, y0 = H, x1 = -1, y1 = -1
-  for (let y = 0; y < H; y++)
-    for (let x = 0; x < W; x++)
-      if (!outside[y * W + x]) {
-        if (x < x0) x0 = x
-        if (x > x1) x1 = x
-        if (y < y0) y0 = y
-        if (y > y1) y1 = y
-      }
-  if (x1 < 0) throw new Error('No product found in a photo — use a plain background.')
-
-  const w = x1 - x0 + 1
-  const h = y1 - y0 + 1
-  const mask = new Uint8Array(w * h)
-  const rgba = new Uint8ClampedArray(w * h * 4)
-  for (let y = 0; y < h; y++)
-    for (let x = 0; x < w; x++) {
-      const src = (y + y0) * W + (x + x0)
-      mask[y * w + x] = outside[src] ? 0 : 1
-      for (let c = 0; c < 4; c++) rgba[(y * w + x) * 4 + c] = px[src * 4 + c]
+    const gltfName = pick('gltf')
+    if (gltfName) return (await new GLTFLoader(manager).parseAsync(text(files[gltfName]), '')).scene
+    const obj = pick('obj')
+    if (obj) {
+      const loader = new OBJLoader(manager)
+      const mtl = pick('mtl')
+      if (mtl) loader.setMaterials(new MTLLoader(manager).parse(text(files[mtl]), ''))
+      const group = loader.parse(text(files[obj]))
+      ensureMaterials(group)
+      return group
     }
-  return { w, h, mask, rgba }
-}
-
-const RES = 84
-
-/**
- * Builds a mesh from silhouettes: front (x, y), right side (z, y — product front on the left) and
- * an optional top view (x, z — product front at the bottom). A voxel survives only if every photo
- * agrees it is inside the product, and each outside face is coloured from the matching photo.
- */
-export async function carveFromViews(urls: { front: string; side: string; top?: string }): Promise<THREE.Object3D> {
-  const [front, side, top] = await Promise.all([readView(urls.front), readView(urls.side), urls.top ? readView(urls.top) : null])
-
-  const nx = RES
-  const ny = Math.max(4, Math.min(160, Math.round((RES * front.h) / front.w)))
-  const depth = (front.h * side.w) / side.h // same height as the front photo → real proportions
-  const nz = Math.max(4, Math.min(160, Math.round((RES * depth) / front.w)))
-
-  const fAt = (x: number, y: number) => ((Math.floor((1 - (y + 0.5) / ny) * front.h)) * front.w + Math.floor(((x + 0.5) / nx) * front.w))
-  const sAt = (z: number, y: number) => ((Math.floor((1 - (y + 0.5) / ny) * side.h)) * side.w + Math.floor((1 - (z + 0.5) / nz) * side.w))
-  const tAt = (x: number, z: number) =>
-    top ? Math.floor(((z + 0.5) / nz) * top.h) * top.w + Math.floor(((x + 0.5) / nx) * top.w) : -1
-
-  const filled = new Uint8Array(nx * ny * nz)
-  const idx = (x: number, y: number, z: number) => (z * ny + y) * nx + x
-  let count = 0
-  for (let z = 0; z < nz; z++)
-    for (let y = 0; y < ny; y++)
-      for (let x = 0; x < nx; x++) {
-        const ti = tAt(x, z)
-        if (front.mask[fAt(x, y)] && side.mask[sAt(z, y)] && (!top || top.mask[ti])) {
-          filled[idx(x, y, z)] = 1
-          count++
-        }
-      }
-  if (count < 20) throw new Error('The three photos do not describe the same shape. Check their order and angles.')
-
-  const solid = (x: number, y: number, z: number) => x >= 0 && y >= 0 && z >= 0 && x < nx && y < ny && z < nz && filled[idx(x, y, z)] === 1
-
-  const pos: number[] = []
-  const nor: number[] = []
-  const col: number[] = []
-  const c = new THREE.Color()
-  const colourFrom = (v: View | null, i: number, shade: number) => {
-    if (!v || i < 0 || v.rgba[i * 4 + 3] < 40) c.setRGB(0.55, 0.57, 0.6, THREE.SRGBColorSpace)
-    else c.setRGB(v.rgba[i * 4] / 255, v.rgba[i * 4 + 1] / 255, v.rgba[i * 4 + 2] / 255, THREE.SRGBColorSpace)
-    c.multiplyScalar(shade)
+    throw new Error('No .glb, .gltf or .obj model was found in the uploaded file.')
+  } finally {
+    // the parsed scene keeps its own copies of the textures
+    setTimeout(() => urls.forEach((u) => URL.revokeObjectURL(u)), 10_000)
   }
-
-  const quad = (corners: number[][], n: number[], shade: number, v: View | null, i: number) => {
-    colourFrom(v, i, shade)
-    for (const k of [0, 1, 2, 0, 2, 3]) {
-      pos.push(...corners[k])
-      nor.push(...n)
-      col.push(c.r, c.g, c.b)
-    }
-  }
-
-  for (let z = 0; z < nz; z++)
-    for (let y = 0; y < ny; y++)
-      for (let x = 0; x < nx; x++) {
-        if (!filled[idx(x, y, z)]) continue
-        const X = x, Y = y, Z = z
-        if (!solid(x, y, z + 1)) quad([[X, Y, Z + 1], [X + 1, Y, Z + 1], [X + 1, Y + 1, Z + 1], [X, Y + 1, Z + 1]], [0, 0, 1], 1, front, fAt(x, y))
-        if (!solid(x, y, z - 1)) quad([[X + 1, Y, Z], [X, Y, Z], [X, Y + 1, Z], [X + 1, Y + 1, Z]], [0, 0, -1], 0.7, front, fAt(x, y))
-        if (!solid(x + 1, y, z)) quad([[X + 1, Y, Z + 1], [X + 1, Y, Z], [X + 1, Y + 1, Z], [X + 1, Y + 1, Z + 1]], [1, 0, 0], 0.9, side, sAt(z, y))
-        if (!solid(x - 1, y, z)) quad([[X, Y, Z], [X, Y, Z + 1], [X, Y + 1, Z + 1], [X, Y + 1, Z]], [-1, 0, 0], 0.8, side, sAt(z, y))
-        if (!solid(x, y + 1, z)) quad([[X, Y + 1, Z + 1], [X + 1, Y + 1, Z + 1], [X + 1, Y + 1, Z], [X, Y + 1, Z]], [0, 1, 0], 1, top, tAt(x, z))
-        if (!solid(x, y - 1, z)) quad([[X, Y, Z], [X + 1, Y, Z], [X + 1, Y, Z + 1], [X, Y, Z + 1]], [0, -1, 0], 0.6, top, tAt(x, z))
-      }
-
-  const geo = new THREE.BufferGeometry()
-  geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3))
-  geo.setAttribute('normal', new THREE.Float32BufferAttribute(nor, 3))
-  geo.setAttribute('color', new THREE.Float32BufferAttribute(col, 3))
-  return new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.62, metalness: 0.08 }))
 }

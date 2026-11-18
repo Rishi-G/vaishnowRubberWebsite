@@ -40,7 +40,7 @@ function kit() {
     dark: mat(0x3f444b, 0.45, 0.9),
     pu: mat(0xdc7a1f, 0.5),
     cut: mat(0x2e3138, 0.9),
-    green: mat(0x2f7a3c, 0.55, 0.2), // painted steel plates, as on the pads in the photos
+    green: mat(0x276b34, 0.55, 0.2), // painted steel plates, as on the pads in the photos
     white: mat(0xeceef0, 0.5),
   }
   const mesh = (geo: THREE.BufferGeometry, material: THREE.Material, parent: THREE.Object3D = group) => {
@@ -59,32 +59,57 @@ function setM(m: THREE.Mesh, o: { tx?: number; ty?: number; tz?: number; sx?: nu
   m.matrix.set(o.sx ?? 1, o.shear ?? 0, 0, o.tx ?? 0, 0, o.sy ?? 1, 0, o.ty ?? 0, 0, 0, o.sz ?? 1, o.tz ?? 0, 0, 0, 0, 1)
 }
 
-/* 1 ─ Elastomeric pad: laminated rubber + steel, compresses then shears */
+/* 1 ─ Elastomeric pad (Design-B): green steel plate with upturned lips on a rubber block with
+   concave end walls, over two thin steel base plates — modelled on the client's photographs.
+   Compresses, then shears. */
 function elastomericPad(): DemoModel {
   const k = kit()
-  const N = 4, steelT = 0.07, rubH = 0.3
-  const steels = Array.from({ length: N + 1 }, (_, i) => k.mesh(k.box(2.5, i === 0 || i === N ? steelT * 2 : steelT, 1.8, 0.02), k.M.steel))
-  const rubbers = Array.from({ length: N }, () => k.mesh(k.box(2.4, rubH, 1.7, 0.08), k.M.rubber))
-  const total = (N + 1) * steelT + 2 * steelT + N * rubH
+  const W = 2.6, D = 2.1, BD = D - 0.3
+  const base1 = k.mesh(k.box(W, 0.06, D, 0.015), k.M.dark)
+  base1.position.y = 0.03
+  const sep = k.mesh(k.box(W - 0.1, 0.04, D - 0.1, 0.01), k.M.rubber)
+  sep.position.y = 0.08
+  const base2 = k.mesh(k.box(W - 0.14, 0.06, D - 0.12, 0.015), k.M.dark)
+  base2.position.y = 0.13
+
+  // rubber block: flat top, end walls that sweep up in a concave curve
+  const prof = new THREE.Shape()
+  prof.moveTo(-1.12, 0)
+  prof.lineTo(1.12, 0)
+  prof.lineTo(1.12, 0.56)
+  prof.quadraticCurveTo(0.95, 0.38, 0.72, 0.34)
+  prof.lineTo(-0.72, 0.34)
+  prof.quadraticCurveTo(-0.95, 0.38, -1.12, 0.56)
+  prof.closePath()
+  const bodyGeo = new THREE.ExtrudeGeometry(prof, { depth: BD, bevelEnabled: true, bevelThickness: 0.02, bevelSize: 0.02, bevelSegments: 2, curveSegments: 16 })
+  bodyGeo.translate(0, 0, -BD / 2)
+  const body = k.mesh(bodyGeo, k.M.rubber)
+  const bodyBase = 0.16, bodyTop = 0.34
+
+  // painted steel top plate, lips turned up at both ends, five bonded-bolt dimples
+  const top = new THREE.Group()
+  k.group.add(top)
+  const plate = k.mesh(k.box(1.5, 0.06, BD, 0.01), k.M.green, top)
+  plate.position.y = 0.03
+  for (const sgn of [-1, 1]) {
+    const lip = k.mesh(k.box(0.06, 0.26, BD, 0.01), k.M.green, top)
+    lip.position.set(sgn * 0.72, 0.13, 0)
+  }
+  for (const [x, z] of [[-0.42, -0.5], [0.42, -0.5], [0, 0], [-0.42, 0.5], [0.42, 0.5]]) {
+    const d = k.mesh(new THREE.CylinderGeometry(0.085, 0.085, 0.014, 24), k.M.plated, top)
+    d.position.set(x, 0.066, z)
+  }
+  k.group.position.y = -0.4
+
   return {
     ...k.finish(),
     distance: 7.5,
-    action: { title: 'Compression, then shear', caption: 'Rubber layers bulge under load; bonded steel shims keep the pad stable, then it shears with bogie movement.' },
+    action: { title: 'Compression, then shear', caption: 'The rubber block compresses under load, then shears as the bogie moves; the steel plate keeps the load spread.' },
     setAction(p) {
       const c = smooth(p, 0, 0.5), s = smooth(p, 0.5, 1)
-      const h = rubH * (1 - 0.22 * c), bulge = 1 + 0.07 * c
-      let y = -total / 2
-      for (let i = 0; i <= N; i++) {
-        const t = i === 0 || i === N ? steelT * 2 : steelT
-        const shearOff = s * 0.5 * (y + total / 2)
-        steels[i].position.set(shearOff, y + t / 2, 0)
-        y += t
-        if (i < N) {
-          const mid = y + h / 2
-          setM(rubbers[i], { tx: s * 0.5 * (mid + total / 2), ty: mid, sx: bulge, sz: bulge, sy: h / rubH, shear: s * 0.5 })
-          y += h
-        }
-      }
+      const sy = 1 - 0.2 * c, bulge = 1 + 0.06 * c, shear = 0.45 * s
+      setM(body, { ty: bodyBase, sx: bulge, sz: bulge, sy, shear })
+      top.position.set(shear * bodyTop * sy, bodyBase + bodyTop * sy, 0)
     },
   }
 }
@@ -194,49 +219,46 @@ function chain(n: number, build: (i: number) => THREE.Mesh) {
   }
 }
 
-function frameShape(w: number, h: number, iw: number, ih: number, r: number) {
-  const rr = (s: THREE.Shape | THREE.Path, x: number, y: number, ww: number, hh: number, rad: number) => {
-    s.moveTo(x + rad, y)
-    s.lineTo(x + ww - rad, y); s.quadraticCurveTo(x + ww, y, x + ww, y + rad)
-    s.lineTo(x + ww, y + hh - rad); s.quadraticCurveTo(x + ww, y + hh, x + ww - rad, y + hh)
-    s.lineTo(x + rad, y + hh); s.quadraticCurveTo(x, y + hh, x, y + hh - rad)
-    s.lineTo(x, y + rad); s.quadraticCurveTo(x, y, x + rad, y)
-  }
-  const shape = new THREE.Shape()
-  rr(shape, -w / 2, -h / 2, w, h, r)
-  const hole = new THREE.Path()
-  rr(hole, -iw / 2, -ih / 2, iw, ih, r * 0.7)
-  shape.holes.push(hole)
-  return shape
-}
-
-/* 3 ─ Inter-car gangway mounting: pleated rubber bellows between two frames */
+/* 3 ─ Inter-car gangway mounting (vestibule): a U-frame of two thick rubber tubes with a cross
+   tube on top, steel retaining strip and bolts, white liner showing in the open leg ends —
+   modelled on the client's photographs. Flexes with coach movement. */
 function gangway(): DemoModel {
   const k = kit()
-  const frame = (z: number) => {
-    const m = k.mesh(new THREE.ExtrudeGeometry(frameShape(2.6, 3.2, 2.0, 2.6, 0.25), { depth: 0.2, bevelEnabled: false, curveSegments: 10 }), k.M.steel)
-    m.position.z = z
-    return m
+  const R = 0.2, H = 2.5, S = 1.9
+  const tube = k.track(k.M.rubber.clone())
+  tube.side = THREE.DoubleSide
+  const liner = k.track(new THREE.MeshStandardMaterial({ color: 0xeceef0, roughness: 0.85, side: THREE.DoubleSide }))
+  const frame = new THREE.Group()
+  k.group.add(frame)
+
+  for (const sgn of [-1, 1]) {
+    const leg = k.mesh(new THREE.CylinderGeometry(R, R, H, 48, 1, true), tube, frame)
+    leg.position.set(sgn * (S / 2), 0, 0)
+    const plug = k.mesh(new THREE.CylinderGeometry(R * 0.9, R * 0.9, 0.5, 32), liner, frame)
+    plug.position.set(sgn * (S / 2), -H / 2 + 0.3, 0)
+    const lip = k.mesh(new THREE.TorusGeometry(R, 0.018, 10, 48), tube, frame)
+    lip.rotation.x = Math.PI / 2
+    lip.position.set(sgn * (S / 2), -H / 2, 0)
   }
-  const A = frame(-0.9), B = frame(0.9)
-  const folds = chain(9, (i) => {
-    const s = i % 2 ? 1.07 : 1.0
-    const geo = new THREE.ExtrudeGeometry(frameShape(2.45 * s, 3.05 * s, 2.0, 2.6, 0.25), { depth: 0.16, bevelEnabled: false, curveSegments: 10 })
-    return k.mesh(geo, k.M.rubber)
-  })
-  const a = new THREE.Vector3(), b = new THREE.Vector3()
+  const beam = k.mesh(new THREE.CylinderGeometry(R * 1.15, R * 1.15, S + 0.75, 48), k.M.rubber, frame)
+  beam.rotation.z = Math.PI / 2
+  beam.position.y = H / 2
+  const strip = k.mesh(k.box(S + 0.5, 0.025, 0.17, 0.008), k.M.plated, frame)
+  strip.position.y = H / 2 - R * 1.15 - 0.012
+  for (let i = 0; i < 8; i++) {
+    const bolt = k.mesh(new THREE.CylinderGeometry(0.028, 0.028, 0.06, 6), k.M.steel, frame)
+    bolt.position.set(-(S + 0.3) / 2 + (i * (S + 0.3)) / 7, H / 2 - R * 1.15 - 0.05, 0)
+  }
+  k.group.position.y = -0.55
+
   return {
     ...k.finish(),
-    distance: 9.5,
-    action: { title: 'Bellows flex as coaches articulate', caption: 'The pleated elastomer connection takes up lateral and angular movement between coaches on curves.' },
+    distance: 9,
+    action: { title: 'Frame flexes as coaches articulate', caption: 'The rubber frame seals the gap between coaches and takes up lateral movement on curves.' },
     setAction(p) {
-      const yaw = 0.42 * p
-      B.position.set(0.55 * p, 0, 0.9 - 0.1 * p)
-      B.rotation.y = yaw
-      a.set(0, 0, -0.9)
-      b.copy(B.position)
-      folds.place(a, b, yaw, 0.08 * p)
-      void A
+      frame.matrixAutoUpdate = false
+      frame.matrix.set(1, 0.2 * p, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+      frame.matrixWorldNeedsUpdate = true
     },
   }
 }

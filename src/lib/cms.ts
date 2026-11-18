@@ -70,9 +70,9 @@ function toProduct(doc: any): Product {
     sizeRange: doc.sizeRange ?? undefined,
     image: upload || doc.image || undefined,
     isHero: Boolean(doc.isHero),
-    viewerMode: doc.viewerMode ?? 'auto',
-    views: { front: mediaUrl(doc.viewFront), side: mediaUrl(doc.viewSide), top: mediaUrl(doc.viewTop) },
-    modelUrl: mediaUrl(doc.model3d),
+    show3d: doc.show3d !== false,
+    showGallery: Boolean(doc.showGallery),
+    modelUrl: mediaUrl(doc.modelFile),
     gallery: (doc.gallery ?? [])
       .map((g: any) => ({ url: mediaUrl(g.image) ?? (g.imagePath || undefined), kind: g.kind === 'application' ? 'application' : 'product', caption: g.caption || undefined }))
       .filter((g: any) => g.url),
